@@ -1,0 +1,11 @@
+\babel@toc {french}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces fonctionement d'AES}}{5}{}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Réorganisation du block}}{6}{}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Effet de $\mathtt {SubBytes}$ sur le block, avec $\tilde {s} = S(s)$}}{6}{}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Effet de $\mathtt {ShiftRows}$ sur le block}}{7}{}%
+\contentsline {figure}{\numberline {5}{\ignorespaces réorganisation des clefs en suite de mots de 32 bits}}{8}{}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Fonctionement d'AES ECB, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{8}{}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Fonctionement d'AES CBC, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{9}{}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{11}{}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{12}{}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}}{13}{}%

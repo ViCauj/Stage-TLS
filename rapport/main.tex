@@ -1,0 +1,609 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{float}
+
+% Pour utiliser la font Fira
+\usepackage[sfdefault,scaled=.85]{FiraSans}
+\usepackage{newtxsf}
+
+% Pour créer des tableaux
+\usepackage{array}
+\usepackage{makecell}
+
+% Pour créer des graphiques
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Def couleurs
+
+
+\title{Rapport de stage}
+\date{}
+\author{Vincent CAUJOLLE}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\listoftables
+\newpage
+
+\section*{Glosaire}
+\begin{enumerate}
+	\item XOR ($\oplus$):\\
+		
+		\begin{table}[h]
+		\center
+		\begin{tabular}{|c|c|c|}
+		\hline
+			$a$ & $b$ & $a\oplus b$ \\ \hline\hline
+			0 & 0 & 0 \\ \hline
+			0 & 1 & 1 \\ \hline
+			1 & 0 & 1 \\ \hline
+			1 & 1 & 0 \\ \hline
+		\end{tabular}
+		\caption{table de vérité du XOR}
+		\label{XOR_table}
+		\end{table}
+
+	\item byte: 8 bits	
+\end{enumerate}
+\newpage
+
+\section{Attaque d'AES CBC}
+\subsection{AES}
+
+Face au manque de standard de chiffrement par block, NIST (National Institute of Standards and Technology) a lancé un concours en 1997 pour créer un nouveau standard de chiffrement: AES (Advance Encryption Strandard).
+
+De là naît un nouvel algorithme inspiré de la proposition des cryptographes belge Joan Daemen et Vincent Rijmen. Il permet de chiffrer des blocks de 128 bits et existe sous trois variante :
+
+\begin{table}[h]
+\center
+\begin{tabular}{|c|c|c|c|}
+\hline
+	\makecell{nom} & \makecell{taille de la clef \\ (bits)} & \makecell{taille des blocks \\ (bits)} & \makecell{nombre de rounds} \\ \hline\hline
+	AES 128 & 128 & 128 & 10 \\ \hline
+	AES 192 & 192 & 128 & 12 \\ \hline
+	AES 256 & 256 & 128 & 14 \\ \hline
+\end{tabular}
+\caption{Variantes d'AES}
+\label{AES-versions}
+\end{table}
+
+\noindent\emph{A partir de maintenant, pour fluidifier la lecture, AES 128 = AES)} \\ 
+
+\noindent Remarque : à l'origine cet algorithme pouvait supporter des blocks de 128, 192 et 256 bits. Cette fonctionnalité n'à malheureusement pas été conservé par la NIST. Cette fonction aurait permis à AES d'être post quantique. \\ 
+
+AES permute successivement son entrée (un block de 128 bits) avec une même permutation $\Pi$ (sauf au dernier round ou on utilse $\hat{\Pi}$). Cette permutation est inversible, ce qui permet de déchiffrer la sortie en remontant le processus d'AES. \\
+
+On XOR la sortie de chaque round avec une clef $k_i$ (calculé à partir de la clef secrète de 128 bits). L'avantage du XOR est que  $\text{XOR}^2 = \text{id}$ (voir table \ref{XOR_table}). Donc il suffit de réutiliser XOR pour remonter AES.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=.8]
+	% textes
+	\node[draw, rectangle, align=center] (input) at (0.2,0) {Entrée};
+
+	\node[draw, scale=1.5, rectangle, align=center] (round1) at (3,0) {$\Pi$};
+\node[below, scale=0.75] at (round1.south) {round 1};
+	\node[align=center] (dots) at (5.5,0) {$\dots$};
+	\node[draw, scale=1.5, rectangle, align=center] (round9) at (8,0) {$\Pi$};
+	\node[below, scale=0.75] at (round9.south) {round 9};
+	\node[draw, scale=1.5, rectangle, align=center] (round10) at (10.4,0) {$\hat{\Pi}$};
+	\node[below, scale=0.75] at (round10.south) {round 10};
+	
+	\node[draw, rectangle, align=center] (output) at (13.2,0) {Sortie};
+
+	% XOR
+	\node[scale=1.5, align=center] (xor1) at (1.8,0) {$\oplus$};
+	\node[scale=0.75] at (xor1.north) {$k_0$};
+	\node[scale=1.5, align=center] (xor2) at (4.2,0) {$\oplus$};
+	\node[scale=0.75] at (xor2.north) {$k_1$};
+	\node[scale=1.5, align=center] (xor3) at (6.8,0) {$\oplus$};
+	\node[scale=0.75] at (xor3.north) {$k_7$};
+	\node[scale=1.5, align=center] (xor4) at (9.2,0) {$\oplus$};
+	\node[scale=0.75] at (xor4.north) {$k_8$};
+	\node[scale=1.5, align=center] (xor5) at (11.6,0) {$\oplus$};
+	\node[scale=0.75] at (xor5.north) {$k_9$};
+
+	% lignes
+	\draw (input.east) -- (round1.west);
+	\draw (round1.east) -- (dots.west);
+	\draw (dots.east) -- (round9.west);
+	\draw (round9.east) -- (round10.west);
+	\draw (round10.east) -- (output.west);
+\end{tikzpicture}
+\caption{fonctionement d'AES}
+\label{AES_fonctionnement}
+\end{figure}
+
+\subsubsection{Permutation $\Pi$}
+Cette permutation est propre à AES (ne dépend pas de la clef secrète et peut être calculé à l'avance. Cela permet d'avoir un processus de chiffrement très efficace). Elle est le résultat de la composition de 3 sous-permutations (toutes inversible). Pour mieux comprendre comment ces 3 sous-permutations marchent, il faut réorganiser le block de 128 bits en une matrice de taille $4\times4$ où chaque cellule contient un byte.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% entrée
+	\node[align=center] (s) at (0,0) {$s_0|s_1|\dots|s_{15}$};
+	
+	% matrice
+   	\foreach \y in {-1,0,1,2} {
+        	\foreach \x in {2,3,4,5} {
+            	\draw (\x, -\y) rectangle (\x+1, -\y+1);
+            
+            	\pgfmathtruncatemacro{\number}{(\y+1)*4 + \x -2}
+		\node at (\x + 0.5, -\y + 0.5){$s_{\number}$};
+        }
+
+	% fleche
+	\draw[->] (s.east) -- (1.8,0);
+    }
+\end{tikzpicture}
+\caption{Réorganisation du block}
+\label{reorg_entre}
+\end{figure}
+
+\begin{enumerate}
+	\item $\mathtt{SubBytes}$: \\
+		On applique à chaque cellule du block une permutation $S: \{0,1\}^8 \rightarrow \{0,1\}^8$ (d'un byte vers un autre).
+
+		\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+			\foreach \y in {-1,0,1,2} {
+			\foreach \x in {0,1,2,3} {
+				\draw (\x, -\y) rectangle (\x+1, -\y+1);
+			    
+				\pgfmathtruncatemacro{\number}{(\y+1)*4 + \x }
+				\node at (\x + 0.5, -\y + 0.5){$s_{\number}$};
+			}}
+
+			% matrice
+			\foreach \y in {-1,0,1,2} {
+			\foreach \x in {6,7,8,9} {
+				\draw (\x, -\y) rectangle (\x+1, -\y+1);
+			    
+				\pgfmathtruncatemacro{\number}{(\y+1)*4 + \x-6}
+				\node at (\x + 0.5, -\y + 0.5){$\tilde{s}_{\number}$};
+			}}
+
+			% fleche
+			\draw[->] (4.5,0) -- (5.5,0) node[midway, above, scale=0.8] {$\mathtt{SubBytes}$};
+		\end{tikzpicture}
+		\caption{Effet de $\mathtt{SubBytes}$ sur le block, avec $\tilde{s} = S(s)$}
+		\label{illu_subbyte}
+		\end{figure}
+
+		\begin{center}RAJOUTER DEF S\end{center}
+
+	\item $\mathtt{ShiftRows}$: \\
+		Cette permutation va pour chaque colone déplacer de manière cyclice ses élément de tel manière que la colone $i$ subira le cycle $$\left(0 \quad (1+i)\%4 \quad (2+i)\%4 \quad (3+i)\%4\right)$$
+
+		\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\foreach \y in {-1,0,1,2} {
+			\foreach \x in {0,1,2,3} {
+
+				\draw (\x, -\y) rectangle (\x+1, -\y+1);
+			    
+				\pgfmathtruncatemacro{\number}{(\y+1)*4 + \x }
+				\node at (\x + 0.5, -\y + 0.5){$s_{\number}$};
+			}}
+
+			% matrice
+			\foreach \y in {-1,0,1,2} {
+			\foreach \x in {6,7,8,9} {	
+				\pgfmathtruncatemacro{\n}{(\y+2)*10}
+
+				\fill[black!\n] (\x, -\y) rectangle (\x+1, -\y+1);
+			    
+				\pgfmathtruncatemacro{\number}{(\y+1)*4+\x-6}
+				\pgfmathtruncatemacro{\nnumber}{\number+\y+1}
+				\pgfmathtruncatemacro{\result}{
+					mod(\nnumber, 4) + 4*(\y+1)
+				}
+				\node at (\x + 0.5, -\y + 0.5){$s_{\result}$};
+			}}
+
+			% fleche
+			\draw[->] (4.5,0) -- (5.5,0) node[midway, above, scale=0.8] {$\mathtt{ShiftRows}$};
+		\end{tikzpicture}
+		\caption{Effet de $\mathtt{ShiftRows}$ sur le block}
+		\label{illu_shiftrows}
+		\end{figure}
+
+	\item $\mathtt{MixColumns}$: \\
+		Pour cette permutation, on calcul dans $GF\left(2^8\right)$ (muni du polynome iréductible $x^8 + x^4 + x^3 + x + 1$ ie $100011011$) le produit matriciel (à gauche) de notre block par:
+		
+		$$
+		\begin{bmatrix}
+			2 & 3 & 1 & 1 \\
+			1 & 2 & 3 & 1 \\
+			1 & 1 & 2 & 3 \\
+			3 & 1 & 1 & 2 \\
+		\end{bmatrix}
+		$$
+		
+		avec les éléments de cette matrices à comprendre comme des éléments de $GF\left(2^8\right)$ 
+\end{enumerate}
+
+\noindent Donc, en résumé : 
+$$
+\begin{bmatrix}
+	s_{0} & s_{1} & s_{2} & s_{3} \\
+	s_{4} & s_{5} & s_{6} & s_{7} \\
+	s_{8} & s_{9} & s_{10} & s_{11} \\
+	s_{12} & s_{13} & s_{14} & s_{15} \\
+\end{bmatrix}
+\overset{\Pi}{\rightarrow}
+\begin{bmatrix}
+	2 & 3 & 1 & 1 \\
+	1 & 2 & 3 & 1 \\
+	1 & 1 & 2 & 3 \\
+	3 & 1 & 1 & 2 \\
+\end{bmatrix}
+\times
+\begin{bmatrix}
+	\tilde{s}_0 & \tilde{s}_1 & \tilde{s}_2 & \tilde{s}_3 \\
+	\tilde{s}_5 & \tilde{s}_6 & \tilde{s}_7 & \tilde{s}_4 \\
+	\tilde{s}_{10} & \tilde{s}_{11} & \tilde{s}_8 & \tilde{s}_9 \\
+	\tilde{s}_{15} & \tilde{s}_{12} & \tilde{s}_{13} & \tilde{s}_{14} \\
+\end{bmatrix}
+$$
+
+\subsubsection{Permutation $\hat{\Pi}$}
+Généralement on préfère utiliser $\hat{\Pi}$ au lieu de $\Pi$  au dernier round pour avoir un algorithme de déchiffrement quasiment identique que celui de chiffrement. Avec $\hat{\Pi}$ défini tel que :
+$$
+\begin{bmatrix}
+	s_{0} & s_{1} & s_{2} & s_{3} \\
+	s_{4} & s_{5} & s_{6} & s_{7} \\
+	s_{8} & s_{9} & s_{10} & s_{11} \\
+	s_{12} & s_{13} & s_{14} & s_{15} \\
+\end{bmatrix}
+\overset{\hat{\Pi}}{\rightarrow}
+\begin{bmatrix}
+	\tilde{s}_0 & \tilde{s}_1 & \tilde{s}_2 & \tilde{s}_3 \\
+	\tilde{s}_5 & \tilde{s}_6 & \tilde{s}_7 & \tilde{s}_4 \\
+	\tilde{s}_{10} & \tilde{s}_{11} & \tilde{s}_8 & \tilde{s}_9 \\
+	\tilde{s}_{15} & \tilde{s}_{12} & \tilde{s}_{13} & \tilde{s}_{14} \\
+\end{bmatrix}
+$$
+C'est exactement $\Pi$ mais sans la permutation $\mathtt{MixColumns}$. 
+
+\subsubsection{Création des clefs $k_i$}\label{clefki}
+A partir d'une clef secrète $k$ (de 128 bits) il faut créer une série de clefs $k_0\dots k_{10}$.
+Pour ça on sépare cette clef en 4 mots de 32 bits (4 byte) chacun.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	\node[align=center] (k) at (0,0) {$10110\dots0110$};
+	\draw[thick] (-1.5,-0.5) -- (1.5,-0.5) node[midway, below, scale=0.8] {128 bits};
+	
+	\draw[->] (1.8,0) -- (2.5,0);
+	
+	\foreach \x in {3,4,5,6} {
+		\pgfmathtruncatemacro{\n}{\x-3}
+		\draw (\x, -0.5) rectangle (\x+1, 0.5);
+		\node[align=center]  at (\x+0.5, 0) {$\omega_{\n}$};
+	}
+\end{tikzpicture}
+\caption{réorganisation des clefs en suite de mots de 32 bits}
+\label{illu_clef}
+\end{figure}
+On définit la première clef $k_0 = \fbox{$\omega_{0,0}|\omega_{0,1}|\omega_{0,2}|\omega_{0,3}$} = k$ (ie $k_0$ est égale à la clef secrète). Ensuite, on calcul $k_i = \fbox{$\omega_{i,0}|\omega_{i,1}|\omega_{i,2}|\omega_{i,3}$}$ en fonction de $k_{i-1}$ tel que:
+
+$$
+\forall i \in \{1,2,3\} \quad 
+\begin{cases}
+	\omega_{i,0} &= \omega_{i-1,0} \oplus g_i(\omega_{i-1,3}) \\
+	\omega_{i,j} &= \omega_{i-1,j} \oplus \omega_{i,j-1} \quad \forall j \in \{1,2,3\} 
+\end{cases}
+$$
+
+\noindent Avec $g: \{0,1\}^{32} \rightarrow \{0,1\}^{32}$ une fonction tirée des standards d'AES. 
+
+\subsection{CBC}\label{sectioncbc}
+A lui seul, AES ne permet de chiffrer que des blocks de 128 bits. On pourrait se dire qu'il suffit d'appliquer AES sur l'ensemble des blocks (c'est le mode ECB). 
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% message clair
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, 0) rectangle (\x+2, 0.5);
+		\node[align=center]  at (\x+1, 0.25) {$m_{\n}$};
+	}
+	\node[align=center]  at (5, 0.25) {$\dots$};
+
+	% message caché
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -2.5) rectangle (\x+2, -2);
+		\node[align=center]  at (\x+1, -2.25) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, -2.25) {$\dots$};
+	
+	\node[draw, rectangle, align=center] (e1) at (1,-1) {$\text{AES}_k$};
+	\node[draw, rectangle, align=center] (e2) at (3,-1) {$\text{AES}_k$};
+
+	\draw[line width = 0.6mm] (1,0) -- (e1.north);
+	\draw[->, line width = 0.6mm] (e1.south) -- (1, -2);
+	
+	\draw[line width = 0.6mm] (3,0) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (3, -2);
+\end{tikzpicture}
+\caption{Fonctionement d'AES ECB, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
+\label{ilu_ECB}
+\end{figure}
+
+Mais, si on utilise la même clef sur plusieurs blocks, le chiffré deviens est très facile à déchiffrer. Il faudrait donc autant de clefs que de blocks ce qui doublerai la taille du message chiffré. \\
+
+Il faut donc rajouter une couche supplémentaire pour pouvoir utilser AES afin de chiffrer ce que l'on veut. Ici on s'intéresse à un mode d'utilisation d'AES mais il en existe beaucoup plus. (Dans la réalité, un seul prédomine : Galois Counter Mode (GCM)). Le foncionement du chiffrement avec le mode CBC est décrit figure \ref{ilu_cbc}
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}
+	% message clair
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, 0) rectangle (\x+2, 0.5);
+		\node[align=center]  at (\x+1, 0.25) {$m_{\n}$};
+	}
+	\node[align=center]  at (5, 0.25) {$\dots$};
+
+	% message caché
+	\draw (-2,-3) rectangle (0,-2.5);
+	\node[align=center]  at (-1, -2.75) {IV};
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -3) rectangle (\x+2, -2.5);
+		\node[align=center]  at (\x+1, -2.75) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, -2.75) {$\dots$};
+	
+	\node[align=center, scale=1.5] (x1) at (0.5,-0.75) {$\oplus$};
+	\node[draw, rectangle, align=center] (e1) at (0.5,-1.75) {$\text{AES}_k$};
+	\node[align=center, scale=1.5] (x2) at (2.5,-0.75) {$\oplus$};
+	\node[draw, rectangle, align=center] (e2) at (2.5,-1.75) {$\text{AES}_k$};
+
+
+	\draw[->, line width = 0.6mm] (0.5,0) -- (x1.north);
+	\draw[line width = 0.6mm] (x1.south) -- (e1.north);
+	\draw[->, line width = 0.6mm] (e1.south) -- (0.5, -2.5);
+	
+	\draw[->, line width = 0.6mm] (2.5,0) -- (x2.north);
+	\draw[line width = 0.6mm] (x2.south) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (2.5, -2.5);
+	
+
+	\draw[->, line width = 0.6mm] (-0.5,-2.5) to[out=90, in=180] (x1.west);
+	\draw[->, line width = 0.6mm] (1.5,-2.5) to[out=90, in=180] (x2.west);
+	\node[align=center, scale=1.5, color=white] (xc) at (4.5,-0.75) {$\oplus$};
+	\draw[->, line width = 0.6mm] (3.5,-2.5) to[out=90, in=180] (xc.west);
+
+\end{tikzpicture}
+\caption{Chiffrement}
+\end{subfigure}
+
+\begin{subfigure}{\textwidth}
+\vspace{1cm}
+\centering
+\begin{tikzpicture}
+	% message clair
+	\draw (-2,0) rectangle (0,0.5);
+	\node[align=center]  at (-1, 0.25) {IV};
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, 0) rectangle (\x+2, 0.5);
+		\node[align=center]  at (\x+1, 0.25) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, 0.25) {$\dots$};
+
+	% message caché
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -3) rectangle (\x+2, -2.5);
+		\node[align=center]  at (\x+1, -2.75) {$m_{\n}$};
+	}
+	\node[align=center]  at (5, -2.75) {$\dots$};
+	
+	\node[draw, rectangle, align=center] (e1) at (0.5,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x1) at (0.5,-1.75) {$\oplus$};
+	\node[draw, rectangle, align=center] (e2) at (2.5,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x2) at (2.5,-1.75) {$\oplus$};
+
+	\draw[line width = 0.6mm] (0.5,0) -- (e1.north);
+	\draw[->, line width = 0.6mm] (e1.south) -- (x1.north);
+	\draw[->, line width = 0.6mm] (x1.south) -- (0.5, -2.5);
+	
+	\draw[line width = 0.6mm] (2.5,0) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
+	\draw[->, line width = 0.6mm] (x2.south) -- (2.5, -2.5);
+
+	\draw[->, line width = 0.6mm] (-0.5,0) to[out=-90, in=180] (x1.west);
+	\draw[->, line width = 0.6mm] (1.5,0) to[out=-90, in=180] (x2.west);
+	\node[align=center, scale=1.5, color=white] (xc) at (4.5,-1.75) {$\oplus$};
+	\draw[->, line width = 0.6mm] (3.5,0) to[out=-90, in=180] (xc.west);
+\end{tikzpicture}
+\caption{Déchiffrement}
+\end{subfigure}
+\caption{Fonctionement d'AES CBC, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
+\label{ilu_cbc}
+\end{figure}
+
+On remarque que le premier block du chiffré est un Initialization Vector (IV). C'est un block choisit aléatoirement. Ensuite, un deuxième point important de ce mode d'utilisation d'AES (ou de tout autre méthode de chiffrement par block) est qu'il faut que la taille du message en clair soit exactement un multiple de 128 bits. La solution pour palier à ce problème est de rajouter un padding. C'est à dire que l'on complète le message pour que sa taille soit exactement égale au prochain multiple de 128 bits (si le message fait est déjà un multiple de 128 bits on rajoute 16 byte de padding). Il peut prendre plein de forme différente, on peut compléter avec des $0$, des bits aléatoires... La seul règle importante est que le dernier byte du block doit contenir le nombre de byte de padding qui ont été rajouté (entre 0 et 15). \\
+
+Pour ma part mon padding suivra la règle suivante : tous les bytes du padding ont la même valeurs (donc celle du denier byte).
+Par exemple s'il manque 3 byte à mon message pour être un multiple de 16 byte (i.e 128 bites) alors je rajoute à la fin du message $\fbox{02|02|02}$. Si c'est déjà un multiple de 16 byte je rajoute à la fin\\ $\fbox{15|15|15|15|15|15|15|15|15|15|15|15|15|15|15|15}$.\\
+
+J'avais essayé d'implémenter la padding classique (remplir de $0$, par exemple pour un padding de 3 bytes cela donne $\fbox{00|00|02}$) mais je devais mal implémenter quelque chose car je n'arrivais pas à me munir d'un padding oracle (voir \ref{padoracle}) alors que la théorie veux que ça ne change rien.
+
+\subsection{Mon implémentation}
+Dans le cade de ma mission je dois implémenter AES CBC en RUST. 
+J'ai choisit de ne pas réimplémenter AES car j'avais du mal à implémenter des éléments relatif à $g$ (voir \ref{clefki}) mais aussi car une implémentation d'AES est très régulièrement inutilisable en réalité car trop facile à attaquer. Rien que des informations tels que la consomation électrique de l'ordinateur, le temps qu'il met à répondre ou encore le champ électromagnétique qu'il émet sont suffisant pour casser mon implémentation. 
+
+J'ai donc implémenté le mode CBC avec le padding énnoncé à la fin de \ref{sectioncbc}. J'ai choisit pour simplifier la tache de me restreindre à chiffrer des chaines de charactères. De là est apparu un pseudo problème, le type Char en RUST peut faire de 1 à 4 byte. Mais,au déchiffrage, ne connaissant pas le nombre de byte associé à chaque charactères, j'ai été dans l'obligation de faire comme si chaque charactère ne faisait qu'un byte. Donc si mon message n'est pas uniquement écris avec des charactères ASCI (1 byte) alors j'aurais de la perte d'information. \\
+Par exemple si je chiffre et déchiffre le message : "Je vais à l'école" j'obiendrai un message du type "Je vais \$£ l'\&ùcole".
+
+J'ai choisit d'ignorer ce problème étant donné qu'il n'est du qu'au format de l'entrée.
+
+\subsection{Pading oracle attack}\label{padoracle}
+Dans cette section, j'explique comment j'ai attaqué AES CBC et de manière équivalente tout les modes de chiffrement non autentifié (qui ne fournissent pas une preuve d'autenticité du chiffré) et qui utilisent un padding. \\ 
+
+L'attaque que j'ai mené repose sur un principe simple. Pour chaque algorithme de chiffrement qui utillisent un padding, n'importe qui pourra toujours avoir accès à un padding oracle (On n'a encore jamais trouvé de contre exemple). 
+
+Avoir accès à un padding oracle c'est pouvoir déduire du comportement du serveur si le padding du message que je lui demande de déchiffrer est correct (on peut par exemple déduire cette information du temps que mets le serveur à nous répondre).
+Je vais montré ci dessous qu'à partir du moment ou l'on a accès à ce genre d'information on peut casser le chiffré.
+
+\subsubsection{Déchiffrer un block}
+En reprenant la figure \ref{ilu_cbc} et en l'adaptant pour un block c on obtien la figure \ref{cbcdec1block}. 
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% message clair
+	\draw (0,0) rectangle (2,0.5);
+	\node[align=center] at (1, 0.25) {IV};
+	\draw (2,0) rectangle (4,0.5);
+	\node[align=center] at (3,0.25) {c};
+
+	% message caché
+	\draw (2, -3) rectangle (4, -2.5);
+	\node[align=center]  at (3, -2.75) {m};
+
+	\node[draw, rectangle, align=center] (e2) at (3,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\oplus$};
+	
+	\draw[line width = 0.6mm] (3,0) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
+	\draw[->, line width = 0.6mm] (x2.south) -- (3, -2.5);
+
+	\draw[->, line width = 0.6mm] (1,0) to[out=-90, in=180] (x2.west);
+
+	\node[align=center] (pad_or) at (6,-2.75) {Padding Oracle};
+	\draw[->, line width = 0.6mm] (4,-2.75) -- (pad_or.west);
+	\fill[red!20, opacity=0.5] (1.7,-0.1) rectangle (4.3,-3.35);
+\end{tikzpicture}
+\caption{Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}
+\label{cbcdec1block}
+\end{figure}
+
+Le but de l'attaque est de trouver un IV tel que le padding du block déchiffré m est valide. En effet, si on arrive à trouver un IV tel que $m = \fbox{15|\dots|15}$ alors 
+$$ 
+\text{IV} \oplus \fbox{15|\dots|15} = \text{AES}^{-1}_{k}\left(\text{c}\right)
+$$
+On aura donc réussi à déchiffrer c! Pour arriver à trouver cet IV on procède de la manière suivante : \\
+
+On pose IV = \fbox{00|00|00|00|00|00|00|00|00|00|00|00|00|00|00|b} avec b un byte quelconque. On fait varirer b (256 possibilités) jusqu'à obtenir une réponse positive du padding oracle. Une fois arrivé à cette étape il existe 2 situation dans lesquelle on peut se trouver :
+
+\begin{enumerate}
+	\item Dans le cas le plus courant on aura m = \fbox{??|??|$\dots$|??|00}. C'est ce qu'on cherche!
+	\item Mais il se peut aussi que l'avant dernier byte permette à plus d'un padding d'être correcte. En effet, si ce byte vaut 01 alors il existe un byte b tel que l'IV produise un m = \fbox{??|??|$\dots$|??|01|01}.
+\end{enumerate}
+
+Ce deuxième cas est génant mais il est facile de vérifier dans quel cas on se trouve en modifiant l'avant dernier byte de l'IV.
+En effet si en modifiant l'avant dernier byte de l'IV produit une réponse favorable du padding oracle cela signifie qu'on est dans le premier cas sinon on est dans le deuxième. 
+\begin{align*}
+	&\fbox{??|??|$\dots$|42|00} \rightarrow \text{padding valide}\\
+	&\fbox{??|??|$\dots$|42|01} \rightarrow \text{padding invalide}
+\end{align*}
+
+Une fois à cette étape on peut créer un IV qu'on appelle ZIV (zeroing IV). Cet IV permet de mettre à 0 les bytes que l'on change dans m. Dans notre cas on a directement IV = ZIV. \\
+
+On sait maintenant comment créer le premier ZIV, supposons que l'on soit cappable de créer le n-ième ZIV : $\text{ZIV}_n$ (cet IV assure que les n derniers bytes de m valent 0). Essayons de trouver $\text{ZIV}_{n+1}$. \\
+
+On pose $\text{IV} = \text{ZIV}_n + \fbox{00|$\dots$|00|b|n|$\dots$|n}$ avec n bytes \fbox{n} et b, un byte quelconque. Cet IV permet d'avoir $\text{m} = \fbox{??|??|\dots|??|n|$\dots$|n}$ car 0 est l'élément neutre de $\oplus$ dans $\mathbb{Z}/2\mathbb{Z}$. \\
+Comme à la première étape (celle qui sert à trouver le premier ZIV), on fait varier b (256 possiblités) jusqu'à avoir une réponse positive du padding oracle. En effectuant la même vérification qu'à la première étape, on est en mesure de trouver b tel que $\text{m} = \fbox{??|??|$\dots$|??|n|$\dots$|n|}$ avec cette fois ci n+1 byte \fbox{n}. Alors on remarque que $\text{ZIV}_{n+1} = \text{IV} \oplus \fbox{00|$\dots$|00|n|$\dots$|n}$ car $m \oplus \fbox{00|$\dots$|00|n|$\dots$|n} = \fbox{??|$\dots$|??|00|$\dots$|00}$. \\
+
+Ainsi, on est en mesure de trouver un IV ($\text{ZIV}_{16}$) tel que $m=\fbox{00|$\dots$|00}$ et donc comme on l'a dit en début de section et comme on peut le voir sur la figure \ref{pad_ora_blo} on peut déchiffrer le block c car si $a \oplus b = 0$ alors $a = b$ donc $\text{AES}_k^{-1}(\text{c}) = \text{ZIV}_{16}$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% message clair
+	\draw (0,0) rectangle (2,0.5);
+	\node[align=center, scale=0.8] at (1, 0.25) {$\text{AES}_k^{-1}(\text{c})$};
+	\draw (2,0) rectangle (4,0.5);
+	\node[align=center] at (3,0.25) {c};
+
+	% message caché
+	%\draw (2, -3) rectangle (4, -2.5);
+	%\node[align=center]  at (3, -2.75) {$00|\dots|00$};
+	\draw (2,-3) rectangle (2.66,-2.5) node[align=center] at (2.33,-2.75) {00};
+	\draw (2.66,-3) rectangle (3.33,-2.5) node[align=center] at (3,-2.75) {$\dots$};
+	\draw (3.33,-3) rectangle (4,-2.5) node[align=center] at (3.62,-2.75) {00};
+
+	\node[draw, rectangle, align=center] (e2) at (3,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\oplus$};
+	
+	\draw[line width = 0.6mm] (3,0) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
+	\draw[->, line width = 0.6mm] (x2.south) -- (3, -2.5);
+
+	\draw[->, line width = 0.6mm] (1,0) to[out=-90, in=180] (x2.west);
+	\fill[red!20, opacity=0.5] (1.7,-0.1) rectangle (4.3,-3.35);
+\end{tikzpicture}
+\caption{Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}
+\label{pad_ora_blo}
+\end{figure}
+
+\subsubsection{Généralisation à n blocks}
+On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}. On remarque alors que si on est en mesure de trouver $\text{AES}^{-1}_k(c_i)$ alors on est cappable de trouver $m_i$ $\forall i$. En effet $\text{AES}^{-1}_k(c_i) \oplus c_{i-1} = m_i$. Donc en déchiffran chaque block avec une attack par padding oracle on peut déchiffrer l'entierté du chiffré.   
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% message clair
+	\draw (-2,0) rectangle (0,0.5);
+	\node[align=center]  at (-1, 0.25) {IV};
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, 0) rectangle (\x+2, 0.5);
+		\node[align=center]  at (\x+1, 0.25) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, 0.25) {$\dots$};
+
+	% message caché
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -3) rectangle (\x+2, -2.5);
+		\node[align=center]  at (\x+1, -2.75) {$m_{\n}$};
+	}
+	\node[align=center]  at (5, -2.75) {$\dots$};
+	
+	\node[draw, rectangle, align=center] (e1) at (0.5,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x1) at (0.5,-1.75) {$\oplus$};
+	\node[draw, rectangle, align=center] (e2) at (2.5,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x2) at (2.5,-1.75) {$\oplus$};
+
+	\draw[line width = 0.6mm] (0.5,0) -- (e1.north);
+	\draw[->, line width = 0.6mm] (e1.south) -- (x1.north);
+	\draw[->, line width = 0.6mm] (x1.south) -- (0.5, -2.5);
+	
+	\draw[line width = 0.6mm] (2.5,0) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
+	\draw[->, line width = 0.6mm] (x2.south) -- (2.5, -2.5);
+
+	\draw[->, line width = 0.6mm] (-0.5,0) to[out=-90, in=180] (x1.west);
+	\draw[->, line width = 0.6mm] (1.5,0) to[out=-90, in=180] (x2.west);
+	\node[align=center, scale=1.5, color=white] (xc) at (4.5,-1.75) {$\oplus$};
+	\draw[->, line width = 0.6mm] (3.5,0) to[out=-90, in=180] (xc.west);
+
+	\fill[red!20, opacity=0.5] (-0.3,-0.1) rectangle (5.5,-3.35);
+\end{tikzpicture}
+\caption{Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}
+\label{dechif_cbc}
+\end{figure}
+
+
+
+\end{document}
