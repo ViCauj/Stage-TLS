@@ -1,0 +1,3 @@
+Ajouter changement au prochain commit : (sudo) git add . 
+Commit : git commit -m <commit-name> 
+Push : git push origin main

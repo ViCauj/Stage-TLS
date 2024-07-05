@@ -1,0 +1,4 @@
+formule de base : sudo softhsm2-util
+voir les slots : sudo softhsm2-util --show-slots
+init un token : sudo softhsm2-util --init-token --slot <slot-num> --token <token-label>
+suppr un token : sudo softhsm2-util --delete-token --label <token-label>

@@ -1,0 +1,8 @@
+[package]
+name = "cryptoki_tuto"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cryptoki = "0.7.0"
+hex = "0.4.3"
