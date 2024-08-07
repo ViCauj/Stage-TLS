@@ -1,26 +1,17 @@
 use primitive_types::{U256, U512};
-use sha2::{Digest, Sha512};
-// use std::fmt;
+use sha2::{Digest,Sha512};
 
 use crate::{
-    arithm::{inv_mod, pow_mod}, 
+    arithm::{inv_mod, pow_mod, mult}, 
     D, P, Q, 
-    ZERO, UN, DEUX, QUATRE,
+    ZERO, UN, DEUX, TROIS, QUATRE,
 };
 
 #[derive(Debug)]
-pub enum err {
+pub enum ErrPerso {
     ImpossibleRecovery1,
     ImpossibleRecovery2,
 }
-
-// impl fmt::Display for err {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         match self {
-//             err::ImpossibleRecovery => write!(f, "impossible de récupérer x"),
-//         }
-//     }
-// }
 
 pub fn hash_mod_q(data: &[u8]) -> U256 {
     let q = U256::from_dec_str(Q).unwrap();
@@ -34,14 +25,12 @@ pub fn hash_mod_q(data: &[u8]) -> U256 {
     hash_256
 }
 
-pub fn enc(pt: [U256; 4]) -> [u8; 32] {
-    let p = U256::from_dec_str(P).unwrap();
-
+pub fn comp(pt: [U256; 4]) -> [u8; 32] {
     let [x, y, z, _t]= pt;
 
     let z_inv = inv_mod(z);
-    let x = x*z_inv%p;
-    let y = y*z_inv%p; 
+    let x = mult(x,z_inv);
+    let y = mult(y,z_inv); 
 
     let mut bytes = [0u8; 32];
     y.to_little_endian(&mut bytes);
@@ -52,33 +41,44 @@ pub fn enc(pt: [U256; 4]) -> [u8; 32] {
     bytes
 }
 
-pub fn recup_x(y: U256, signe: U256) -> Result<U256, err> { // remettre signe: u8 quand finit de débugger : pb avec pow_mod
+pub fn decomp(pt_comp: [u8; 32]) -> [U256; 4] {
+    let mut signe = ZERO;
+    let mut y = pt_comp;
+    if pt_comp[31] == 0b10000000 {
+        signe = UN;
+        y[31] = 0b00000000;
+    }
+    let y = U256::from_little_endian(&y);
+    let x = recup_x(y, signe).unwrap();
+
+    return [x, y, UN, mult(x, y)]
+}
+
+pub fn recup_x(y: U256, signe: U256) -> Result<U256, ErrPerso> { // (1,0) marche pas
     let p = U256::from_dec_str(P).unwrap();
     let d = U256::from_dec_str(D).unwrap();
     
     let y2 = pow_mod(y, DEUX);
-    let x2 = U256::try_from(U512::from(y2-UN)*U512::from(inv_mod(d*y2))%p).unwrap(); // pas sur d'avoir le droit de faire un modulo ici mais c'est pratique
+    let x2 = mult((y2+p-UN)%p, inv_mod(mult(d, y2) + UN));
 
-    println!("{}", y2);
     if x2 == ZERO {
         if signe == UN {
-            return Err(err::ImpossibleRecovery1);
+            return Err(ErrPerso::ImpossibleRecovery1);
         } else {
             return Ok(ZERO);
         }
     }
 
-    let mut x = pow_mod(x2, d*y2 + UN);
+    let mut x = pow_mod(x2, (p+TROIS)/(DEUX*QUATRE));
 
-    if (pow_mod(x, DEUX) - x2)%p != ZERO {
-        x = x*pow_mod(DEUX, (p-UN)/QUATRE);
-
-        if (pow_mod(x, DEUX) - x2)%p != ZERO {
-            return Err(err::ImpossibleRecovery2);
+    if mult(x,x) != x2 {
+        x = mult(x, pow_mod(DEUX, (p-UN)/QUATRE));
+        if mult(x,x) != x2 {
+            return Err(ErrPerso::ImpossibleRecovery2);
         }
     }
 
-    if x%DEUX != U256::from(signe) {
+    if x%DEUX != signe {
         x = p-x;
     }
 

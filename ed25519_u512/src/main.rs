@@ -5,10 +5,9 @@ use primitive_types::U512;
 mod arithm;
 mod compress;
 mod point_op;
+mod sign;
 
-use compress::{comp, decomp, recup_x};
-use arithm::inv_mod;
-use point_op::mul;
+use sign::signe;
 
 const P: &str = "57896044618658097711785492504343953926634992332820282019728792003956564819949";
 const D: &str = "37095705934669439343138083508754565189542113879843219016388785533085940283555";
@@ -21,43 +20,16 @@ const TROIS: U512 = U512([3, 0, 0, 0, 0, 0, 0, 0]);
 const QUATRE: U512 = U512([4, 0, 0, 0, 0, 0, 0, 0]);
 const CINQ: U512 = U512([5, 0, 0, 0, 0, 0, 0, 0]);
 
-fn main() {    
-    let p = U512::from_dec_str(P).unwrap();
-    
-    let y = QUATRE*inv_mod(CINQ);
-    let x = recup_x(y, ZERO).unwrap();
-    let b = [x, y, UN, x*y%p];
+const KEY: [u8; 32] = [0u8; 32];
 
-    let mut pt = mul(&mut U512::from(2), &mut b.clone());
-    pt[1] = pt[1]*inv_mod(pt[2])%p;
-    pt[2] = UN;
+fn main() {       
+    let message = [0, 0, 0];
+    let signature = signe(&KEY, &message);
 
-    // let pt = b;
-
-    println!("pt :");
-    println!("{:?}\n", pt);
-    
-    let pt_compress = comp(pt);
-    println!("pt comp :");
-    for i in pt_compress.iter() {
+    for i in signature.iter() {
         print!("{:02x}", i);
     }
-    println!("\n");
-    let pt_decompress = decomp(pt_compress);
-
-    println!("X :");
-    println!("{:?}", pt[0]);
-    println!("{:?}\n", pt_decompress[0]);
-
-    println!("{:?}\n", (p-pt_decompress[0])%p);
-
-    println!("Y :");
-    println!("{:?}", pt[1]);
-    println!("{:?}\n", pt_decompress[1]);
-    println!("T :");
-    println!("{:?}", pt[3]*inv_mod(pt[2])%p);
-    println!("{:?}\n", pt[3]);
-    assert!(pt == pt_decompress);
+    println!();
 }
 
 
@@ -65,3 +37,4 @@ fn main() {
 //        On pourrait faire pareil avec la division qui utiliserai Mul et inv_mod au lieux de faire une division classique
 
 // Pour vérifier add et/ou compress marche : https://asecuritysite.com/encryption/ed
+//                                           https://asecuritysite.com/nacl/nacl07?a=5

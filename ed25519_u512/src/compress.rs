@@ -1,32 +1,19 @@
 use primitive_types::{U256, U512};
-use sha2::{Digest,Sha512};
 
 use crate::{
     arithm::{inv_mod, pow_mod}, 
-    D, P, Q, 
+    D, P, 
     ZERO, UN, DEUX, TROIS, QUATRE,
 };
 
 #[derive(Debug)]
 pub enum ErrPerso {
-    ImpossibleRecovery1,
-    ImpossibleRecovery2,
-}
-
-pub fn hash_mod_q(data: &[u8]) -> U256 {
-    let q = U256::from_dec_str(Q).unwrap();
-
-    let mut hasher = Sha512::new();
-    hasher.update(data);
-    let hash = hasher.finalize();
-    let hash_512 = U512::from_big_endian(&hash); 
-    let hash_mod = hash_512%U512::from(q);
-    let hash_256 = U256::try_from(hash_mod).unwrap();
-    hash_256
+    DecompressionImpossibleZeroNegatif,
+    DecompressionImpossiblePasUneRacine,
 }
 
 pub fn comp(pt: [U512; 4]) -> [u8; 32] {
-    let p = U256::from_dec_str(P).unwrap();
+    let p = U512::from_dec_str(P).unwrap();
     let [x, y, z, _t]= pt;
 
     let z_inv = inv_mod(z);
@@ -48,22 +35,19 @@ pub fn decomp(pt_comp: [u8; 32]) -> [U512; 4] {
 
     let mut signe = ZERO;
     let mut y = pt_comp;
-    if pt_comp[31] == 1 {
+    if pt_comp[31] >= 128 { // On regarde si bit de poid fort vaut 1
         signe = UN;
-        y[31] = 0;
+        y[31] ^= 0b10000000;
     }
-    let y = U512::from_little_endian(&y);
+    let y = U512::from_little_endian(&y)%p;
     let x = recup_x(y, signe).unwrap();
 
     return [x, y, UN, x*y%p]
 }
 
 pub fn recup_x(y: U512, signe: U512) -> Result<U512, ErrPerso> { 
-    // besoin d'imposer Z = 1 pour avoir unicité du point dans le format de coordonnées étendues : changer add en mettant Z = 1 et Y = Y/Z ?
-    // (1,0,1,0) marche pas
-    // marche que pour (0,1,1,0) et le pt générateur "b", j'ai essayé sur x*b mais pour x dans {2, ...,12} ne marche jamais.
-    // pb : j'ai l'impression que x2 ne fournit pas le bon res car l'algo de Tonelli-Shanks à l'air de marcher (je récupère bien une racine carré qui match x2 quand c'est possible)
-
+    // ne marche pas tout le temps : exemple 10G, 12G,...
+    
     let p = U512::from_dec_str(P).unwrap();
     let d = U512::from_dec_str(D).unwrap();
     
@@ -72,22 +56,20 @@ pub fn recup_x(y: U512, signe: U512) -> Result<U512, ErrPerso> {
 
     if x2 == ZERO {
         if signe == UN {
-            return Err(ErrPerso::ImpossibleRecovery1);
+            return Err(ErrPerso::DecompressionImpossibleZeroNegatif);
         } else {
             return Ok(ZERO);
         }
     }
 
-    let mut x = pow_mod(x2, (p+TROIS)*inv_mod(DEUX*QUATRE)%p);
-
-    println!("{}\n", x);
-    println!("{}", x*x%p);
-    println!("{}", x2);
+    // let mut x = pow_mod(x2, (p+TROIS)*inv_mod(DEUX*QUATRE)%p);
+    let mut x = pow_mod(x2, (p+TROIS)/(DEUX*QUATRE));
 
     if x*x%p != x2 {
-        x = x*pow_mod(DEUX, (p-UN)*inv_mod(QUATRE)%p)%p;
+        // x = x*pow_mod(DEUX, (p-UN)*inv_mod(QUATRE)%p)%p;
+        x = x*pow_mod(DEUX, (p-UN)/QUATRE)%p;
         if x*x%p != x2 {
-            return Err(ErrPerso::ImpossibleRecovery2);
+            return Err(ErrPerso::DecompressionImpossiblePasUneRacine);
         }
     }
 
@@ -95,6 +77,5 @@ pub fn recup_x(y: U512, signe: U512) -> Result<U512, ErrPerso> {
         x = p-x;
     }
 
-    println!();
     Ok(x)  
 }

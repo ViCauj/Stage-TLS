@@ -2,6 +2,11 @@ use primitive_types::{U256, U512};
 
 use crate::P;
 
+pub fn mult(a: U256, b: U256) -> U256 { // à améliorer et mieux, à implémenter directement dans le type U256??
+    let p = U256::from_dec_str(P).unwrap();
+    return  U256::try_from(U512::from(a)*U512::from(b)%p).unwrap()
+}
+
 pub fn pow_mod(base: U256, exp: U256) -> U256 {
     // expo rapide modulaire
     // j'aimerai bien ne pas avoir à passer en U512...
@@ -21,6 +26,8 @@ pub fn pow_mod(base: U256, exp: U256) -> U256 {
 
     U256::try_from(res).unwrap()
 }
+
+
 
 pub fn inv_mod(x: U256) -> U256 {
     // x^-1 = x^(p-2) [p]

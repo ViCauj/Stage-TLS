@@ -6,7 +6,7 @@ use crate::{
     DEUX, QUATRE, UN, ZERO
 };
 
-pub fn add(pt1: &[U512; 4],pt2: &[U512; 4]) -> [U512; 4]{
+pub fn add(pt1: &[U512; 4],pt2: &[U512; 4]) -> [U512; 4]{ // bizarre pour 10G on obtien pas le bon point 
     // retourne pt1 + pt2
     // On utilise les coordonées homogènes étendues pour simplifier et accélérer
     let p = U512::from_dec_str(P).unwrap();
@@ -20,7 +20,9 @@ pub fn add(pt1: &[U512; 4],pt2: &[U512; 4]) -> [U512; 4]{
     let (_e, _f,_g,_h) = ((_b+p-_a)%p, (_d+p-_c)%p, (_d+_c)%p, (_b+_a)%p);
 
     let invquatre = inv_mod(QUATRE);
-    [_e*_f%p*invquatre%p, _g*_h%p*invquatre%p, _f*_g%p*invquatre%p, _e*_h%p*invquatre%p] // entre 2
+    let invt = inv_mod(_f*_g%p*invquatre%p);
+    [_e*_f%p*invquatre%p*invt%p, _g*_h%p*invquatre%p*invt%p, UN, _e*_h%p*invquatre%p*invt%p] // Convention pour avoir unicité de l'écriture du point en coordonée homogène étendue (on impose T=1) pour garantir la compression et décompression
+    // [_e*_f%p*invquatre%p, _g*_h%p*invquatre%p, _f*_g%p*invquatre%p, _e*_h%p*invquatre%p]
 
     // PB avec la doc : 
 

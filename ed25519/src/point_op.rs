@@ -3,10 +3,10 @@ use primitive_types::U256;
 use crate::{
     P,D,Q, 
     ZERO,UN,DEUX,QUATRE,
-    arithm::inv_mod,
+    arithm::{inv_mod, mult},
 };
 
-pub fn _add(pt1: &[U256; 4],pt2: &[U256; 4]) -> [U256; 4]{
+pub fn add(pt1: &[U256; 4],pt2: &[U256; 4]) -> [U256; 4]{
     // retourne pt1 + pt2
     // On utilise les coordonées homogènes étendues pour simplifier et accélérer
     let p = U256::from_dec_str(P).unwrap();
@@ -15,11 +15,12 @@ pub fn _add(pt1: &[U256; 4],pt2: &[U256; 4]) -> [U256; 4]{
     let [x, y, z, t]= pt1;
     let [i, j, k, l] = pt2;
 
-    let (_a, _b) = ((y-x)*(j-i)%p, (x+y)*(i+j)%p);
-    let (_c, _d) = (DEUX*t*l*d%p, DEUX*z*k%p);
-    let (_e, _f,_g,_h) = (_b-_a, _d-_c, _d+_c, _b+_a);
+    println!("{}\n{}\n{}", t, l, d);
 
-    [_e*_f/QUATRE, _g*_h/QUATRE, _f*_g/QUATRE, _e*_h/QUATRE] // entre 2
+    let (_a, _b) = (mult((y+p-x)%p,(j+p-i)%p), mult(x+y,i+j));
+    let (_c, _d) = (mult(mult(DEUX,*t), mult(*l,d)), mult(DEUX, mult(*z,*k)));
+    let (_e, _f,_g,_h) = ((_b+p-_a)%p, (_d+p-_c)%p, (_d+_c)%p, (_b+_a)%p);
+    [mult(_e,_f)/QUATRE, mult(_g,_h)/QUATRE, mult(_f,_g)/QUATRE, mult(_e,_h)/QUATRE] // entre 2
 
     // PB avec la doc : 
 
@@ -34,22 +35,22 @@ pub fn _add(pt1: &[U256; 4],pt2: &[U256; 4]) -> [U256; 4]{
 
 // TODO : fn double {} <- Plus rapide
 
-pub fn _mul(s: &mut U256, pt: &mut [U256; 4]) -> [U256; 4] {
+pub fn mul(s: &mut U256, pt: &mut [U256; 4]) -> [U256; 4] {
     // retourne s x pt
     // On utilise les coordonées homogènes étendues pour simplifier et accélérer
     let mut e = [ZERO, UN, UN, ZERO]; // element neutre
 
     while *s > ZERO {
         if *s%DEUX == UN {
-            e = _add(&e, &pt);
+            e = add(&e, &pt);
         }
-        *pt = _add(pt, pt);
+        *pt = add(pt, pt);
         *s = s.div_mod(DEUX).0; // s//2
     }
     e
 }
 
-pub fn _equ(pt1: [U256; 4], pt2: [U256; 4]) -> bool {
+pub fn equ(pt1: [U256; 4], pt2: [U256; 4]) -> bool {
     // On regarde si les coordonées affines (!=coordonées homogènes étendues) x et y sont les mêmes sans faire de divisions
     let p = U256::from_dec_str(P).unwrap();
 
