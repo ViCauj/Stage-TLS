@@ -23,20 +23,20 @@ pub fn hash_mod_q(data: &[u8]) -> U512 {
     let mut hasher = Sha512::new();
     hasher.update(data);
     let hash = hasher.finalize();
-    let hash_512 = U512::from_big_endian(&hash); 
+    let hash_512 = U512::from_little_endian(&hash); // pourquoi ?????
     let hash_mod = hash_512%U512::from(q);
     hash_mod
 }
 
-pub fn key_expand(priv_key: &[u8; 32]) -> (U512, [u8;32], [u8;32]) { // pas du tout sûr de cette fonction
+fn key_expand(priv_key: &[u8; 32]) -> (U512, [u8;32], [u8;32]) { // pas du tout sûr de cette fonction
     let p = U512::from_dec_str(P).unwrap();
-    let y = QUATRE*inv_mod(CINQ);
+    let y = QUATRE*inv_mod(CINQ)%p;
     let x = recup_x(y, ZERO).unwrap();
     let g = [x, y, UN, x*y%p];
 
     let h = hash(priv_key);
     let mut bytes = [0u8; 64];
-    h.to_little_endian(&mut bytes);
+    h.to_big_endian(&mut bytes);
 
     bytes[0] &= 0b11111000; 
     bytes[31] &= 0b01111111; 
@@ -45,14 +45,14 @@ pub fn key_expand(priv_key: &[u8; 32]) -> (U512, [u8;32], [u8;32]) { // pas du t
     let s = U512::from_little_endian(&bytes[0..32]);
     let pub_key = comp(mul(&mut s.clone(), &mut g.clone()));
     let prefix: &[u8; 32] = &bytes[32..64].try_into().unwrap();
-
+    
     (s, pub_key, *prefix)
 }
 
-pub fn signe(priv_key: &[u8; 32], message: &[u8]) -> [u8; 64]{
+pub fn signe(priv_key: &[u8; 32], message: &[u8]) -> ([u8;32], [u8; 64]) {
     let p = U512::from_dec_str(P).unwrap();
     let q = U512::from_dec_str(Q).unwrap();
-    let y = QUATRE*inv_mod(CINQ);
+    let y = QUATRE*inv_mod(CINQ)%p;
     let x = recup_x(y, ZERO).unwrap();
     let g = [x, y, UN, x*y%p];
 
@@ -64,5 +64,5 @@ pub fn signe(priv_key: &[u8; 32], message: &[u8]) -> [u8; 64]{
     let mut bytes = [0u8; 32];
     s.to_little_endian(&mut bytes);
 
-    return [rs, bytes].concat().try_into().unwrap()
+    return (pub_key, [rs, bytes].concat().try_into().unwrap())
 }

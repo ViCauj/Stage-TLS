@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 
 use primitive_types::U512;
+use hex::{decode, encode};
 
 mod arithm;
 mod compress;
@@ -20,16 +21,16 @@ const TROIS: U512 = U512([3, 0, 0, 0, 0, 0, 0, 0]);
 const QUATRE: U512 = U512([4, 0, 0, 0, 0, 0, 0, 0]);
 const CINQ: U512 = U512([5, 0, 0, 0, 0, 0, 0, 0]);
 
-const KEY: [u8; 32] = [0u8; 32];
+const KEY: &str = "833fe62409237b9d62ec77587520911e9a759cec1d19755b7da901b96dca3d42";
+const PUBKEY: &str = "ec172b93ad5e563bf4932c70e1245034c35467ef2efd4d64ebf819683467e2bf";
+const MSG: &str = "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f";
+const SIGN: &str = "dc2a4459e7369633a52b1bf277839a00201009a3efbf3ecb69bea2186c26b58909351fc9ac90b3ecfdfbc7c66431e0303dca179c138ac17ad9bef1177331a704";
 
-fn main() {       
-    let message = [0, 0, 0];
-    let signature = signe(&KEY, &message);
+fn main() {   
+    let (pub_key, signature) = signe(&(decode(KEY).unwrap()).try_into().unwrap(), &(decode(MSG).unwrap()));
 
-    for i in signature.iter() {
-        print!("{:02x}", i);
-    }
-    println!();
+    assert!(encode(pub_key) == PUBKEY);
+    assert!(encode(signature) == SIGN);
 }
 
 

@@ -46,8 +46,6 @@ pub fn decomp(pt_comp: [u8; 32]) -> [U512; 4] {
 }
 
 pub fn recup_x(y: U512, signe: U512) -> Result<U512, ErrPerso> { 
-    // ne marche pas tout le temps : exemple 10G, 12G,...
-    
     let p = U512::from_dec_str(P).unwrap();
     let d = U512::from_dec_str(D).unwrap();
     
