@@ -8,7 +8,7 @@ mod compress;
 mod point_op;
 mod sign;
 
-use sign::signe;
+use sign::{check, signe};
 
 const P: &str = "57896044618658097711785492504343953926634992332820282019728792003956564819949";
 const D: &str = "37095705934669439343138083508754565189542113879843219016388785533085940283555";
@@ -31,6 +31,7 @@ fn main() {
 
     assert!(encode(pub_key) == PUBKEY);
     assert!(encode(signature) == SIGN);
+    assert!(check(pub_key, &(decode(MSG).unwrap()), signature));
 }
 
 

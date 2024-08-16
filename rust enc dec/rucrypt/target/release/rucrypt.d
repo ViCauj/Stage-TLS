@@ -1,0 +1,1 @@
+/home/vincent/GIT/rust\ enc\ dec/rucrypt/target/release/rucrypt: /home/vincent/GIT/rust\ enc\ dec/rucrypt/src/aes_gcm.rs /home/vincent/GIT/rust\ enc\ dec/rucrypt/src/chacha_poly.rs /home/vincent/GIT/rust\ enc\ dec/rucrypt/src/main.rs

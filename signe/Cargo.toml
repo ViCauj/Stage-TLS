@@ -1,0 +1,9 @@
+[package]
+name = "signe"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ed25519-dalek = {version = "2.1.1", features = ["rand_core"]}
+rsa = {version = "0.9.6", features = ["sha2"]}
+rand = "0.8.5"

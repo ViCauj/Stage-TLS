@@ -1,0 +1,30 @@
+ENCRYPT :
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --login -p <usr-PIN> --encrypt --id <key-ID> -m AES-CBC-PAD --iv "00000000000000000000000000000000" -i <input file> -o <output file>
+
+DECRYPT :
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --login -p <usr-PIN> --decrypt --id <key-ID> -m AES-CBC-PAD --iv "00000000000000000000000000000000" -i <input file> -o <output file>
+
+AES-GCM ne marche pas
+pour avoir toute les méthodes : sudo pkcs11-tool --module $PKCS11_MODULE -M
+
+https://github.com/OpenSC/OpenSC/wiki/Using-pkcs11-tool-and-OpenSSL
+
+
+PKCS11 :
+formule de base = sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so
+
+créer clef = sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> --keygen --key-type aes:16 --id <clef-id> --label <clef-label>
+retirer clef = sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> -b --type secrkey --id <clef-ID>
+
+
+CRÉER UNE CLEF AVEC CE QU'ON VEUT DEDANS
+Générer une clé AES-128 remplie de zéros (16 octets) : echo -n "00000000000000000000000000000000" > aes_key.txt
+Convertir la clé hexadécimale en binaire : xxd -r -p aes_key.txt > aes_key.bin
+Afficher la clé générée (optionnel) : xxd aes_key.bin
+Importer dans le softhsm : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p 1111 --write-object aes_key.bin --type secrkey --key-type AES:16 --id 00 --label "clef AES avec des 0"
+
+A faire : 
+tester que ça marche avec des encryption test vectors.
+
+
+encryption test vectors : https://github.com/google/boringssl/blob/master/crypto/cipher_extra/test/cipher_tests.txt

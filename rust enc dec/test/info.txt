@@ -1,0 +1,3 @@
+cat clair.data | ./rucrypt arg > enc.data
+cat enc.data | ./rudecrypt arg > dec.data
+diff clair.data dec.data

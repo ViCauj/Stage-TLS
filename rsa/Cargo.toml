@@ -1,0 +1,10 @@
+[package]
+name = "rsa"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+primitive-types = "0.12.2"
+sha2 = "0.10.8"
+hex = "0.4.3"
+uint = "0.9"
