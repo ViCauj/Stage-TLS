@@ -1,43 +1,42 @@
-use primitive_types::U256;
+#![allow(dead_code)]
+
+use primitive_types::U512;
+use hex::{decode, encode};
 
 mod arithm;
 mod compress;
 mod point_op;
+mod sign;
 
-use compress::{comp, decomp, recup_x};
-use arithm::{inv_mod, mult};
-use point_op::mul;
+use sign::{check, signe};
 
 const P: &str = "57896044618658097711785492504343953926634992332820282019728792003956564819949";
 const D: &str = "37095705934669439343138083508754565189542113879843219016388785533085940283555";
 const Q: &str = "7237005577332262213973186563042994240857116359379907606001950938285454250989"; // 2**252 + 27742317777372353535851937790883648493
 
-const ZERO: U256 = U256([0, 0, 0, 0]);
-const UN: U256 = U256([1, 0, 0, 0]);
-const DEUX: U256 = U256([2, 0, 0, 0]);
-const TROIS: U256 = U256([3, 0, 0, 0]);
-const QUATRE: U256 = U256([4, 0, 0, 0]);
-const CINQ: U256 = U256([5, 0, 0, 0]);
+const ZERO: U512 = U512([0, 0, 0, 0, 0, 0, 0, 0]);
+const UN: U512 = U512([1, 0, 0, 0, 0, 0, 0, 0]);
+const DEUX: U512 = U512([2, 0, 0, 0, 0, 0, 0, 0]);
+const TROIS: U512 = U512([3, 0, 0, 0, 0, 0, 0, 0]);
+const QUATRE: U512 = U512([4, 0, 0, 0, 0, 0, 0, 0]);
+const CINQ: U512 = U512([5, 0, 0, 0, 0, 0, 0, 0]);
 
-fn main() {    
-    let p = U256::from_dec_str(P).unwrap();
+const KEY: &str = "833fe62409237b9d62ec77587520911e9a759cec1d19755b7da901b96dca3d42";
+const PUBKEY: &str = "ec172b93ad5e563bf4932c70e1245034c35467ef2efd4d64ebf819683467e2bf";
+const MSG: &str = "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f";
+const SIGN: &str = "dc2a4459e7369633a52b1bf277839a00201009a3efbf3ecb69bea2186c26b58909351fc9ac90b3ecfdfbc7c66431e0303dca179c138ac17ad9bef1177331a704";
 
-    let y = QUATRE*inv_mod(CINQ);
-    let x = recup_x(y, ZERO).unwrap();
-    let b = [x, y, UN, mult(x, y)];
+fn main() {   
+    let (pub_key, signature) = signe(&(decode(KEY).unwrap()).try_into().unwrap(), &(decode(MSG).unwrap()));
 
-    let mut pt = mul(&mut U256::from(2), &mut b.clone());
-    pt[1] = mult(pt[1], inv_mod(pt[2]));
-    pt[2] = UN;
-    
-    let pt_compress = comp(pt);
-    let pt_decompress = decomp(pt_compress);
-
-    println!("{:?}", pt[0]);
-    println!("{:?}\n", pt_decompress[0]);
-    println!("{:?}", pt[1]);
-    println!("{:?}\n", pt_decompress[1]);
-    println!("{:?}", mult(pt[3], inv_mod(pt[2])));
-    println!("{:?}\n", pt[3]);
-    assert!(b == pt_decompress);
+    assert!(encode(pub_key) == PUBKEY);
+    assert!(encode(signature) == SIGN);
+    assert!(check(pub_key, &(decode(MSG).unwrap()), signature));
 }
+
+
+// TODO : il faudrait modifier le trait Mul de U512 dans la crate primitive_type pour avoir une multiplication modulaire i.e a*b%p pour simplifier la lecture
+//        On pourrait faire pareil avec la division qui utiliserai Mul et inv_mod au lieux de faire une division classique
+
+// Pour vérifier add et/ou compress marche : https://asecuritysite.com/encryption/ed
+//                                           https://asecuritysite.com/nacl/nacl07?a=5

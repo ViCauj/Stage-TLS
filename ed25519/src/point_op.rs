@@ -1,26 +1,28 @@
-use primitive_types::U256;
+use primitive_types::U512;
 
 use crate::{
-    P,D,Q, 
-    ZERO,UN,DEUX,QUATRE,
-    arithm::{inv_mod, mult},
+    arithm::inv_mod, 
+    D, P,
+    DEUX, QUATRE, UN, ZERO
 };
 
-pub fn add(pt1: &[U256; 4],pt2: &[U256; 4]) -> [U256; 4]{
+pub fn add(pt1: &[U512; 4],pt2: &[U512; 4]) -> [U512; 4]{ // bizarre pour 10G on obtien pas le bon point 
     // retourne pt1 + pt2
     // On utilise les coordonées homogènes étendues pour simplifier et accélérer
-    let p = U256::from_dec_str(P).unwrap();
-    let d = U256::from_dec_str(D).unwrap();
+    let p = U512::from_dec_str(P).unwrap();
+    let d = U512::from_dec_str(D).unwrap();
 
     let [x, y, z, t]= pt1;
     let [i, j, k, l] = pt2;
 
-    println!("{}\n{}\n{}", t, l, d);
-
-    let (_a, _b) = (mult((y+p-x)%p,(j+p-i)%p), mult(x+y,i+j));
-    let (_c, _d) = (mult(mult(DEUX,*t), mult(*l,d)), mult(DEUX, mult(*z,*k)));
+    let (_a, _b) = ((((y+p-x)%p)*((j+p-i)%p))%p, ((x+y)*(i+j))%p);
+    let (_c, _d) = (DEUX*t%p*l%p*d%p, DEUX*z%p*k%p);
     let (_e, _f,_g,_h) = ((_b+p-_a)%p, (_d+p-_c)%p, (_d+_c)%p, (_b+_a)%p);
-    [mult(_e,_f)/QUATRE, mult(_g,_h)/QUATRE, mult(_f,_g)/QUATRE, mult(_e,_h)/QUATRE] // entre 2
+
+    let invquatre = inv_mod(QUATRE);
+    let invt = inv_mod(_f*_g%p*invquatre%p);
+    [_e*_f%p*invquatre%p*invt%p, _g*_h%p*invquatre%p*invt%p, UN, _e*_h%p*invquatre%p*invt%p] // Convention pour avoir unicité de l'écriture du point en coordonée homogène étendue (on impose T=1) pour garantir la compression et décompression
+    // [_e*_f%p*invquatre%p, _g*_h%p*invquatre%p, _f*_g%p*invquatre%p, _e*_h%p*invquatre%p]
 
     // PB avec la doc : 
 
@@ -35,7 +37,7 @@ pub fn add(pt1: &[U256; 4],pt2: &[U256; 4]) -> [U256; 4]{
 
 // TODO : fn double {} <- Plus rapide
 
-pub fn mul(s: &mut U256, pt: &mut [U256; 4]) -> [U256; 4] {
+pub fn mul(s: &mut U512, pt: &mut [U512; 4]) -> [U512; 4] {
     // retourne s x pt
     // On utilise les coordonées homogènes étendues pour simplifier et accélérer
     let mut e = [ZERO, UN, UN, ZERO]; // element neutre
@@ -50,14 +52,14 @@ pub fn mul(s: &mut U256, pt: &mut [U256; 4]) -> [U256; 4] {
     e
 }
 
-pub fn equ(pt1: [U256; 4], pt2: [U256; 4]) -> bool {
+pub fn equ(pt1: [U512; 4], pt2: [U512; 4]) -> bool {
     // On regarde si les coordonées affines (!=coordonées homogènes étendues) x et y sont les mêmes sans faire de divisions
-    let p = U256::from_dec_str(P).unwrap();
+    let p = U512::from_dec_str(P).unwrap();
 
     let [x, y, z, _t]= pt1;
     let [i, j, k, _l] = pt2;
 
-    if ((x*k - i*z)%p != ZERO) || ((y*k - j*z)%p != ZERO) {
+    if ((x*k + p - i*z)%p != ZERO) || ((y*k + p - j*z)%p != ZERO) {
         return false
     }
     true

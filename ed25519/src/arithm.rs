@@ -1,36 +1,31 @@
-use primitive_types::{U256, U512};
+use primitive_types::U512;
 
-use crate::P;
+use crate::{
+    P,
+    ZERO,UN,DEUX
+};
 
-pub fn mult(a: U256, b: U256) -> U256 { // à améliorer et mieux, à implémenter directement dans le type U256??
-    let p = U256::from_dec_str(P).unwrap();
-    return  U256::try_from(U512::from(a)*U512::from(b)%p).unwrap()
-}
-
-pub fn pow_mod(base: U256, exp: U256) -> U256 {
+pub fn pow_mod(base: U512, exp: U512) -> U512 {
     // expo rapide modulaire
-    // j'aimerai bien ne pas avoir à passer en U512...
 
-    let p = U256::from_dec_str(P).unwrap();
-    let mut res = U512::from(1);
+    let p = U512::from_dec_str(P).unwrap();
+    let mut res = UN;
     let mut base = U512::from(base%p);
     let mut exponent = U512::from(exp);
 
-    while exponent > U512::from(0){
-        if (exponent & U512::from(1)) != U512::from(0) {
+    while exponent > ZERO{
+        if (exponent & UN) != ZERO {
             res = (res*base)%p;
         }
         exponent = exponent >> 1;
         base = (base*base)%p;
     }
 
-    U256::try_from(res).unwrap()
+    res
 }
 
-
-
-pub fn inv_mod(x: U256) -> U256 {
+pub fn inv_mod(x: U512) -> U512 {
     // x^-1 = x^(p-2) [p]
-    let p = U256::from_dec_str(P).unwrap();
-    return pow_mod(x, p-2);
+    let p = U512::from_dec_str(P).unwrap();
+    return pow_mod(x, p-DEUX);
 }
