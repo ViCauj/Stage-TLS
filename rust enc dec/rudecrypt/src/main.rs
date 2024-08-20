@@ -26,11 +26,3 @@ fn main() {
         eprintln!("Argument invalide (\"aes\" ou \"cha\")");
     }
 }
-
-fn _recup_arg() {
-    
-}
-// todo : 
-//  -utiliser clap pour gérer les options comme :
-//      -"cat clair.data | rucrypt -c des > enc.data" pour chiffrer
-//      -"cat enc.data | rucrypt -d des > clair.data" pour déchiffrer...

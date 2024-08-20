@@ -1,0 +1,11 @@
+/home/vincent/GIT/rust enc dec/rudecrypt/target/debug/deps/libchacha20-59f8cc304c579f18.rmeta: /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/lib.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/legacy.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/xchacha.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/soft.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/avx2.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/sse2.rs
+
+/home/vincent/GIT/rust enc dec/rudecrypt/target/debug/deps/chacha20-59f8cc304c579f18.d: /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/lib.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/legacy.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/xchacha.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/soft.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/avx2.rs /home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/sse2.rs
+
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/lib.rs:
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends.rs:
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/legacy.rs:
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/xchacha.rs:
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/soft.rs:
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/avx2.rs:
+/home/vincent/.cargo/registry/src/index.crates.io-6f17d22bba15001f/chacha20-0.9.1/src/backends/sse2.rs:
