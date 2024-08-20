@@ -30,3 +30,24 @@ fn main() -> Result<()> {
 
     Ok(())
 }
+
+// chiffrement au cours de l'eau : 
+    // let mut buffer = [0; 1024];
+    
+    // // Boucle de lecture/écriture
+    // loop {
+    //     // Lire un morceau de données depuis stdin
+    //     let bytes_read = io::stdin().read(&mut buffer)?;
+    //     if bytes_read == 0 {
+    //         break; // Fin du flux
+    //     }
+
+    //     // Chiffrer les données lues
+    //     let encrypted_data = aes_gcm::enc(&buffer[..bytes_read]);
+
+    //     // Écrire les données chiffrées sur stdout
+    //     io::stdout().write_all(&encrypted_data)?;
+    // }
+
+    // // Assurez-vous que tout est écrit dans stdout
+    // io::stdout().flush()?;
