@@ -1,1 +1,1 @@
-/home/vincent/GIT/rust\ enc\ dec/rucrypt/target/release/rucrypt: /home/vincent/GIT/rust\ enc\ dec/rucrypt/src/aes_gcm.rs /home/vincent/GIT/rust\ enc\ dec/rucrypt/src/chacha_poly.rs /home/vincent/GIT/rust\ enc\ dec/rucrypt/src/main.rs
+/home/vincent/GIT/enc_dec/rucrypt/target/release/rucrypt: /home/vincent/GIT/enc_dec/rucrypt/src/aes_gcm.rs /home/vincent/GIT/enc_dec/rucrypt/src/aes_gcm_stream.rs /home/vincent/GIT/enc_dec/rucrypt/src/chacha_poly.rs /home/vincent/GIT/enc_dec/rucrypt/src/main.rs

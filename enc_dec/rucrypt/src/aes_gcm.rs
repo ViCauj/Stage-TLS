@@ -1,6 +1,6 @@
 use aes_gcm::{
     aead::{Aead, AeadCore, KeyInit, OsRng},
-    Aes256Gcm
+    Aes256Gcm,
 };
 use rsa::{pkcs1::DecodeRsaPublicKey, Pkcs1v15Encrypt, RsaPublicKey};
 
@@ -14,6 +14,7 @@ pub fn enc(data: Vec<u8>) -> Vec<u8> {
     let cipher = Aes256Gcm::new(&key);
     let nonce = Aes256Gcm::generate_nonce(&mut OsRng); // 96-bits; unique per message
     let ciphertext = cipher.encrypt(&nonce, data.as_slice()).unwrap();
+    eprintln!("{}", hex::encode(ciphertext.clone()));
 
     vec![enc_key, nonce.to_vec(), ciphertext].concat()
 }
