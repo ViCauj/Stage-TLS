@@ -17,6 +17,13 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+% Pour des environement pour le code
+\usepackage{listings}
+
+% Pour la biblio
+\usepackage{biblatex}
+\addbibresource{biblio.bib}
+
 % Def couleurs
 
 
@@ -55,8 +62,8 @@
 \end{enumerate}
 \newpage
 
-\section{Attaque d'AES CBC}
-\subsection{AES}
+\section{AES}
+\noindent\emph{Toutes les informations qui m'ont permis d'écrir cette section sont directement tiré de \cite{courslong}.}\\
 
 Face au manque de standard de chiffrement par block, NIST (National Institute of Standards and Technology) a lancé un concours en 1997 pour créer un nouveau standard de chiffrement: AES (Advance Encryption Strandard).
 
@@ -122,7 +129,7 @@ On XOR la sortie de chaque round avec une clef $k_i$ (calculé à partir de la c
 \label{AES_fonctionnement}
 \end{figure}
 
-\subsubsection{Permutation $\Pi$}
+\subsection{Permutation $\Pi$}
 Cette permutation est propre à AES (ne dépend pas de la clef secrète et peut être calculé à l'avance. Cela permet d'avoir un processus de chiffrement très efficace). Elle est le résultat de la composition de 3 sous-permutations (toutes inversible). Pour mieux comprendre comment ces 3 sous-permutations marchent, il faut réorganiser le block de 128 bits en une matrice de taille $4\times4$ où chaque cellule contient un byte.
 
 \begin{figure}[h]
@@ -257,7 +264,7 @@ $$
 \end{bmatrix}
 $$
 
-\subsubsection{Permutation $\hat{\Pi}$}
+\subsection{Permutation $\hat{\Pi}$}
 Généralement on préfère utiliser $\hat{\Pi}$ au lieu de $\Pi$  au dernier round pour avoir un algorithme de déchiffrement quasiment identique que celui de chiffrement. Avec $\hat{\Pi}$ défini tel que :
 $$
 \begin{bmatrix}
@@ -276,7 +283,7 @@ $$
 $$
 C'est exactement $\Pi$ mais sans la permutation $\mathtt{MixColumns}$. 
 
-\subsubsection{Création des clefs $k_i$}\label{clefki}
+\subsection{Création des clefs $k_i$}\label{clefki}
 A partir d'une clef secrète $k$ (de 128 bits) il faut créer une série de clefs $k_0\dots k_{10}$.
 Pour ça on sépare cette clef en 4 mots de 32 bits (4 byte) chacun.
 
@@ -307,9 +314,11 @@ $$
 \end{cases}
 $$
 
-\noindent Avec $g: \{0,1\}^{32} \rightarrow \{0,1\}^{32}$ une fonction tirée des standards d'AES. 
+\noindent Avec $g: \{0,1\}^{32} \rightarrow \{0,1\}^{32}$ une fonction tirée des standards d'AES.
 
-\subsection{CBC}\label{sectioncbc}
+\section{AES CBC}\label{sectioncbc}
+\noindent\emph{Toutes les informations qui m'ont permis d'écrir cette section sont directement tiré de \cite{courscourt}.}\\
+
 A lui seul, AES ne permet de chiffrer que des blocks de 128 bits. On pourrait se dire qu'il suffit d'appliquer AES sur l'ensemble des blocks (c'est le mode ECB). 
 
 \begin{figure}[h]
@@ -344,9 +353,9 @@ A lui seul, AES ne permet de chiffrer que des blocks de 128 bits. On pourrait se
 \label{ilu_ECB}
 \end{figure}
 
-Mais, si on utilise la même clef sur plusieurs blocks, le chiffré deviens est très facile à déchiffrer. Il faudrait donc autant de clefs que de blocks ce qui doublerai la taille du message chiffré. \\
+Mais, si on utilise la même clef sur plusieurs blocks, le chiffré deviens est très facile à déchiffrer. Il faudrait donc autant de clefs que de blocks pour assurer un chiffrement sécurisé. Cela doublerai la taille du message chiffré et n'est donc pas utilisé. \\
 
-Il faut donc rajouter une couche supplémentaire pour pouvoir utilser AES afin de chiffrer ce que l'on veut. Ici on s'intéresse à un mode d'utilisation d'AES mais il en existe beaucoup plus. (Dans la réalité, un seul prédomine : Galois Counter Mode (GCM)). Le foncionement du chiffrement avec le mode CBC est décrit figure \ref{ilu_cbc}
+Il faut donc rajouter une couche supplémentaire pour pouvoir utilser AES afin de chiffrer ce que l'on veut. On s'intéresse ici au mode CBC (Cipher Block Chaining). Son fonctionnement est décrit sur la figure \ref{ilu_cbc}
 
 \begin{figure}[h]
 \centering
@@ -604,13 +613,324 @@ On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}.
 \label{dechif_cbc}
 \end{figure}
 
+\section{AES GCM}
+\noindent\emph{Toutes les informations qui m'ont permis d'écrir cette section sont directement tiré de \cite{courscourt}.}\\
+
+
+On s'est intéressé dans la section précédente au mode CBC en montrant qu'AES CBC était facilement attaquable et donc pas fiable. On s'intéresse ici au mode GCM (Galois Counter Mode), le mode d'utilisation le plus courant d'AES. Comme pour AES CBC, AES GCM fait des opérations sur des blocks de 128 bits pour permettre de chiffrer de grands fichier. Mais, à la différence d'AES CBC, AES GCM utilise un algorithme d'authentification en parallle du chiffrement ce qui permet d'assurer que le chiffré n'a pas été changé. Cette deuxième partie est essentielle car il a été montré qu'un algorithme de chiffrement non authentifié est quasiment systématiquement attaquable.
+
+\subsection{CTR} \label{CTR}
+Comme CBC, CTR (Counter) est un mode de manipulation des blocks qui permet de chiffrer des données avec des algorithme de chiffrement par blocks (comme AES) tout en garantisant un certain niveau de sécurité. CTR est le mode utilisé dans GCM mais sans l'authentification.Il est assez similaire à CBC mais à comme gros avantage de ne pas obliger de rajouter un padding à la fin des données clairs.
+
+Son fonctionement est décrit sur la figure \ref{aesctr}. \emph{Le $+1$ signifie qu'on incrémente de 1 l'IV généré aléatoirement.}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% message clair
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, 0) rectangle (\x+2, 0.5);
+		\node[align=center]  at (\x+1, 0.25) {$m_{\n}$};
+	}
+	\node[align=center]  at (5, 0.25) {$\dots$};
+
+	% message caché
+	\draw (-2,-3.25) rectangle (0,-2.75);
+	\node[align=center]  at (-1, -3) {IV};
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -3.25) rectangle (\x+2, -2.75);
+		\node[align=center]  at (\x+1, -3) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, -3) {$\dots$};
+	
+	\node[draw, rectangle, align=center, scale = 0.75] (x1) at (1,-1.25) {$\text{AES}_k$};
+	\node[align=center, scale=1.5] (e1) at (1,-2) {$\oplus$};
+	\node[draw, rectangle, align=center, scale = 0.75] (x2) at (3,-1.25) {$\text{AES}_k$};
+	\node[align=center, scale=1.5] (e2) at (3,-2) {$\oplus$};
+
+	\draw[line width = 0.6mm] (x1.south) -- (e1.north);
+	\draw[->, line width = 0.6mm] (e1.south) -- (1, -2.75);
+	
+	\draw[line width = 0.6mm] (x2.south) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (3, -2.75);
+	
+	\node[align=center, scale = 0.75] (c1) at (1.5,-0.5) {$+1$};
+	\node[align=center, scale = 0.75] (c2) at (3.5,-0.5) {$+1$};
+
+	
+	\draw[-, line width = 0.6mm] (-0.5,-2.75) -- (-0.5, -1);
+	\draw[-, line width = 0.6mm] (-0,-0.5) -- (c1.west);
+	\draw[-, line width = 0.6mm] (-0.5,-1) to[out=90, in=180] (0, -0.5);
+
+	\draw[-, line width = 0.6mm] (c1.east) -- (c2.west);
+	\draw[->, line width = 0.6mm] (c2.east) -- (4.5, -0.5);
+
+	\draw[->, line width = 0.6mm] (0.5,-0.5) to[out=0, in=90] (x1.north);
+	\draw[->, line width = 0.6mm] (2.5,-0.5) to[out=0, in=90] (x2.north);
+
+	\draw[white, line width = 1mm] (0.1,-0.5) -- (0.3,-0.5);
+	\draw[white, line width = 1mm] (2.1,-0.5) -- (2.3,-0.5);
+	\draw[->, line width = 0.6mm] (0.25,0) to[out=270, in=180] (e1.west);
+	\draw[->, line width = 0.6mm] (2.25,0) to[out=270, in=180] (e2.west);
+
+\end{tikzpicture}
+\caption{Fonctionnement d'AES CTR, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
+\label{aesctr}
+\end{figure}
+
+\subsection{GMAC} \label{GMAC}
+
+Pour obtenir GCM il faut rajouter une étape d'authentification. Elle est fait par un algorithme incrémental GMAC (Galois Message Authentification Code). Cet algorithme produit au cours du chiffrement des blocks un Tag qui résume de manière sécurisé toutes les informations sur la donné à chiffré. L'intéret de cela est que chaque entrée produira un Tag unique. Donc si quelqu'un a modifié le chiffré, alors il y aura une erreur lors du déchiffrement.Cela permet de garantir que la donné que vous déchiffrez est bien celle que l'on souhaite récupérer.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+
+	% message caché
+	\draw (-2,-3.25) rectangle (0,-2.75);
+	\node[align=center]  at (-1, -3) {IV};
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -3.25) rectangle (\x+2, -2.75);
+		\node[align=center]  at (\x+1, -3) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, -3) {$\dots$};
+	\node[align=center] (x) at (5, -3.9) {$\dots$};
+	\node[align=center] (xx) at (5, -5.2) {$\dots$};
+
+	\draw (6, -3.25) rectangle (8, -2.75);
+	\node[align=center]  at (7, -3) {$c_{n}$};
+	\draw (8, -3.25) rectangle (10, -2.75);
+	\node[align=center]  at (9, -3) {Tag};
+
+	\node[draw, rectangle, align=center, scale = 0.75] (add) at (-1,-3.9) {AAD};
+	\node[draw, rectangle, align=center, scale = 0.75] (len) at (7,-4.8) {Taille du chiffré et de l'AAD};
+
+	
+	\node[align=center] (x0) at (0,-3.9) {$\times \text{H}$};
+	\node[align=center] (x1) at (1,-3.9) {$\bigoplus$};
+	\node[align=center] (x2) at (2,-3.9) {$\times \text{H}$};
+	\node[align=center] (x3) at (3,-3.9) {$\bigoplus$};
+	\node[align=center] (x4) at (4,-3.9) {$\times \text{H}$};
+	\node[align=center] (x5) at (6,-3.9) {$\times \text{H}$};
+	\node[align=center] (x6) at (7,-3.9) {$\bigoplus$};
+	\node[align=center] (x7) at (8,-3.9) {$\times \text{H}$};
+	\node[align=center] (x8) at (9,-3.9) {$\bigoplus$};
+	\node[align=center] (x9) at (10,-3.9) {$\times \text{H}$};
+	\node[align=center] (x10) at (11,-3.9) {$\bigoplus$};
+
+	\draw[-, line width = 0.6mm] (add.east) -- (x0.west);
+	\draw[->, line width = 0.6mm] (x0.east) -- (x1.west);
+	\draw[-, line width = 0.6mm] (x1.east) -- (x2.west);
+	\draw[->, line width = 0.6mm] (x2.east) -- (x3.west);
+	\draw[-, line width = 0.6mm] (x3.east) -- (x4.west);
+	\draw[-, line width = 0.6mm] (x4.east) -- (x.west);
+	\draw[-, line width = 0.6mm] (x.east) -- (x5.west);
+	\draw[->, line width = 0.6mm] (x5.east) -- (x6.west);
+	\draw[-, line width = 0.6mm] (x6.east) -- (x7.west);
+	\draw[->, line width = 0.6mm] (x7.east) -- (x8.west);
+	\draw[-, line width = 0.6mm] (x8.east) -- (x9.west);
+	\draw[->, line width = 0.6mm] (x9.east) -- (x10.west);
+
+	\node[draw, rectangle, align=center, scale = 0.75] (aesiv) at (3,-5.2) {$\text{AES}_k$};
+
+	\draw[-, line width = 0.6mm] (-1.7, -3.25) -- (-1.7, -4.7);
+	\draw[-, line width = 0.6mm] (-1.7, -4.7) to[out=270, in=180] (-1.2,-5.2);
+	\draw[->, line width = 0.6mm] (-1.2,-5.2) -- (aesiv.west);
+	\draw[-, line width = 0.6mm] (aesiv.east) -- (xx.west);
+	\draw[-, line width = 0.6mm] (xx.east) -- (10.5,-5.2);
+	\draw[->, line width = 0.6mm] (10.5,-5.2) to[out=0, in=270] (x10.south);
+
+	\draw[->, line width = 0.6mm] (1, -3.25) -- (x1.north);
+	\draw[->, line width = 0.6mm] (3, -3.25) -- (x3.north);
+	\draw[->, line width = 0.6mm] (7, -3.25) -- (x6.north);
+	\draw[->, line width = 0.6mm] (len.east) to[out=0, in=270] (x8.south);
+	\draw[-, line width = 0.6mm] (x10.north) -- (11,-3.4);
+	\draw[-, line width = 0.6mm] (11,-3.4) to[out=90, in=0] (10.5,-3);
+	\draw[->, line width = 0.6mm] (10.5,-3) -- (10, -3);
+
+\end{tikzpicture}
+\caption{Fonctionnement du GMAC, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, et $\times \text{H}$ la multiplication dans $GF\left(2^{128}\right)$ par $\text{H} = \text{AES}_k\left({0}^{128}\right)$.}
+\label{gmac}
+\end{figure}
+
+Dans la figure \ref{gmac}, une nouvelle entrée, appelée AAD (Additional Authenticated Data), est introduite. L'AAD est une donnée que l'on souhaite authentifier, mais pas nécessairement chiffrer. Par exemple, imaginons que vous envoyez un mot de passe accompagné d'une adresse web. Vous voudriez chiffrer le mot de passe pour le protéger, tout en laissant l'adresse en clair. Cependant, si l'adresse n'est pas authentifiée, un attaquant pourrait la modifier, et vous ne le sauriez pas lors du déchiffrement. L'AAD permet de protéger contre ce risque en garantissant que l'adresse n'a pas été altérée."
+
+\subsection{GCM}
+
+GCM est la combinaison du mode CTR (voir \ref{CTR}) et de la création d'un Tag avec GMAC (voir \ref{GMAC}). Combiné à AES, cela nous donne l'algorithme de chiffrement authentifié le plus largement utilisé. Son fonctionement est décrit sur la figure \ref{aesgcm}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	% message clair
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, 0) rectangle (\x+2, 0.5);
+		\node[align=center]  at (\x+1, 0.25) {$m_{\n}$};
+	}
+	\node[align=center]  at (5, 0.25) {$\dots$};
+	\node[align=center] (x) at (5, -0.5) {$\dots$};
+
+	\draw (6, 0) rectangle (8, 0.5);
+	\node[align=center]  at (7, 0.25) {$m_{n}$};
+	
+	\node[draw, rectangle, align=center, scale = 0.75] (x1) at (1,-1.25) {$\text{AES}_k$};
+	\node[align=center] (e1) at (1,-2) {$\bigoplus$};
+	\node[draw, rectangle, align=center, scale = 0.75] (x2) at (3,-1.25) {$\text{AES}_k$};
+	\node[align=center] (e2) at (3,-2) {$\bigoplus$};
+	\node[draw, rectangle, align=center, scale = 0.75] (x3) at (7,-1.25) {$\text{AES}_k$};
+	\node[align=center] (e3) at (7,-2) {$\bigoplus$};
+
+
+
+	\draw[line width = 0.6mm] (x1.south) -- (e1.north);
+	\draw[->, line width = 0.6mm] (e1.south) -- (1, -2.75);
+	
+	\draw[line width = 0.6mm] (x2.south) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (3, -2.75);
+
+	\draw[line width = 0.6mm] (x3.south) -- (e3.north);
+	\draw[->, line width = 0.6mm] (e3.south) -- (7, -2.75);
+	
+	\node[align=center, scale = 0.75] (c1) at (1.5,-0.5) {$+1$};
+	\node[align=center, scale = 0.75] (c2) at (3.5,-0.5) {$+1$};
+	
+	\draw[-, line width = 0.6mm] (-0.5,-2.75) -- (-0.5, -1);
+	\draw[-, line width = 0.6mm] (-0,-0.5) -- (c1.west);
+	\draw[-, line width = 0.6mm] (-0.5,-1) to[out=90, in=180] (0, -0.5);
+
+	\draw[-, line width = 0.6mm] (c1.east) -- (c2.west);
+	\draw[-, line width = 0.6mm] (c2.east) -- (4.5, -0.5);
+
+	\draw[->, line width = 0.6mm] (0.5,-0.5) to[out=0, in=90] (x1.north);
+	\draw[->, line width = 0.6mm] (2.5,-0.5) to[out=0, in=90] (x2.north);
+	\draw[-, line width = 0.6mm] (x.east) -- (6.5, -0.5);
+	\draw[->, line width = 0.6mm] (6.5,-0.5) to[out=0, in=90] (x3.north);
+
+	\draw[white, line width = 1mm] (0.1,-0.5) -- (0.3,-0.5);
+	\draw[white, line width = 1mm] (2.1,-0.5) -- (2.3,-0.5);
+	\draw[white, line width = 1mm] (6.1,-0.5) -- (6.3,-0.5);
+	\draw[->, line width = 0.6mm] (0.25,0) to[out=270, in=180] (e1.west);
+	\draw[->, line width = 0.6mm] (2.25,0) to[out=270, in=180] (e2.west);
+	\draw[->, line width = 0.6mm] (6.25,0) to[out=270, in=180] (e3.west);
+
+
+	% message caché
+	\draw (-2,-3.25) rectangle (0,-2.75);
+	\node[align=center]  at (-1, -3) {IV};
+	\foreach \x in {0,2} {
+		\pgfmathtruncatemacro{\n}{(\x)/2+1}
+		\draw (\x, -3.25) rectangle (\x+2, -2.75);
+		\node[align=center]  at (\x+1, -3) {$c_{\n}$};
+	}
+	\node[align=center]  at (5, -3) {$\dots$};
+	\node[align=center] (x) at (5, -3.9) {$\dots$};
+	\node[align=center] (xx) at (5, -5.2) {$\dots$};
+
+	\draw (6, -3.25) rectangle (8, -2.75);
+	\node[align=center]  at (7, -3) {$c_{n}$};
+	\draw (8, -3.25) rectangle (10, -2.75);
+	\node[align=center]  at (9, -3) {Tag};
+
+	\node[draw, rectangle, align=center, scale = 0.75] (add) at (-1,-3.9) {AAD};
+	\node[draw, rectangle, align=center, scale = 0.75] (len) at (7,-4.8) {Taille du chiffré et de l'AAD};
+
+	
+	\node[align=center] (x0) at (0,-3.9) {$\times \text{H}$};
+	\node[align=center] (x1) at (1,-3.9) {$\bigoplus$};
+	\node[align=center] (x2) at (2,-3.9) {$\times \text{H}$};
+	\node[align=center] (x3) at (3,-3.9) {$\bigoplus$};
+	\node[align=center] (x4) at (4,-3.9) {$\times \text{H}$};
+	\node[align=center] (x5) at (6,-3.9) {$\times \text{H}$};
+	\node[align=center] (x6) at (7,-3.9) {$\bigoplus$};
+	\node[align=center] (x7) at (8,-3.9) {$\times \text{H}$};
+	\node[align=center] (x8) at (9,-3.9) {$\bigoplus$};
+	\node[align=center] (x9) at (10,-3.9) {$\times \text{H}$};
+	\node[align=center] (x10) at (11,-3.9) {$\bigoplus$};
+
+	\draw[-, line width = 0.6mm] (add.east) -- (x0.west);
+	\draw[->, line width = 0.6mm] (x0.east) -- (x1.west);
+	\draw[-, line width = 0.6mm] (x1.east) -- (x2.west);
+	\draw[->, line width = 0.6mm] (x2.east) -- (x3.west);
+	\draw[-, line width = 0.6mm] (x3.east) -- (x4.west);
+	\draw[-, line width = 0.6mm] (x4.east) -- (x.west);
+	\draw[-, line width = 0.6mm] (x.east) -- (x5.west);
+	\draw[->, line width = 0.6mm] (x5.east) -- (x6.west);
+	\draw[-, line width = 0.6mm] (x6.east) -- (x7.west);
+	\draw[->, line width = 0.6mm] (x7.east) -- (x8.west);
+	\draw[-, line width = 0.6mm] (x8.east) -- (x9.west);
+	\draw[->, line width = 0.6mm] (x9.east) -- (x10.west);
+
+	\node[draw, rectangle, align=center, scale = 0.75] (aesiv) at (3,-5.2) {$\text{AES}_k$};
+
+	\draw[-, line width = 0.6mm] (-1.7, -3.25) -- (-1.7, -4.7);
+	\draw[-, line width = 0.6mm] (-1.7, -4.7) to[out=270, in=180] (-1.2,-5.2);
+	\draw[->, line width = 0.6mm] (-1.2,-5.2) -- (aesiv.west);
+	\draw[-, line width = 0.6mm] (aesiv.east) -- (xx.west);
+	\draw[-, line width = 0.6mm] (xx.east) -- (10.5,-5.2);
+	\draw[->, line width = 0.6mm] (10.5,-5.2) to[out=0, in=270] (x10.south);
+
+	\draw[->, line width = 0.6mm] (1, -3.25) -- (x1.north);
+	\draw[->, line width = 0.6mm] (3, -3.25) -- (x3.north);
+	\draw[->, line width = 0.6mm] (7, -3.25) -- (x6.north);
+	\draw[->, line width = 0.6mm] (len.east) to[out=0, in=270] (x8.south);
+	\draw[-, line width = 0.6mm] (x10.north) -- (11,-3.4);
+	\draw[-, line width = 0.6mm] (11,-3.4) to[out=90, in=0] (10.5,-3);
+	\draw[->, line width = 0.6mm] (10.5,-3) -- (10, -3);
+
+	\fill[green!20, opacity=0.5] (-0.8,-0.1) rectangle (7.7,-2.5);
+	\fill[red!20, opacity=0.5] (-2.2,-3.4) rectangle (11.5,-5.6);
+\end{tikzpicture}
+\caption{Fonctionnement d'AES GCM avec en vert CTR et en rouge GMAC}
+\label{aesgcm}
+\end{figure}
+
+\\
+\noindent Pour résumer, AES GCM prend 4 entrées : 
+\begin{enumerate}
+	\item un nonce (ou IV) généré aléatoirement (que l'on choisit de mettre au début du chiffré pour réduir le nombre d'objets à stoquer).
+	\item une clef (de préférence généré aléatoirement)
+	\item des données à chiffrer et authentifier 
+	\item des données à authentifier (on peut aussi ne pas en fournir)
+\end{enumerate}
+\noindent et fournit 2 sorties :
+\begin{enumerate}
+	\item Le chiffré de la donné à chiffrer
+	\item Le tag associé aux entrées (mis à la fin du chiffré)
 \section{SOFTHSM}
 \section{Signature}
 \subsection{RSA}
-\subsection{Courbe elliptiques}
+\subsection{Courbe elliptiques avec Ed25519}
+
+\section{Mise en place d'un programme de chiffrement/déchiffrement}
+\subsection{Contexte}
+Maintenant que j'ai pris connaissance des algorithmes pour chiffrer et signer des données, je dois mettre en place une solution écrite en Rust qui permettra de chiffrer et de déchiffrer des fichiers. Cette solution devra permettre d'utiliser soit AES-GCM, soit ChaCha20-Poly1305 (un autre algorithme de chiffrement non détaillé précédemment).
+
+Une optimisation que je pourrais envisager serait de proposer une version qui chiffrerait "au fil de l'eau", c'est-à-dire de manière progressive, bloc par bloc, à mesure que les données sont lues ou écrites. Cette méthode présente l'avantage de maintenir un coût constant en espace mémoire, car elle ne nécessite pas de charger l'intégralité du fichier en mémoire avant de le chiffrer.
+
+Pour exécuter ce programme de chiffrement, il suffira d'utiliser les commandes suivantes :
+\begin{verbatim}
+
+cat enc.data | ./rudecrypt options > dec.data
+\end{verbatim}
+Les options permettront de choisir l'algorithme utilisé. Pour le moment peuvent soit valoir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou encore "aes\_stream" pour la version au fil de l'eau d'AES-GCM.\\
 
 
+\noindent\emph{le programme de chifrement s'appelle rucrypt et celui de déchifrement rudecrypt}
+
+\subsection{Mise en place}
+Cette fois-ci, contrairement à Ed25519, je n'ai pas tout reprogrammé. J'ai décidé d'utiliser des crates de confiance, largement éprouvées. Pour les identifier, je me suis aidé d'un site qui référence toutes les solutions couramment utilisées pour la cryptographie en Rust \cite{bddrustcrypto}. J'utilise AES 256 (voir le tableau \ref{AES-versions}). Pour chaque algorithme, je dois donc générer, avant le chiffrement, une clé de 32 octets (256 bits) et un nonce (vecteur d'initialisation) de 12 octets (96 bits). Il est démontré que cacher le nonce n'a aucun intérêt en termes de sécurité. Je place donc le nonce en clair avant le texte chiffré. \\
+
+On pourrait s'arrêter là, mais il est possible d'ajouter un niveau de sécurité supplémentaire. Actuellement, le chiffrement et le déchiffrement se font avec une seule clé (c'est-à-dire une clé symétrique). Le problème de cette symétrie est que toute personne ayant accès à cette clé peut lire le message en clair. Dans le cadre de ma mission, cela représente une potentielle faille. En effet, le but final de ce programme est de permettre la création de sauvegardes chiffrées de données. Il est donc préférable d'utiliser une clé asymétrique (une pour le chiffrement et une pour le déchiffrement). Dans ce cas de figure, tout le monde peut effectuer une sauvegarde de ses fichiers, mais seules les personnes autorisées pourront les récupérer, cela permet de garder le contrôle sur les flux. Pour cette raison, je génère une clé privée et une clé publique RSA, avec laquelle je chiffre ma clé symétrique. Ainsi, seule la personne en possession de la clé privée pourra déchiffrer le document. Pour plus de simplicité, je place la clé symétrique chiffrée avant le nonce.
 
 
+$$
+\text{rucrypt(data)} \rightarrow \fbox{RSA(clef symétrique) | nonce | data chiffré}
+$$
 
+
+\printbibliography
 \end{document}

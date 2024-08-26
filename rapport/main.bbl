@@ -1,0 +1,84 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{courslong}{book}{}
+      \name{author}{2}{}{%
+        {{hash=9ef331cc9e5b527723547dfa1becd8cf}{%
+           family={Boneh},
+           familyi={B\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b7ce99f593e2c7899b27afe41a6c28a0}{%
+           family={Shoup},
+           familyi={S\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{61296e972e6f9c9501e49f774412a620}
+      \strng{fullhash}{61296e972e6f9c9501e49f774412a620}
+      \strng{bibnamehash}{61296e972e6f9c9501e49f774412a620}
+      \strng{authorbibnamehash}{61296e972e6f9c9501e49f774412a620}
+      \strng{authornamehash}{61296e972e6f9c9501e49f774412a620}
+      \strng{authorfullhash}{61296e972e6f9c9501e49f774412a620}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Graduate Course In Applied Cryptography}
+      \field{year}{2023}
+    \endentry
+    \entry{courscourt}{book}{}
+      \name{author}{1}{}{%
+        {{hash=98419613b7fd8103780e4fc807177469}{%
+           family={Rosulek},
+           familyi={R\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{98419613b7fd8103780e4fc807177469}
+      \strng{fullhash}{98419613b7fd8103780e4fc807177469}
+      \strng{bibnamehash}{98419613b7fd8103780e4fc807177469}
+      \strng{authorbibnamehash}{98419613b7fd8103780e4fc807177469}
+      \strng{authornamehash}{98419613b7fd8103780e4fc807177469}
+      \strng{authorfullhash}{98419613b7fd8103780e4fc807177469}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Joy of Cryptography}
+      \field{year}{2021}
+    \endentry
+    \entry{bddrustcrypto}{online}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{title}{Showcase of notable cryptography libraries developed in Rust}
+      \verb{urlraw}
+      \verb cryptography.rs
+      \endverb
+      \verb{url}
+      \verb cryptography.rs
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

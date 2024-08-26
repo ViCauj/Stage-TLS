@@ -9,3 +9,6 @@
 \contentsline {figure}{\numberline {8}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{11}{}%
 \contentsline {figure}{\numberline {9}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{12}{}%
 \contentsline {figure}{\numberline {10}{\ignorespaces Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}}{13}{}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Fonctionnement d'AES CTR, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{14}{}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Fonctionnement du GMAC, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, et $\times \text {H}$ la multiplication dans $GF\left (2^{128}\right )$ par $\text {H} = \text {AES}_k\left ({0}^{128}\right )$.}}{14}{}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Fonctionnement d'AES GCM avec en vert CTR et en rouge GMAC}}{15}{}%
