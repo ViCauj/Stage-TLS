@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1724421280.20809 "main.bcf" "main.bbl" "main" 1724680214.35318 0
+["biber main"] 1724685376.88519 "main.bcf" "main.bbl" "main" 1724686576.48578 0
   "biblio.bib" 1724417802.37178 489 ed517365d0e5b6b115c17c0dbfe25e9d ""
-  "main.bcf" 1724680214.21009 107958 555df7b248663b86f4fb7b4a6d9b9057 "pdflatex"
+  "main.bcf" 1724686576.34242 108026 2178a3e42f05c39f4c4029ae0f713041 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1724680211.96394 "main.tex" "main.pdf" "main" 1724680214.35364 2
+["pdflatex"] 1724686573.80348 "main.tex" "main.pdf" "main" 1724686576.48633 0
   "/etc/texmf/web2c/texmf.cnf" 1718717126.53346 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_2mfh3o.enc" 1570828436 3443 c184b8b1bd90c3ec5d4289b992e64d96 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_337jzs.enc" 1570828436 2952 6101deaf2e29800c3f438cc30978a854 ""
@@ -210,13 +210,14 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1718887809.26369 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1718887917 8214690 d996c2a369a011bb049e1afda619cd31 ""
-  "main.aux" 1724680214.20409 6337 9d5c616dcb23cb1282b4366fd87057a9 "pdflatex"
-  "main.bbl" 1724421281.02942 2856 e767d93362686be7d1be2dfb89cbf0a5 "biber main"
-  "main.lof" 1724680214.21109 1870 e9ba741559c9b06d9b50a01c21c2de06 "pdflatex"
-  "main.lot" 1724680214.21109 190 b66049018c710a651fc81f095b33d446 "pdflatex"
-  "main.run.xml" 1724680214.21109 2300 66129b155c7b6e5e623a548f26c835dc "pdflatex"
-  "main.tex" 1724680210.32392 44641 d2af028dc4d06d46a3b2ee7061a3085e ""
-  "main.toc" 1724680214.21109 1375 3279e9316b982e735d8f5e7e942ac332 "pdflatex"
+  "img/hsm.png" 1724682779.97745 29602 0c4d346d60fde4f514eee242deeb52af ""
+  "main.aux" 1724686576.33742 6639 13a65a669a0b2e3cff24f32181b3a552 "pdflatex"
+  "main.bbl" 1724685377.81851 2856 e767d93362686be7d1be2dfb89cbf0a5 "biber main"
+  "main.lof" 1724686576.34342 2026 8e43f53e9a96fcee657f8962cdc95a44 "pdflatex"
+  "main.lot" 1724686576.34342 190 b66049018c710a651fc81f095b33d446 "pdflatex"
+  "main.run.xml" 1724686576.34342 2300 66129b155c7b6e5e623a548f26c835dc "pdflatex"
+  "main.tex" 1724686573.60881 50080 1b8c1ac041120ba63b7543ada82278fc ""
+  "main.toc" 1724686576.34342 1375 f39f5636bb478ce9085e1aff5fd9c6db "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"

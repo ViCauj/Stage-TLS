@@ -480,6 +480,7 @@ En reprenant la figure \ref{ilu_cbc} et en l'adaptant pour un block c on obtien 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
+	\fill[red!20, opacity=0.5] (1.7,-0.1) rectangle (4.3,-3.35);
 	% message clair
 	\draw (0,0) rectangle (2,0.5);
 	\node[align=center] at (1, 0.25) {IV};
@@ -501,7 +502,7 @@ En reprenant la figure \ref{ilu_cbc} et en l'adaptant pour un block c on obtien 
 
 	\node[align=center] (pad_or) at (6,-2.75) {Padding Oracle};
 	\draw[->, line width = 0.6mm] (4,-2.75) -- (pad_or.west);
-	\fill[red!20, opacity=0.5] (1.7,-0.1) rectangle (4.3,-3.35);
+
 \end{tikzpicture}
 \caption{Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}
 \label{cbcdec1block}
@@ -539,6 +540,8 @@ Ainsi, on est en mesure de trouver un IV ($\text{ZIV}_{16}$) tel que $m=\fbox{00
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
+	\fill[red!20, opacity=0.5] (1.7,-0.1) rectangle (4.3,-3.35);
+
 	% message clair
 	\draw (0,0) rectangle (2,0.5);
 	\node[align=center, scale=0.8] at (1, 0.25) {$\text{AES}_k^{-1}(\text{c})$};
@@ -560,7 +563,7 @@ Ainsi, on est en mesure de trouver un IV ($\text{ZIV}_{16}$) tel que $m=\fbox{00
 	\draw[->, line width = 0.6mm] (x2.south) -- (3, -2.5);
 
 	\draw[->, line width = 0.6mm] (1,0) to[out=-90, in=180] (x2.west);
-	\fill[red!20, opacity=0.5] (1.7,-0.1) rectangle (4.3,-3.35);
+
 \end{tikzpicture}
 \caption{Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}
 \label{pad_ora_blo}
@@ -571,6 +574,8 @@ On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}.
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
+	\fill[red!20, opacity=0.5] (-0.7,-0.1) rectangle (5.5,-3.35);
+
 	% message clair
 	\draw (-2,0) rectangle (0,0.5);
 	\node[align=center]  at (-1, 0.25) {IV};
@@ -604,10 +609,10 @@ On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}.
 
 	\draw[->, line width = 0.6mm] (-0.5,0) to[out=-90, in=180] (x1.west);
 	\draw[->, line width = 0.6mm] (1.5,0) to[out=-90, in=180] (x2.west);
-	\node[align=center, scale=1.5, color=white] (xc) at (4.5,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5, opacity=0] (xc) at (4.5,-1.75) {$\oplus$};
 	\draw[->, line width = 0.6mm] (3.5,0) to[out=-90, in=180] (xc.west);
 
-	\fill[red!20, opacity=0.5] (-0.3,-0.1) rectangle (5.5,-3.35);
+
 \end{tikzpicture}
 \caption{Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}
 \label{dechif_cbc}
@@ -622,7 +627,7 @@ On s'est intéressé dans la section précédente au mode CBC en montrant qu'AES
 \subsection{CTR} \label{CTR}
 Comme CBC, CTR (Counter) est un mode de manipulation des blocks qui permet de chiffrer des données avec des algorithme de chiffrement par blocks (comme AES) tout en garantisant un certain niveau de sécurité. CTR est le mode utilisé dans GCM mais sans l'authentification.Il est assez similaire à CBC mais à comme gros avantage de ne pas obliger de rajouter un padding à la fin des données clairs.
 
-Son fonctionement est décrit sur la figure \ref{aesctr}. \emph{Le $+1$ signifie qu'on incrémente de 1 l'IV généré aléatoirement.}
+Son fonctionement est décrit sur la figure \ref{aesctr}. 
 
 \begin{figure}[h]
 \centering
@@ -676,7 +681,8 @@ Son fonctionement est décrit sur la figure \ref{aesctr}. \emph{Le $+1$ signifie
 	\draw[->, line width = 0.6mm] (2.25,0) to[out=270, in=180] (e2.west);
 
 \end{tikzpicture}
-\caption{Fonctionnement d'AES CTR, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
+\caption{Fonctionnement d'AES CTR, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, \emph{Le +1 signifie qu'on incrémente de 1 l'IV généré aléatoirement.}
+}
 \label{aesctr}
 \end{figure}
 
@@ -765,6 +771,9 @@ GCM est la combinaison du mode CTR (voir \ref{CTR}) et de la création d'un Tag 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
+	\fill[green!20, opacity=0.5] (-0.8,-0.2) rectangle (7.7,-2.55);
+	\fill[red!20, opacity=0.5] (-2.2,-3.4) rectangle (11.5,-5.6);
+
 	% message clair
 	\foreach \x in {0,2} {
 		\pgfmathtruncatemacro{\n}{(\x)/2+1}
@@ -881,14 +890,13 @@ GCM est la combinaison du mode CTR (voir \ref{CTR}) et de la création d'un Tag 
 	\draw[-, line width = 0.6mm] (11,-3.4) to[out=90, in=0] (10.5,-3);
 	\draw[->, line width = 0.6mm] (10.5,-3) -- (10, -3);
 
-	\fill[green!20, opacity=0.5] (-0.8,-0.1) rectangle (7.7,-2.5);
-	\fill[red!20, opacity=0.5] (-2.2,-3.4) rectangle (11.5,-5.6);
+
 \end{tikzpicture}
 \caption{Fonctionnement d'AES GCM avec en vert CTR et en rouge GMAC}
 \label{aesgcm}
 \end{figure}
 
-\\
+
 \noindent Pour résumer, AES GCM prend 4 entrées : 
 \begin{enumerate}
 	\item un nonce (ou IV) généré aléatoirement (que l'on choisit de mettre au début du chiffré pour réduir le nombre d'objets à stoquer).
@@ -899,8 +907,94 @@ GCM est la combinaison du mode CTR (voir \ref{CTR}) et de la création d'un Tag 
 \noindent et fournit 2 sorties :
 \begin{enumerate}
 	\item Le chiffré de la donné à chiffrer
-	\item Le tag associé aux entrées (mis à la fin du chiffré)
-\section{SOFTHSM}
+\item Le tag associé aux entrées (mis à la fin du chiffré)
+\end{enumerate}
+\section{SoftHSM}
+
+Le but des cryptographe est de créer des problèmes facile à résoudre quand on a la clefs mais beaucoup trop long à casser le cas inverse. Donc, dans beaucoup de cas trouver un moyen de récupérer cette clef est beaucoup plus raisonnable que de chercher une faille dans le cryptosystème. Il faut donc trouver un moyen sécuriser de garder nos clefs, i.e il faut un coffre fort moderne. \\
+
+Pour ça, il existe les HSM (Hardware Securty Module) qui sont des dispositif physique dédié à la gestion, au stockage et à la protection des clefs cryptographique. Il est conçu pour exécuter des opérations cryptographiques, telles que le chiffrement, le déchiffrement, la signature numérique et la gestion de clés, de manière sécurisée.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{img/hsm.png}
+	\caption{HSM de Thales}
+	\label{hsmthales}
+\end{figure}
+
+Ici on ne n'intéressera pas réellement aux HSM mais plutôt aux SoftHSM, une implémentation logicielle d'un HSM. Il permettent de développer des programmes, faire des tests en ammont d'une utilisation d'un HSM. \\
+
+Dans un premier temps j'ai du me familiariser avec ce nouvel object, puis, j'ai du regarder les solutions en rust qui nous permettent de communiquer avec des HSM, les documenter et les tester (via un SoftHSM). \\
+
+
+Pour communiquer avec un SoftHSM j'ai du me plonger dans la doc du logiciel. Avant de pouvoir entammer des opérations cryptographiques il faut créer un envronement dédié dans le SoftHSM. \\
+Pour le créer la commande est la suivante :
+\begin{verbatim}
+sudo softhsm2-util --init-token 
+		--slot <slot-num> 
+		--token <token-label>
+\end{verbatim}
+et pour le supprimer :
+\begin{verbatim}
+sudo softhsm2-util --delete-token --label <token-label>
+\end{verbatim}
+Ici il faut bien comprendre qu'un token est une émulation d'un HSM (on peut émuler plusieur HSM sur un SoftHSM), le slot est un point d'entrée d'un HSM, il simule l'endroit ou l'on insère nos informations dans un HSM). \\
+Après avoir initialiser mon softHSM, je peux communiquer avec lui en utilisant le standard pkcs11. C'est cette partie plus tard que je devrais programmer en rust. Pour le moment, j'utilise openssl, un logiciel qui me permet directement de communiquer avec le SoftHSM. Après avoir étudier la documentation, j'en ai tiré les informations suivantes :
+Pour créer une clef je dois utiliser : 
+\begin{verbatim}
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
+		-l -p <usr-PIN> 
+		--keygen --key-type <enc-mech> 
+		--id <clef-id> 
+		--label <clef-label>
+\end{verbatim}
+Avec <enc-mech> qui prend la forme AES:16, AES:32, ect. Pour la supprimer on utilise la commande : 
+\begin{verbatim}
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
+-l -p <usr-PIN> 
+-b --type secrkey 
+--id <clef-ID>
+\end{verbatim}
+
+Maintenant qu'on a réussit à créer des clefs, on peut les utiliser pour chiffrer et déchiffrer des données. Pour le faire, il faut utiliser :
+\begin{verbatim}
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
+		--login -p <usr-PIN> 
+		--encrypt 
+		--id <key-ID> 
+		-m AES-CBC-PAD 
+		--iv <iv-value> 
+		-i <input file> 
+		-o <output file>
+
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
+		--login -p <usr-PIN> 
+		--decrypt 
+		--id <key-ID> 
+		-m AES-CBC-PAD 
+		--iv <iv-value> 
+		-i <input file> 
+		-o <output file>
+\end{verbatim}
+
+Pour la suite, j'utilise la crate cryptoki de Rust que j'ai trouvée grâce à \cite{bddrustcrypto}, ce qui me permet de garantir sa fiabilité.
+La documentation de cette crate n'étant pas encore faite, j'ai créé un fichier tuto dans lequel je réalise toutes les opérations que je pourrais être amené à faire sur le SoftHSM, c'est-à-dire créer et supprimer des clés ainsi que chiffrer et déchiffrer des données. Pour y arriver, j'ai parcouru le code source de la documentation et je me suis aidé d'outils tels que ChatGPT. Après beaucoup d'essais, j'ai fini par obtenir un tutoriel fonctionnel.\\
+
+La dernière étape consistait à vérifier que les résultats produits par mon programme correspondaient bien aux attentes. Pour cela, il est nécessaire de tester le programme avec des vecteurs de test. Chaque vecteur de test fournit une clé, un IV (Initialisation Vector), des données à chiffrer, le résultat chiffré attendu, et, si le programme le permet, des données à authentifier ainsi que le TAG correspondant. L'objectif de ces vecteurs est de comparer les sorties théoriques avec celles produites par notre algorithme. Pour que les tests soient validés, il faut que ces dernières soient identiques.
+
+Pour faire ces test j'ai eu une grosse dificultée : je ne peux pas imposer la valeur d'une clef via mon programme (c'est une donnée protégé donc le softhsm me l'interdit). Pour contourner ce problème, je lance un script bash dans mon code rust qui crée la clef avec openssl. Ce script est le suivant : 
+\begin{verbatim}
+echo -n <key-value> > aes_key.txt
+xxd -r -p aes_key.txt > aes_key.bin
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
+		-l -p <usr-PIN> --write-object
+aes_key.bin 
+		--type secrkey --key-type <enc-mech> 
+		--id <clef-id> 
+		--label <clef-label>
+\end{verbatim}
+Mon programme à passé tout les test, et donc, grâce à mon tutoriel je suis maintenant capable de remplacer openssl par un programme "maison" en rust.
 \section{Signature}
 \subsection{RSA}
 \subsection{Courbe elliptiques avec Ed25519}
@@ -908,12 +1002,12 @@ GCM est la combinaison du mode CTR (voir \ref{CTR}) et de la création d'un Tag 
 \section{Mise en place d'un programme de chiffrement/déchiffrement}
 \subsection{Contexte}
 Maintenant que j'ai pris connaissance des algorithmes pour chiffrer et signer des données, je dois mettre en place une solution écrite en Rust qui permettra de chiffrer et de déchiffrer des fichiers. Cette solution devra permettre d'utiliser soit AES-GCM, soit ChaCha20-Poly1305 (un autre algorithme de chiffrement non détaillé précédemment).
+Une optimisation que je pourrais envisager serait de proposer une version qui chiffrerait "au fil de l'eau", c'est-à-dire de manière progressive, bloc par bloc, à mesure que les données sont lues ou écrites. Cette méthode présente l'avantage de maintenir un coût constant en espace mémoire, car elle ne nécessite pas de charger l'intégralité du fichier en mémoire avant de le chiffrer. \\
 
-Une optimisation que je pourrais envisager serait de proposer une version qui chiffrerait "au fil de l'eau", c'est-à-dire de manière progressive, bloc par bloc, à mesure que les données sont lues ou écrites. Cette méthode présente l'avantage de maintenir un coût constant en espace mémoire, car elle ne nécessite pas de charger l'intégralité du fichier en mémoire avant de le chiffrer.
 
 Pour exécuter ce programme de chiffrement, il suffira d'utiliser les commandes suivantes :
 \begin{verbatim}
-
+cat clair.data | ./rucrypt options > enc.data
 cat enc.data | ./rudecrypt options > dec.data
 \end{verbatim}
 Les options permettront de choisir l'algorithme utilisé. Pour le moment peuvent soit valoir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou encore "aes\_stream" pour la version au fil de l'eau d'AES-GCM.\\

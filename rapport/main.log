@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.6.20)  26 AUG 2024 15:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.6.20)  26 AUG 2024 17:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -964,6 +964,10 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <6.6> not available
 (Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 7.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
 (Font)              scaled to size 5.61003pt on input line 7.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/it' in size <12> not available
+(Font)              Font shape `T1/FiraSans-OsF/regular/it' tried instead on input line 12.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
+(Font)              scaled to size 10.20007pt on input line 12.
 )
 \tf@lof=\write6
 \openout6 = `main.lof'.
@@ -982,11 +986,6 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/sc' in size <12> not available
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/sc' will be
 (Font)              scaled to size 10.20007pt on input line 57.
 [4{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_2mfh3o.enc}]
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/it' in size <12> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/it' tried instead on input line 66.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
-(Font)              scaled to size 10.20007pt on input line 66.
-
 Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
@@ -1044,22 +1043,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 470--471
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 513--515
+Underfull \hbox (badness 10000) in paragraph at lines 514--516
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 530--531
+Underfull \hbox (badness 10000) in paragraph at lines 531--532
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 532--533
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 534--536
+Underfull \hbox (badness 10000) in paragraph at lines 535--537
 
  []
 
@@ -1067,7 +1066,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 534--536
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--618
+Underfull \hbox (badness 10000) in paragraph at lines 622--623
 
  []
 
@@ -1079,58 +1078,64 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 914--915
 
-./main.tex:892: LaTeX Error: There's no line here to end.
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.892 \noindent
-                Pour résumer, AES GCM prend 4 entrées :
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+<img/hsm.png, id=61, 501.875pt x 250.9375pt>
+File: img/hsm.png Graphic file (type png)
+<use img/hsm.png>
+Package pdftex.def Info: img/hsm.png  used on input line 921.
+(pdftex.def)             Requested size: 272.99881pt x 136.50742pt.
 
-[14] [15]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 915.
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 926--927
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 928--929
+
+ []
+
+[15]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 933.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-Overfull \hbox (0.52379pt too wide) in paragraph at lines 919--920
-\T1/FiraSans-OsF/regular/n/12 Les op-tions per-met-tront de choi-sir l'al-go-rithme uti-lis�. Pour le mo-ment peuvent
- []
+) [16{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./img/hsm.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 981--983
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 919--920
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 925--926
-
- []
-
-[16{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-Overfull \hbox (48.90768pt too wide) in paragraph at lines 936--936
-[]\T1/FiraSans-OsF/regular/it/12 Showcase of no-table cryp-to-gra-phy li-bra-ries de-ve-lo-ped in Rust\T1/FiraSans-OsF/regular/n/12 . \T1/FiraSans-OsF/regular/sc/12 url \T1/FiraSans-OsF/regular/n/12 : $\T1/cmtt/m/n/12 cryptography .
  []
 
 [17]
+Underfull \hbox (badness 10000) in paragraph at lines 1004--1006
 
-./main.tex:936: LaTeX Error: \begin{enumerate} on input line 900 ended by \end{document}.
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.936 \end{document}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+[18]
+Overfull \hbox (15.91856pt too wide) in paragraph at lines 1013--1014
+\T1/FiraSans-OsF/regular/n/12 va-loir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou en-core "aes_stream"
+ []
 
-(./main.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 1013--1014
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1019--1020
+
+ []
+
+[19]
+Overfull \hbox (17.34988pt too wide) in paragraph at lines 1030--1030
+[]\T1/FiraSans-OsF/regular/it/12 Showcase of no-table cryp-to-gra-phy li-bra-ries de-ve-lo-ped in Rust\T1/FiraSans-OsF/regular/n/12 . \T1/FiraSans-OsF/regular/sc/12 url \T1/FiraSans-OsF/regular/n/12 : $\T1/cmtt/m/n/12 cryptography .
+ []
+
+[20] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1143,24 +1148,20 @@ LaTeX Font Warning: Size substitutions with differences
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
- )
-(\end occurred inside a group at level 1)
-
-### semi simple group (level 1) entered at line 900 (\begingroup)
-### bottom level 
+ ) 
 Here is how much of TeX's memory you used:
- 29031 strings out of 474222
- 552969 string characters out of 5748733
+ 29042 strings out of 474222
+ 553155 string characters out of 5748733
  1962975 words of memory out of 5000000
- 50836 multiletter control sequences out of 15000+600000
+ 50847 multiletter control sequences out of 15000+600000
  782693 words of font info for 139 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,15n,117p,1139b,1921s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,15n,117p,1139b,1812s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmi-reg.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmia-reg.pfb>
-Output written on main.pdf (17 pages, 279247 bytes).
+Output written on main.pdf (20 pages, 330472 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
+ 134 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

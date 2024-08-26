@@ -388,6 +388,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Regular-osf-t1.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Regular-osf-t1.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Italic-osf-t1.tfm
 OUTPUT main.lof
 INPUT ./main.lot
 INPUT ./main.lot
@@ -396,6 +397,8 @@ OUTPUT main.lot
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/newtx/ntxsy.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/txsys.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/txex-bar.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fira/FiraSans-Italic-osf-t1.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Italic-osf-t1--base.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/newtx/ntxexx.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/txexs.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/newtxsf/ntxsfmia.vf
@@ -407,13 +410,10 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Regular-osf-s
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fira/FiraSans-Regular-osf-sc-t1.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Regular-osf-sc-t1--base.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_2mfh3o.enc
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Italic-osf-t1.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Bold-osf-t1.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fira/FiraSans-Italic-osf-t1.vf
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Italic-osf-t1--base.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fira/FiraSans-Bold-osf-t1.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Bold-osf-t1--base.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/newtxsf/ntxsfmia.vf
@@ -434,6 +434,11 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/txsys.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/txex-bar.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fira/FiraSans-Regular-osf-t1.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fira/FiraSans-Regular-osf-t1--base.tfm
+INPUT ./img/hsm.png
+INPUT ./img/hsm.png
+INPUT ./img/hsm.png
+INPUT ./img/hsm.png
+INPUT ./img/hsm.png
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
