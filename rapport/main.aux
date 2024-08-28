@@ -15,14 +15,14 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1}AES}{5}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Variantes d'AES}}{5}{}\protected@file@percent }
 \newlabel{AES-versions}{{2}{5}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces fonctionement d'AES}}{5}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces fonctionnement d'AES}}{5}{}\protected@file@percent }
 \newlabel{AES_fonctionnement}{{1}{5}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Permutation $\Pi $}{6}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Réorganisation du block}}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Réorganisation du bloc}}{6}{}\protected@file@percent }
 \newlabel{reorg_entre}{{2}{6}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Effet de $\mathtt  {SubBytes}$ sur le block, avec $\tilde  {s} = S(s)$}}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Effet de $\mathtt  {SubBytes}$ sur le bloc, avec $\tilde  {s} = S(s)$}}{6}{}\protected@file@percent }
 \newlabel{illu_subbyte}{{3}{6}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Effet de $\mathtt  {ShiftRows}$ sur le block}}{7}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Effet de $\mathtt  {ShiftRows}$ sur le bloc}}{7}{}\protected@file@percent }
 \newlabel{illu_shiftrows}{{4}{7}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Permutation $\hat  {\Pi }$}{7}{}\protected@file@percent }
 \abx@aux@cite{0}{courscourt}
@@ -38,16 +38,16 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Fonctionement d'AES CBC, avec $\text  {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{9}{}\protected@file@percent }
 \newlabel{ilu_cbc}{{7}{9}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Mon implémentation}{10}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Pading oracle attack}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Padding oracle attack}{10}{}\protected@file@percent }
 \newlabel{padoracle}{{2.2}{10}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Déchiffrer un block}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Déchiffrer un bloc}{11}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{11}{}\protected@file@percent }
-\newlabel{cbcdec1block}{{8}{11}{}{}{}}
+\newlabel{cbcdec1bloc}{{8}{11}{}{}{}}
 \abx@aux@cite{0}{courscourt}
 \abx@aux@segm{0}{0}{courscourt}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{12}{}\protected@file@percent }
 \newlabel{pad_ora_blo}{{9}{12}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Généralisation à n blocks}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Généralisation à n blocs}{12}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}}{13}{}\protected@file@percent }
 \newlabel{dechif_cbc}{{10}{13}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}AES GCM}{13}{}\protected@file@percent }
@@ -69,14 +69,47 @@
 \abx@aux@segm{0}{0}{bddrustcrypto}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Signature}{18}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}RSA}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Courbe elliptiques avec Ed25519}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Mise en place d'un programme de chiffrement/déchiffrement}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Contexte}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Génération des clefs}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Signer avec RSA}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Vérifier l'intégrité des données}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Courbes elliptiques avec Ed25519}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Courbe elliptique}{19}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Courbe $y^2 = x^3 - x + 9$ sur $\varmathbb  {R}$}}{20}{}\protected@file@percent }
+\newlabel{courbe1}{{15}{20}{}{}{}}
+\newlabel{methodecorde}{{5.2.1}{20}{}{}{}}
+\newlabel{methodetangente}{{5.2.1}{20}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Courbe elliptique sur un espace à dimension finie}{20}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces $P + Q$ sur $y^2 = x^3 - x + 9$ sur $\varmathbb  {R}$ avec $P = (-1-3)$ et $Q = (1,3)$}}{21}{}\protected@file@percent }
+\newlabel{courbe1op}{{16}{21}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Courbe $y^2 = x^3 -6x + 2$ sur $ \varmathbb  {Z}/59\varmathbb  {Z}$}}{21}{}\protected@file@percent }
+\newlabel{courbezpz}{{17}{21}{}{}{}}
+\abx@aux@cite{0}{courslong}
+\abx@aux@segm{0}{0}{courslong}
+\abx@aux@cite{0}{eddsa}
+\abx@aux@segm{0}{0}{eddsa}
+\abx@aux@cite{0}{eddsa}
+\abx@aux@segm{0}{0}{eddsa}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Ed25519}{22}{}\protected@file@percent }
+\newlabel{courbeed}{{5.2.3}{22}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Génération des clefs}{22}{}\protected@file@percent }
+\abx@aux@cite{0}{eddsa}
+\abx@aux@segm{0}{0}{eddsa}
+\abx@aux@cite{0}{eddsa}
+\abx@aux@segm{0}{0}{eddsa}
+\abx@aux@cite{0}{eddsa}
+\abx@aux@segm{0}{0}{eddsa}
+\abx@aux@cite{0}{eddsa}
+\abx@aux@segm{0}{0}{eddsa}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.5}Signer avec Ed25519}{23}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.6}Vérifier l'intégrité des données}{23}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Mise en place d'un programme de chiffrement/déchiffrement}{24}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Contexte}{24}{}\protected@file@percent }
 \abx@aux@cite{0}{bddrustcrypto}
 \abx@aux@segm{0}{0}{bddrustcrypto}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Mise en place}{19}{}\protected@file@percent }
-\abx@aux@read@bbl@mdfivesum{E767D93362686BE7D1BE2DFB89CBF0A5}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Mise en place}{25}{}\protected@file@percent }
+\abx@aux@read@bbl@mdfivesum{DD8DC165C8334D0F6F900C63A6B55102}
 \abx@aux@defaultrefcontext{0}{courslong}{nty/global//global/global}
+\abx@aux@defaultrefcontext{0}{eddsa}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{courscourt}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{bddrustcrypto}{nty/global//global/global}
-\gdef \@abspage@last{20}
+\gdef \@abspage@last{26}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.6.20)  26 AUG 2024 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.6.20)  28 AUG 2024 12:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1110,32 +1110,103 @@ Underfull \hbox (badness 10000) in paragraph at lines 981--983
 
  []
 
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 1004--1006
-
- []
-
-[18]
-Overfull \hbox (15.91856pt too wide) in paragraph at lines 1013--1014
-\T1/FiraSans-OsF/regular/n/12 va-loir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou en-core "aes_stream"
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1013--1014
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1019--1020
+[17] [18]
+Underfull \hbox (badness 10000) in paragraph at lines 1041--1043
 
  []
 
 [19]
-Overfull \hbox (17.34988pt too wide) in paragraph at lines 1030--1030
+<img/courbe1.png, id=80, 269.005pt x 284.06125pt>
+File: img/courbe1.png Graphic file (type png)
+<use img/courbe1.png>
+Package pdftex.def Info: img/courbe1.png  used on input line 1046.
+(pdftex.def)             Requested size: 195.0pt x 205.91527pt.
+<img/courbe1op.png, id=82, 315.1775pt x 284.06125pt>
+File: img/courbe1op.png Graphic file (type png)
+<use img/courbe1op.png>
+Package pdftex.def Info: img/courbe1op.png  used on input line 1061.
+(pdftex.def)             Requested size: 195.0pt x 175.74771pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1067--1068
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1076--1078
+
+ []
+
+[20 <./img/courbe1.png>]
+<img/courbezpz.png, id=88, 727.71875pt x 472.76625pt>
+File: img/courbezpz.png Graphic file (type png)
+<use img/courbezpz.png>
+Package pdftex.def Info: img/courbezpz.png  used on input line 1081.
+(pdftex.def)             Requested size: 312.00119pt x 202.7012pt.
+ [21 <./img/courbe1op.png> <./img/courbezpz.png>]
+Overfull \hbox (13.81306pt too wide) in paragraph at lines 1113--1118
+\T1/FiraSans-OsF/regular/n/12 avec $\OML/ntxsfmi/m/it/12 d \LMS/ntxsy/m/n/12 2 \U/ntxsfmia/m/it/12 ⁄\LMS/ntxsy/m/n/12 ù\OML/ntxsfmi/m/it/12 p\U/ntxsfmia/m/it/12 ⁄$ \T1/FiraSans-OsF/regular/n/12 et $\OML/ntxsfmi/m/it/12 d \U/ntxsfmia/m/it/12 < Å\OML/ntxsfmi/m/it/12 ;  \U/ntxsfmia/m/it/12 Ç$\T1/FiraSans-OsF/regular/n/12 . On peut alors dÈ-fi-nir + par $\U/ntxsfmia/m/it/12 [\LMS/ntxsy/m/n/12 π\OML/ntxsfmi/m/it/12 P; Q\LMS/ntxsy/m/n/12 ∫ \U/ntxsfmia/m/it/12 = \LMS/ntxsy/m/n/12 ππ\OML/ntxsfmi/m/it/12 x[]; y[]\LMS/ntxsy/m/n/12 ∫\OML/ntxsfmi/m/it/12 ; \LMS/ntxsy/m/n/12 π\OML/ntxsfmi/m/it/12 x[]; y[]\LMS/ntxsy/m/n/12 ∫∫ 2
+ []
+
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <10> not available
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 1132.
+LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 8.50006pt on input line 1132.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1132--1133
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 1137--1139
+
+ []
+
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <10> not available
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1141.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 8.50006pt on input line 1141.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <7.3> not available
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1141.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 6.20503pt on input line 1141.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <5.5> not available
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1141.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 4.67503pt on input line 1141.
+
+LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <5.5> not available
+(Font)              size <5> substituted on input line 1141.
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 1182--1184
+
+ []
+
+[24]
+Overfull \hbox (15.91856pt too wide) in paragraph at lines 1191--1192
+\T1/FiraSans-OsF/regular/n/12 va-loir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou en-core "aes_stream"
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1197--1198
+
+ []
+
+[25]
+Overfull \hbox (17.34988pt too wide) in paragraph at lines 1208--1208
 []\T1/FiraSans-OsF/regular/it/12 Showcase of no-table cryp-to-gra-phy li-bra-ries de-ve-lo-ped in Rust\T1/FiraSans-OsF/regular/n/12 . \T1/FiraSans-OsF/regular/sc/12 url \T1/FiraSans-OsF/regular/n/12 : $\T1/cmtt/m/n/12 cryptography .
  []
 
-[20] (./main.aux)
+[26] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1143,25 +1214,25 @@ L3 programming layer <2024-01-22>
 
 
 LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 0.45pt have occurred.
+(Font)              up to 0.5pt have occurred.
 
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 29042 strings out of 474222
- 553155 string characters out of 5748733
- 1962975 words of memory out of 5000000
- 50847 multiletter control sequences out of 15000+600000
- 782693 words of font info for 139 fonts, out of 8000000 for 9000
+ 29123 strings out of 474222
+ 554672 string characters out of 5748733
+ 1963975 words of memory out of 5000000
+ 50913 multiletter control sequences out of 15000+600000
+ 821598 words of font info for 180 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,15n,117p,1139b,1812s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmi-reg.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmia-reg.pfb>
-Output written on main.pdf (20 pages, 330472 bytes).
+ 102i,15n,117p,1140b,1812s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmi-reg.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmia-reg.pfb>
+Output written on main.pdf (26 pages, 411936 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 87 compressed objects within 1 object stream
+ 166 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

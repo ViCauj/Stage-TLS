@@ -5,9 +5,9 @@
 \contentsline {subsection}{\numberline {1.3}Création des clefs $k_i$}{8}{}%
 \contentsline {section}{\numberline {2}AES CBC}{8}{}%
 \contentsline {subsection}{\numberline {2.1}Mon implémentation}{10}{}%
-\contentsline {subsection}{\numberline {2.2}Pading oracle attack}{10}{}%
-\contentsline {subsubsection}{\numberline {2.2.1}Déchiffrer un block}{11}{}%
-\contentsline {subsubsection}{\numberline {2.2.2}Généralisation à n blocks}{12}{}%
+\contentsline {subsection}{\numberline {2.2}Padding oracle attack}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Déchiffrer un bloc}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}Généralisation à n blocs}{12}{}%
 \contentsline {section}{\numberline {3}AES GCM}{13}{}%
 \contentsline {subsection}{\numberline {3.1}CTR}{13}{}%
 \contentsline {subsection}{\numberline {3.2}GMAC}{13}{}%
@@ -15,7 +15,16 @@
 \contentsline {section}{\numberline {4}SoftHSM}{15}{}%
 \contentsline {section}{\numberline {5}Signature}{18}{}%
 \contentsline {subsection}{\numberline {5.1}RSA}{18}{}%
-\contentsline {subsection}{\numberline {5.2}Courbe elliptiques avec Ed25519}{18}{}%
-\contentsline {section}{\numberline {6}Mise en place d'un programme de chiffrement/déchiffrement}{18}{}%
-\contentsline {subsection}{\numberline {6.1}Contexte}{18}{}%
-\contentsline {subsection}{\numberline {6.2}Mise en place}{19}{}%
+\contentsline {subsubsection}{\numberline {5.1.1}Génération des clefs}{18}{}%
+\contentsline {subsubsection}{\numberline {5.1.2}Signer avec RSA}{19}{}%
+\contentsline {subsubsection}{\numberline {5.1.3}Vérifier l'intégrité des données}{19}{}%
+\contentsline {subsection}{\numberline {5.2}Courbes elliptiques avec Ed25519}{19}{}%
+\contentsline {subsubsection}{\numberline {5.2.1}Courbe elliptique}{19}{}%
+\contentsline {subsubsection}{\numberline {5.2.2}Courbe elliptique sur un espace à dimension finie}{20}{}%
+\contentsline {subsubsection}{\numberline {5.2.3}Ed25519}{22}{}%
+\contentsline {subsubsection}{\numberline {5.2.4}Génération des clefs}{22}{}%
+\contentsline {subsubsection}{\numberline {5.2.5}Signer avec Ed25519}{23}{}%
+\contentsline {subsubsection}{\numberline {5.2.6}Vérifier l'intégrité des données}{23}{}%
+\contentsline {section}{\numberline {6}Mise en place d'un programme de chiffrement/déchiffrement}{24}{}%
+\contentsline {subsection}{\numberline {6.1}Contexte}{24}{}%
+\contentsline {subsection}{\numberline {6.2}Mise en place}{25}{}%
