@@ -2,6 +2,7 @@ use std::{
     io::{self, Read, Write},
     env
 };
+use zeroize::Zeroize;
 
 mod aes_gcm;
 mod aes_gcm_stream;

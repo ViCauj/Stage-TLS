@@ -425,6 +425,7 @@ dependencies = [
  "hex",
  "rand",
  "rsa",
+ "zeroize",
 ]
 
 [[package]]

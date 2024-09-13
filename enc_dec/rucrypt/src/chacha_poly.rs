@@ -3,12 +3,14 @@ use chacha20poly1305::{
     ChaCha20Poly1305
 };
 use rsa::{pkcs1::DecodeRsaPublicKey, Pkcs1v15Encrypt, RsaPublicKey};
+use crate::Zeroize;
 
 pub fn enc(data: Vec<u8>) -> Vec<u8> {
     let pub_key = RsaPublicKey::read_pkcs1_der_file("pub_key.bin").unwrap();
-    let key = ChaCha20Poly1305::generate_key(&mut OsRng);
+    let mut key = ChaCha20Poly1305::generate_key(&mut OsRng);
     let mut rng = rand::thread_rng();
     let enc_key = pub_key.encrypt(&mut rng, Pkcs1v15Encrypt, key.as_slice()).unwrap();
+    key.zeroize();
 
     let cipher = ChaCha20Poly1305::new(&key);
     let nonce = ChaCha20Poly1305::generate_nonce(&mut OsRng);

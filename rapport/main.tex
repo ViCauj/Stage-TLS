@@ -1203,6 +1203,65 @@ $$
 \text{rucrypt(data)} \rightarrow \fbox{RSA(clef symétrique) | nonce | data chiffré}
 $$
 
+\section{Wireguard}
+Le but ici est de créer à l'aide de Wireguard un flux chiffré entre plusieurs machines pour permettre à ces machines de communiquer de manière simple et sécurisé.
+\subsection{Configuration}
+Pour le serveur et les clients il faut créer un fichier de configuration dans \\\verb+\ect\wireguard\wg0.conf+ (On n'est pas obligé de l'appeller \verb+wg0+). A l'intérieur, le fichier est séparé en au moins 2 sections :
+\begin{itemize}
+\item une qui commence par \verb+[Interface]+, elle contient les informations de la machine, comme la clef privée et adresse.
+\item une autre (ou plus) qui commence par \verb+[Peer]+ et qui contient les informations des machines (comme la clef publique et les adresses authorisées) avec lesquelles on va communiquer. \\
+\end{itemize}
+
+Pour chaque machine, il faudra générer une paire de clefs. Pour cela, WireGuard nous fournit un outil. Il permet de créer une clé privée et de dériver la clé publique à partir de celle là.
+
+\begin{verbatim}
+wg genkey > privatekey
+wg pubkey < privatekey > publickey
+\end{verbatim}
+
+
+\subsubsection{Serveur}
+Pour la configuration du serveur, il faut rajouter le port utilisé pour communiquer (typiquement 51820). Une configuration complete côté serveur pourra ressembler par exemple à
+
+\begin{verbatim}
+[Interface]
+PrivateKey = uKlFiRw6goZdHuPNeThISu7sGqr8JH3U+LrQ3VbaBXk= 
+Address = 10.8.8.254/24
+ListenPort = 51820
+
+[Peer]
+PublicKey = 4N2H/21U4kYpS5KZlQfjOjddlvs7bgr0Z3ZHHBqF8lU=
+AllowedIPs = 10.8.8.1/32
+
+[Peer] 
+PublicKey = NIeEDlBPTJrM7389yaRKzXWJeAEicmrFm0zkfhnDVCo=  
+AllowedIPs = 10.8.8.2/32
+\end{verbatim}
+Chaque peer est un client avec lequel peut communiquer le serveur. Attention, il faut bien penser à àctiver l'IP forwarding du serveur pour lui permettre aux clients de communiquer entre eux (en pas uniquement au serveur). \\
+Pour l'activer il faut décommenter la ligne \verb+net.ipv4.ip_forward=1+ du fichier \\\verb+/etc/sysctl.conf+.
+
+\subsubsection{Clients}
+La configuration d'un client est quasiment identique à celle d'un serveur à la différence qu'il n'y a qu'un peer : le serveur. Elle ressemblera typiquement à 
+\begin{verbatim}
+[Interface]
+PrivateKey = uBl+tmfka8ukXcEV3vz5wtYinhZpLOEiAOe+gwhke28=
+Address = 10.8.8.1
+
+[Peer]
+PublicKey = GigedMPFFe+r7SB4s48vnEnPREiAXX/TLB07hBuAGm4= 
+Endpoint = 192.168.218.180:51820
+AllowedIPs = 10.8.8.0/24
+PersistentKeepalive = 25
+\end{verbatim}
+La dernière ligne permet d'éviter d'avoir des problèmes mais n'est pas obligatoire.
+\subsection{Mise en place}
+Pour activer la configuration il suffit de lancer \verb+wg-quick up wg0+ et pour la désactiver \verb+wg-quick down wg0+. Maintenant, si on veut qu'elle s'active automatiquement quand la machine s'allume il faut lancer \verb+sudo systemctl start wg-quick@wg0+(et \verb+sudo systemctl stop wg-quick@wg0+ pour que ça ne soit plus le cas). \\
+
+Attention, pour l'instant les clefs et les fichiers de configuration sont accessibles à tout le monde. Il faut veiller à supprimer les clefs (on en a plus besoijns une fois qu'elles sont dans les fichiers de configurations) et à restreindre l'accès aux fichiers de configuration. 
+\begin{verbatim}
+sudo mkdir -p /etc/wireguard/
+sudo chmod 700 /etc/wireguard
+\end{verbatim}
 
 \printbibliography
 \end{document}

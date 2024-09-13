@@ -3,6 +3,7 @@ use aes_gcm::{
     Aes256Gcm, Key, Nonce
 };
 use rsa::{pkcs1::DecodeRsaPrivateKey, RsaPrivateKey, Pkcs1v15Encrypt};
+// use crate::Zeroize;
 
 pub fn dec(data_enc: Vec<u8>) -> Vec<u8> {
     let priv_key = RsaPrivateKey::read_pkcs1_der_file("priv_key.bin").unwrap();
@@ -14,5 +15,7 @@ pub fn dec(data_enc: Vec<u8>) -> Vec<u8> {
     let cipher = Aes256Gcm::new(&key);
     let plaintext = cipher.decrypt(&nonce, ciphertext.as_ref()).unwrap();
     
+    // key.zeroize();
+
     plaintext
 }

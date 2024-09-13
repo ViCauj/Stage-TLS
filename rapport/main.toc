@@ -28,3 +28,8 @@
 \contentsline {section}{\numberline {6}Mise en place d'un programme de chiffrement/déchiffrement}{24}{}%
 \contentsline {subsection}{\numberline {6.1}Contexte}{24}{}%
 \contentsline {subsection}{\numberline {6.2}Mise en place}{25}{}%
+\contentsline {section}{\numberline {7}Wireguard}{25}{}%
+\contentsline {subsection}{\numberline {7.1}Configuration}{26}{}%
+\contentsline {subsubsection}{\numberline {7.1.1}Serveur}{26}{}%
+\contentsline {subsubsection}{\numberline {7.1.2}Clients}{27}{}%
+\contentsline {subsection}{\numberline {7.2}Mise en place}{27}{}%
