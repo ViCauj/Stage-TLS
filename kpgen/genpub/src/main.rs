@@ -8,7 +8,6 @@ mod ed25519_kg;
 mod p256_kg;
 
 fn main() -> Result<()> {
-    // Pour savoir quel algo de chiffrement uriliser :
     let args: Vec<String> = env::args().collect();
     if args.len() <= 1 {
         eprintln!("Manque un argument (\"rsa\", \"ed25519\" ou \"p256\" attendu)");
