@@ -840,6 +840,7 @@ dependencies = [
  "rand",
  "rsa",
  "serde",
+ "serde_json",
  "sha2",
  "tokio",
 ]

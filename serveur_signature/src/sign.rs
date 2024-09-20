@@ -5,8 +5,7 @@ use std::{
     io::{Write, Read},
 };
 use crate::{
-    Json, encode, decode, 
-    structures::{HashedData, OutputData, CheckData},
+    decode, encode, structures::{CheckData, MergedJson, OutputData}, Json
 };
 
 pub async fn keygen() {
@@ -31,10 +30,8 @@ fn signe_ed25519(message: &[u8]) -> (VerifyingKeyED, SignatureED) {
     (verifying_key, signature)
 }
 
-pub async fn sign(Json(payload): Json<HashedData>) -> Json<OutputData> {
-    let (_id, _method) = (payload.id, payload.methode);
-
-    let (verif_key, signature) = signe_ed25519(&decode(payload.hash).unwrap());
+pub async fn sign(Json(payload): Json<MergedJson>) -> Json<OutputData> {
+    let (verif_key, signature) = signe_ed25519(serde_json::to_string(&payload.obj).unwrap().as_bytes());
     Json(OutputData{
         signature: encode(signature.to_bytes()),
         verif_key: encode(verif_key.to_bytes())
@@ -42,7 +39,7 @@ pub async fn sign(Json(payload): Json<HashedData>) -> Json<OutputData> {
 }
 
 pub async fn check(Json(payload): Json<CheckData>) {
-    let verif_key = VerifyingKeyED::from_bytes(&decode(payload.verif_key).unwrap().try_into().unwrap()).unwrap();
-    let signature = SignatureED::from_bytes(&decode(payload.signature).unwrap().try_into().unwrap());
-    assert!(verif_key.verify(&decode(payload.hash).unwrap(), &signature).is_ok());
+    let verif_key = VerifyingKeyED::from_bytes(&decode(payload.output_json.verif_key).unwrap().try_into().unwrap()).unwrap();
+    let signature = SignatureED::from_bytes(&decode(payload.output_json.signature).unwrap().try_into().unwrap());
+    assert!(verif_key.verify(serde_json::to_string(&payload.merged_json.obj).unwrap().as_bytes(), &signature).is_ok());
 }

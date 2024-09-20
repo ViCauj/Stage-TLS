@@ -1,13 +1,18 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
+pub struct MergedJson {
+    pub obj: Vec<HashedData>
+}
+
+#[derive(Deserialize, Serialize)]
 pub struct HashedData {
     pub id: String,
     pub hash: String,
     pub methode: String,
 }
 
-#[derive(Serialize)]
+#[derive(Deserialize, Serialize)]
 pub struct OutputData {
     pub signature: String,
     pub verif_key: String,
@@ -15,7 +20,6 @@ pub struct OutputData {
 
 #[derive(Deserialize)]
 pub struct CheckData {
-    pub hash: String,
-    pub signature: String,
-    pub verif_key: String,
+    pub merged_json: MergedJson,
+    pub output_json: OutputData,
 }
