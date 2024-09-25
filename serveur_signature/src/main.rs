@@ -14,29 +14,34 @@ mod sign;
 mod sign_hsm;
 mod structures;
 
+const HSM: bool = false; 
+const _KEY_ID: u8 = 1;
+const ADDR: &str = "0.0.0.0:3000";
+
 #[tokio::main]
 async fn main() {
+    if HSM {
+        let state = Arc::new(Mutex::new(sign_hsm::connect()));
 
-    let mut file = File::open("signing_key.bin").unwrap();
-    let mut key_data = Vec::new();
-    file.read_to_end(&mut key_data).unwrap();
+        let app = Router::new()
+            .route("/sign", post(sign_hsm::sign))
+            .route("/check", post(sign_hsm::check))
+            .layer(Extension(state));
 
-    let state = Arc::new(Mutex::new(sign_hsm::connect()));
-    
-    let app = Router::new()
-        // .route("/keygen", post(sign::_keygen))
-        .route("/signh", post(sign_hsm::sign))
-        .route("/checkh", post(sign_hsm::check))
-        .route("/sign", post({
-            let key_data = key_data.clone(); // Clone la clé pour la route
-            move |payload| sign::sign(payload, key_data.clone()) // Capturer key_data dans la closure
-        }))
-        .route("/check", post({
-            let key_data = key_data.clone(); // Clone la clé pour la route
-            move |payload| sign::check(payload, key_data.clone()) // Capturer key_data dans la closure
-        }))
-        .layer(Extension(state));
+        let listener = tokio::net::TcpListener::bind(ADDR).await.unwrap();
+        axum::serve(listener, app).await.unwrap();
+    } else {
+        let mut file = File::open("signing_key.bin").unwrap();
+        let mut key_data = Vec::new();
+        file.read_to_end(&mut key_data).unwrap();
+        let state = Arc::new(Mutex::new(<Vec<u8> as TryInto<[u8; 32]>>::try_into(key_data).unwrap()));
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+        let app = Router::new()
+            .route("/sign", post(sign::sign))
+            .route("/check", post(sign::check))
+            .layer(Extension(state));
+
+        let listener = tokio::net::TcpListener::bind(ADDR).await.unwrap();
+        axum::serve(listener, app).await.unwrap();
+    }
 }

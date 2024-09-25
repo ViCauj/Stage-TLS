@@ -1,0 +1,1 @@
+fn(Extension<Arc<tokio::sync::Mutex<{type error}>, {type error}>>, Json<MergedJson>, Vec<u8>) -> impl Future<Output = Json<OutputData>> {sign::sign}
