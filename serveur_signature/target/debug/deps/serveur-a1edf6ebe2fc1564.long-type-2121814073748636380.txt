@@ -1,0 +1,1 @@
+fn(Extension<Arc<std::sync::Mutex<{type error}>, {type error}>>, Json<MergedJson>) -> impl Future<Output = Json<OutputData>> {sign_hsm::sign}

@@ -1,0 +1,1 @@
+curl': curl -X POST 0.0.0.0:3000/signeh -H "Content-Type: application/json" -d @hash.json > out.json

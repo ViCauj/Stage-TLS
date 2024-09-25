@@ -15,7 +15,6 @@ pub struct HashedData {
 #[derive(Deserialize, Serialize)]
 pub struct OutputData {
     pub signature: String,
-    pub verif_key: String,
 }
 
 #[derive(Deserialize)]

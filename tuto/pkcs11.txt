@@ -1,13 +1,18 @@
 formule de base : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so
+
 creer clef : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> --keygen --key-type <enc-mech> --id <clef-id> --label <clef-label>
 														|---> aes 128 -> AES:16
 														      aes 256 -> AES:32
 supprimer clef : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> -b --type secrkey --id <clef-ID>
+
+creer paire de clef pour ed25519 : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> --keypairgen --key-type EC:edwards25519 --id <clef-ID>
+
 bash pour creer une clef perso (pour les tests) :
 "
 echo -n <key-value> > aes_key.txt
 xxd -r -p aes_key.txt > aes_key.bin
 sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> --write-object aes_key.bin --type secrkey --key-type <enc-mech> --id <clef-id> --label <clef-label>
 "
+
 chiffrer : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --login -p <usr-PIN> --encrypt --id <key-ID> -m AES-CBC-PAD --iv <iv-value> -i <input file> -o <output file>
 dechiffrer : sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --login -p <usr-PIN> --decrypt --id <key-ID> -m AES-CBC-PAD --iv <iv-value> -i <input file> -o <output file>

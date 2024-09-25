@@ -1,0 +1,1 @@
+fn(axum::Json<MergedJson>, Extension<Arc<tokio::sync::Mutex<Vec<u8>>>>) -> impl Future<Output = Result<axum::Json<OutputData>, StatusCode>> {sign::sign}
