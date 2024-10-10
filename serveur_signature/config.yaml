@@ -1,0 +1,4 @@
+hsm: true                        # Vrai si on utilise un HSM
+  #key_id: 1                         # ID de la clef sur le HSM 
+addr: "0.0.0.0:3000"              # addresse du serveur
+key_file: "./signing_key.bin"     # ficher avec la clef privé (utile que si on utilise pas d'HSM)

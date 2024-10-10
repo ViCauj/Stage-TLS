@@ -3,14 +3,12 @@ use aes_gcm::{
     Aes256Gcm,
 };
 use rsa::{pkcs1::DecodeRsaPublicKey, Pkcs1v15Encrypt, RsaPublicKey};
-use crate::Zeroize;
 
 pub fn enc(data: Vec<u8>) -> Vec<u8> {
     let pub_key = RsaPublicKey::read_pkcs1_der_file("pub_key.bin").unwrap();
-    let mut key = Aes256Gcm::generate_key(OsRng);
+    let key = Aes256Gcm::generate_key(OsRng);
     let mut rng = rand::thread_rng();
     let enc_key = pub_key.encrypt(&mut rng, Pkcs1v15Encrypt, key.as_slice()).unwrap();
-    key.zeroize();
 
     let cipher = Aes256Gcm::new(&key);
     let nonce = Aes256Gcm::generate_nonce(&mut OsRng); // 96-bits; unique per message

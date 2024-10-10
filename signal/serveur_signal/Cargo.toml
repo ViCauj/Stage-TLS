@@ -1,0 +1,11 @@
+[package]
+name = "serveur_signal"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.5"
+tokio = {version = "1.0", features = ["full"]}
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1.0.128"
+serde_yaml = "0.9.34"

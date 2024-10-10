@@ -1,0 +1,15 @@
+[package]
+name = "register"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = {version = "1.0", features = ["full"]}
+serde = {version = "1.0.210",  features = ["derive"]}
+serde_json = "1.0.128"
+reqwest = {version = "0.12.8", features = ["json"]}
+ed25519-dalek = {version = "2.1.1", features = ["rand_core", "pem"]}
+pkcs8 = "0.10.2"
+rand = "0.8.5"
+sha2 = "0.10.8"
+hex = "0.4.3"

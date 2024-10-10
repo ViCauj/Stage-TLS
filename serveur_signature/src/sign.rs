@@ -13,7 +13,7 @@ pub async fn _keygen() {
     let mut csprng = rand::rngs::OsRng;
     let signing_key: SigningKeyED = SigningKeyED::generate(&mut csprng);
 
-    let mut file = File::create("signing_key.key").unwrap();
+    let mut file = File::create("signing_key.bin").unwrap();
     file.write_all(signing_key.as_bytes()).unwrap(); 
 }
 
