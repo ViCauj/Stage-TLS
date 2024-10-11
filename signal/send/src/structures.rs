@@ -21,7 +21,7 @@ pub struct UserID {
 #[derive(Serialize, Deserialize)]
 pub struct KeysPub {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub signature: String,
     pub one_time_keys: HashMap<String, String>,
 }
@@ -29,30 +29,44 @@ pub struct KeysPub {
 #[derive(Serialize, Deserialize)]
 pub struct KeysPriv {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub one_time_keys: HashMap<String, String>,
+    pub root_keys: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct KeysPubOutput {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub signature: String,
     pub one_time_key: String
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct InitOutput {
-    pub sender: User,
-    pub receiver: UserID,
+    pub session: Session,
     pub id_key: String,
     pub temp_key: String,
+    pub signed_key_id: String,
     pub one_time_key_id: String,
     pub cipher: String,
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct CheckSession {
-    pub user1: UserID,
-    pub user2: UserID
+pub struct Session {
+    pub sender: UserID,
+    pub receiver: UserID
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SessionData {
+    pub receiver_pub_key: String
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Message {
+    pub id_key: String,
+    pub temp_key: String,
+    pub one_time_key_id: String,
+    pub cipher: String,
 }

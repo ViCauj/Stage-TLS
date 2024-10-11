@@ -35,7 +35,7 @@ async fn main() -> Result<(), String> {
         let keys_path = format!("{}/keys.json", &path);
 
         let id_keyp = kpgen();
-        let pre_keyp_signed = kpgen();
+        let kp_signed = kpgen();
         let one_time_keyps: Vec<(String, String)>= (0..NOMBRE_OTK).map(|_| kpgen()).collect();
         let (mut one_time_keys_priv, mut one_time_keys_pub) = (HashMap::new(), HashMap::new());
         for key_pair in one_time_keyps.iter() {
@@ -46,14 +46,15 @@ async fn main() -> Result<(), String> {
 
         let priv_keys = structures::KeysPriv {
             id_key: id_keyp.0.clone(),    
-            pre_key_signed: pre_keyp_signed.0,
+            signed_key: kp_signed.0,
             one_time_keys: one_time_keys_priv,
+            root_keys: HashMap::new()
         };
 
         let pub_keys = structures::KeysPub {
             id_key: id_keyp.1,    
-            pre_key_signed: pre_keyp_signed.1.clone(),
-            signature: signe::signe(pre_keyp_signed.1, id_keyp.0).to_string(), // on signe le pem
+            signed_key: kp_signed.1.clone(),
+            signature: signe::signe(kp_signed.1, id_keyp.0).to_string(), // on signe le pem
             one_time_keys: one_time_keys_pub,
         };
 

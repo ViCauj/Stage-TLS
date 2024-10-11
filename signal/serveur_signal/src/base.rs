@@ -5,7 +5,7 @@ use tokio::{
     io::{AsyncReadExt, AsyncWriteExt}
 };
 use crate::{
-    structures::{CheckSession, Data2Send, InitOutput, KeysPub, KeysPubOutput, Message, Reader, User, UserID, UserWithKeys}, Json
+    structures::{Session, Data2Send, InitOutput, KeysPub, KeysPubOutput, Message, Reader, User, UserID, UserWithKeys}, Json
 };
 
 pub async fn send(Json(payload): Json<Data2Send>) -> Result<(), String> {
@@ -86,18 +86,18 @@ pub async fn suppr_user(Json(payload): Json<User>) -> Result<(), String> {
     Ok(())
 }
 
-pub async fn check_session(Json(payload): Json<CheckSession>) -> Result<(), String> { // Changer
-    let (path1, path2) = (format!("user/{}", payload.user1.id), format!("user/{}", payload.user2.id));
+pub async fn check_session(Json(payload): Json<Session>) -> Result<(), String> { // Changer
+    let (path1, path2) = (format!("user/{}", payload.sender.id), format!("user/{}", payload.receiver.id));
     if !Path::new(&path1).exists() || !Path::new(&path2).exists(){
         return Err("User non enregistré".to_string())
     };
 
-    if Path::new(&format!("{}/{}", path1, payload.user2.id)).exists() && Path::new(&format!("{}/{}", path2, payload.user1.id)).exists() {
+    if Path::new(&format!("{}/{}", path1, payload.receiver.id)).exists() && Path::new(&format!("{}/{}", path2, payload.sender.id)).exists() {
         return Ok(())
-    } else if Path::new(&format!("{}/{}", path1, payload.user2.id)).exists() {
-        fs::remove_dir_all(format!("{}/{}", path1, payload.user2.id)).await.unwrap();
-    } else if Path::new(&format!("{}/{}", path2, payload.user1.id)).exists() {
-        fs::remove_dir_all(format!("{}/{}", path2, payload.user1.id)).await.unwrap();
+    } else if Path::new(&format!("{}/{}", path1, payload.receiver.id)).exists() {
+        fs::remove_dir_all(format!("{}/{}", path1, payload.receiver.id)).await.unwrap();
+    } else if Path::new(&format!("{}/{}", path2, payload.sender.id)).exists() {
+        fs::remove_dir_all(format!("{}/{}", path2, payload.sender.id)).await.unwrap();
     } // ces 2 else if sont au cas ou un utilisateur est supprimé après qu'une session soit init et qu'il recré un compte
     return Err("Session non initialisé".to_string())
 }
@@ -121,15 +121,15 @@ pub async fn init_session(Json(payload): Json<UserID>) -> Json<KeysPubOutput> {
 
     Json(KeysPubOutput{
         id_key: keys.id_key,
-        pre_key_signed: keys.pre_key_signed,
+        signed_key: keys.signed_key,
         signature: keys.signature,
         one_time_key: one_time_key     
     })
 }
 
 pub async fn premier_message(Json(payload): Json<InitOutput>) {
-    let path_sender = format!("user/{}/{}", payload.sender.id, payload.receiver.id);
-    let path_receiver = format!("user/{}/{}", payload.receiver.id, payload.sender.id);
+    let path_sender = format!("user/{}/{}", payload.session.sender.id, payload.session.receiver.id);
+    let path_receiver = format!("user/{}/{}", payload.session.receiver.id, payload.session.sender.id);
     // normalement le check session s'assure que la création des dir en dessous est ok
     fs::create_dir(&path_sender).await.unwrap();
     fs::create_dir(&path_receiver).await.unwrap();
@@ -143,4 +143,17 @@ pub async fn premier_message(Json(payload): Json<InitOutput>) {
     fs::write(&format!("{}/send.json", path_sender), serde_json::to_string(&message).unwrap()).await.unwrap(); // je ne sais pas si c'est nécessaire
     fs::write(&format!("{}/receive.json", path_receiver), serde_json::to_string(&message).unwrap()).await.unwrap();
     // changer le format de send.json et receive.json, il faut que ça puisse être une liste de message (là il ne peut y avoir qu'un seul message, le dernier)
+}
+
+pub async fn feth_dernier_message(Json(payload): Json<Session>) -> Json<Message> {
+    let path = format!("user/{}/{}/receive.json", payload.sender.id, payload.receiver.id);
+    let file_content = fs::read_to_string(&path).await.unwrap();
+    let last_message: Message = serde_json::from_str(&file_content).unwrap();
+
+    Json(Message{
+        id_key: last_message.id_key,
+        temp_key: last_message.temp_key,
+        one_time_key_id: last_message.one_time_key_id,
+        cipher: last_message.cipher,
+    })
 }

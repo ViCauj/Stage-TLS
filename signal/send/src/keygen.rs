@@ -1,4 +1,5 @@
 use ed25519_dalek::{SigningKey, VerifyingKey};
+use hex::encode;
 use x25519_dalek::{StaticSecret, PublicKey};
 use pkcs8::{
     EncodePrivateKey, EncodePublicKey, DecodePublicKey, DecodePrivateKey
@@ -55,6 +56,26 @@ pub fn skgen(id_key_sender: String, ephemeral_key: String, id_key_receiver: Stri
         dh.extend(sender_keys.1.diffie_hellman(&pub_pem_to_dh_key(one_time_key)).as_bytes());
     }
 
+    eprintln!("dh : {}", encode(&dh));
+
+    kfd(dh)
+}
+
+pub fn skrecup(id_key_sender: String, ephemeral_key: String, id_key_receiver: String, signed_key: String, one_time_key: String) -> [u8; 32] {
+    let sender_keys = (priv_pem_to_dh_key(id_key_sender), priv_pem_to_dh_key(signed_key));
+    let receiver_keys = (pub_pem_to_dh_key(id_key_receiver), pub_pem_to_dh_key(ephemeral_key));
+
+    let mut dh = Vec::new();
+    dh.extend(sender_keys.1.diffie_hellman(&receiver_keys.0).as_bytes());
+    dh.extend(sender_keys.0.diffie_hellman(&receiver_keys.1).as_bytes());
+    dh.extend(sender_keys.1.diffie_hellman(&receiver_keys.0).as_bytes());
+
+    if !one_time_key.is_empty() {
+        dh.extend(priv_pem_to_dh_key(one_time_key).diffie_hellman(&receiver_keys.1).as_bytes());
+    }
+
+    eprintln!("dh : {}", encode(&dh));
+
     kfd(dh)
 }
 
@@ -65,3 +86,55 @@ pub fn aad_gen(id_key_sender: String, id_key_receiver: String) -> Vec<u8> {
 
     res
 }
+
+pub fn _dh(private_pem: String, public_pem: String) -> [u8; 32] {
+    let private = priv_pem_to_dh_key(private_pem);
+    let public = pub_pem_to_dh_key(public_pem);
+
+    *private.diffie_hellman(&public).as_bytes()
+}
+
+// KDF du symemetric-key ratchet
+pub fn _kdf_ck(chain_key: [u8; 32]) -> ([u8; 32], [u8; 32]) {
+    let hk = Hkdf::<Sha512>::new(None, &chain_key);
+
+    let (mut new_chain_key , mut message_key) = ([0u8; 32], [0u8;32]);
+    hk.expand(&[0x01], &mut new_chain_key).unwrap();
+    hk.expand(&[0x02], &mut message_key).unwrap();
+
+    (new_chain_key, message_key)
+}
+
+// KDF du diffie-hellman ratchet
+pub fn _kdf_rk(root_key: [u8;32], dh_out: [u8;32]) -> ([u8; 32], [u8; 32]) {
+    let hk = Hkdf::<Sha512>::new(Some(&root_key), &dh_out);
+    
+    let (mut new_root_key, mut chain_key) = ([0u8; 32], [0u8; 32]);
+    // je devrais rajouter de l'info
+    hk.expand(&[0x01], &mut new_root_key).unwrap();
+    hk.expand(&[0x02], &mut chain_key).unwrap();
+
+    (new_root_key, chain_key)
+}
+
+pub fn _test() {
+    let key_a = kpgen();
+    let key_b = kpgen();
+
+    println!("\nTEST");
+
+    println!("{}", encode(priv_pem_to_dh_key(key_a.0).diffie_hellman(&pub_pem_to_dh_key(key_b.1))));
+    println!("{}", encode(priv_pem_to_dh_key(key_b.0).diffie_hellman(&pub_pem_to_dh_key(key_a.1))));
+}
+
+pub fn test2() {
+    let (a_priv, b_priv) = (StaticSecret::random_from_rng(&mut rand::rngs::OsRng), StaticSecret::random_from_rng(&mut rand::rngs::OsRng));
+    let (a_pub, b_pub) = (PublicKey::from(&a_priv), PublicKey::from(&b_priv));
+
+    println!("\nTEST");
+
+    println!("{}", encode(a_priv.diffie_hellman(&b_pub)));
+    println!("{}", encode(b_priv.diffie_hellman(&a_pub)));
+}
+
+// PB AVEC MES CLEFS, pas bien converti!!!!!!!!!! ou pas bone du tout ??????????????

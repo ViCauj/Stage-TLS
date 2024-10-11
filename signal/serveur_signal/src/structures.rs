@@ -19,7 +19,7 @@ pub struct Reader {
 #[derive(Serialize, Deserialize)]
 pub struct KeysPub {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub signature: String,
     pub one_time_keys: HashMap<String, String>,
 }
@@ -35,9 +35,9 @@ pub struct UserID {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct CheckSession {
-    pub user1: UserID,
-    pub user2: UserID
+pub struct Session {
+    pub sender: UserID,
+    pub receiver: UserID
 }
 
 #[derive(Deserialize)]
@@ -49,17 +49,17 @@ pub struct UserWithKeys {
 #[derive(Serialize, Deserialize)]
 pub struct KeysPubOutput {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub signature: String,
     pub one_time_key: String
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct InitOutput {
-    pub sender: User,
-    pub receiver: UserID,
+    pub session: Session,
     pub id_key: String,
     pub temp_key: String,
+    pub signed_key_id: String,
     pub one_time_key_id: String,
     pub cipher: String,
 }

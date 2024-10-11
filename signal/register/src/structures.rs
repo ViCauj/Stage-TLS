@@ -16,14 +16,15 @@ pub struct UserWithKeys {
 #[derive(Serialize, Deserialize)]
 pub struct KeysPriv {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub one_time_keys: HashMap<String, String>,
+    pub root_keys: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct KeysPub {
     pub id_key: String,
-    pub pre_key_signed: String,
+    pub signed_key: String,
     pub signature: String,
     pub one_time_keys: HashMap<String, String>,
 }
