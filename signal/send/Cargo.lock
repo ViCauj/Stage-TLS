@@ -234,8 +234,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f55bf8e7b65898637379c1b74eb1551107c8294ed26d855ceb9fd1a09cfc9bc0"
 dependencies = [
  "const-oid",
- "pem-rfc7468",
  "zeroize",
+]
+
+[[package]]
+name = "derive_more"
+version = "0.99.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f33878137e4dafd7fa914ad4e259e18a4e8e532b9617a2d0150262bf53abfce"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -267,7 +277,6 @@ checksum = "4a3daa8e81a3963a60642bcc1f90a670680bd4a77535faa384e9d1c79d620871"
 dependencies = [
  "curve25519-dalek",
  "ed25519",
- "rand_core",
  "serde",
  "sha2",
  "subtle",
@@ -804,15 +813,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pem-rfc7468"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88b39c9bfcfc231068454382784bb460aae594343fb030d46e9f50a645418412"
-dependencies = [
- "base64ct",
-]
-
-[[package]]
 name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1110,10 +1110,8 @@ name = "send"
 version = "0.1.0"
 dependencies = [
  "aes-gcm",
- "ed25519-dalek",
  "hex",
  "hkdf",
- "pkcs8",
  "rand",
  "reqwest",
  "serde",
@@ -1121,6 +1119,7 @@ dependencies = [
  "sha2",
  "tokio",
  "x25519-dalek",
+ "xeddsa",
 ]
 
 [[package]]
@@ -1691,6 +1690,22 @@ dependencies = [
  "curve25519-dalek",
  "rand_core",
  "serde",
+ "zeroize",
+]
+
+[[package]]
+name = "xeddsa"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2460c9a9c9d1331ff6801e87badb517faa6b6758e5fb585eb27daf7622c6d5ad"
+dependencies = [
+ "curve25519-dalek",
+ "derive_more",
+ "ed25519",
+ "ed25519-dalek",
+ "rand",
+ "sha2",
+ "x25519-dalek",
  "zeroize",
 ]
 

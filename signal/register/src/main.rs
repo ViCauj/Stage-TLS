@@ -5,6 +5,7 @@ use std::{
 };
 use reqwest::Client;
 use tokio::fs;
+use hex::{encode, decode};
 
 mod structures;
 mod keygen;

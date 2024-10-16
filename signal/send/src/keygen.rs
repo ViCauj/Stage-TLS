@@ -1,33 +1,27 @@
-use ed25519_dalek::{SigningKey, VerifyingKey};
-use hex::encode;
 use x25519_dalek::{StaticSecret, PublicKey};
-use pkcs8::{
-    EncodePrivateKey, EncodePublicKey, DecodePublicKey, DecodePrivateKey
-};
 use sha2::Sha512;
 use hkdf::Hkdf;
 
+use crate::{encode, decode};
+
 pub fn kpgen() -> (String, String) {
-    let mut rng = rand::rngs::OsRng;
-    let signing_key: SigningKey = SigningKey::generate(&mut rng);
-    let verifying_key = VerifyingKey::from(&signing_key);
-    let pem_priv = signing_key.to_pkcs8_pem(pkcs8::LineEnding::LF).unwrap();
-    let pem_pub = verifying_key.to_public_key_pem(pkcs8::LineEnding::LF).unwrap();
-    (String::from(pem_priv.as_str()), pem_pub)
+    let static_sec = StaticSecret::random_from_rng(&mut rand::rngs::OsRng);
+    let pub_key = PublicKey::from(&static_sec);
+    (encode(static_sec.to_bytes()), encode(pub_key.to_bytes()))
 }
 
-pub fn priv_to_pub(priv_key_pem: String) -> String {
-    let signing_key =  SigningKey::from_pkcs8_pem(&priv_key_pem).unwrap();
-    let verifying_key = VerifyingKey::from(&signing_key);
-    verifying_key.to_public_key_pem(pkcs8::LineEnding::LF).unwrap()
+fn string_to_sec(key: String) -> StaticSecret {
+    let priv_key: [u8; 32] = decode(key).unwrap().try_into().unwrap();
+    StaticSecret::from(priv_key)
 }
 
-fn pub_pem_to_dh_key(key_pem: String) -> PublicKey {
-    PublicKey::from(*VerifyingKey::from_public_key_pem(&key_pem).unwrap().as_bytes())
+fn string_to_pub(key: String) -> PublicKey {
+    let pub_key: [u8; 32] = decode(key).unwrap().try_into().unwrap();
+    PublicKey::from(pub_key)
 }
 
-fn priv_pem_to_dh_key(key_pem: String) -> StaticSecret {
-    StaticSecret::from(*SigningKey::from_pkcs8_pem(&key_pem).unwrap().as_bytes())
+pub fn priv_to_pub(priv_key: String) -> String {
+    encode(PublicKey::from(&string_to_sec(priv_key)).to_bytes())
 }
 
 fn kfd(dh_conc: Vec<u8>) -> [u8; 32] {
@@ -44,8 +38,8 @@ fn kfd(dh_conc: Vec<u8>) -> [u8; 32] {
 }
 
 pub fn skgen(id_key_sender: String, ephemeral_key: String, id_key_receiver: String, signed_key: String, one_time_key: String) -> [u8; 32] {
-    let sender_keys = (priv_pem_to_dh_key(id_key_sender), priv_pem_to_dh_key(ephemeral_key));
-    let receiver_keys = (pub_pem_to_dh_key(id_key_receiver), pub_pem_to_dh_key(signed_key));
+    let sender_keys = (string_to_sec(id_key_sender), string_to_sec(ephemeral_key));
+    let receiver_keys = (string_to_pub(id_key_receiver), string_to_pub(signed_key));
 
     let mut dh = Vec::new();
     dh.extend(sender_keys.0.diffie_hellman(&receiver_keys.1).as_bytes());
@@ -53,43 +47,39 @@ pub fn skgen(id_key_sender: String, ephemeral_key: String, id_key_receiver: Stri
     dh.extend(sender_keys.1.diffie_hellman(&receiver_keys.1).as_bytes());
 
     if !one_time_key.is_empty() {
-        dh.extend(sender_keys.1.diffie_hellman(&pub_pem_to_dh_key(one_time_key)).as_bytes());
+        dh.extend(sender_keys.1.diffie_hellman(&string_to_pub(one_time_key)).as_bytes());
     }
-
-    eprintln!("dh : {}", encode(&dh));
 
     kfd(dh)
 }
 
-pub fn skrecup(id_key_sender: String, ephemeral_key: String, id_key_receiver: String, signed_key: String, one_time_key: String) -> [u8; 32] {
-    let sender_keys = (priv_pem_to_dh_key(id_key_sender), priv_pem_to_dh_key(signed_key));
-    let receiver_keys = (pub_pem_to_dh_key(id_key_receiver), pub_pem_to_dh_key(ephemeral_key));
+pub fn skrecup(id_key_old_sender: String, ephemeral_key: String, id_key_old_receiver: String, signed_key: String, one_time_key: String) -> [u8; 32] {
+    let old_sender_keys = (string_to_pub(id_key_old_sender), string_to_pub(ephemeral_key));
+    let old_receiver_keys = (string_to_sec(id_key_old_receiver), string_to_sec(signed_key));
 
     let mut dh = Vec::new();
-    dh.extend(sender_keys.1.diffie_hellman(&receiver_keys.0).as_bytes());
-    dh.extend(sender_keys.0.diffie_hellman(&receiver_keys.1).as_bytes());
-    dh.extend(sender_keys.1.diffie_hellman(&receiver_keys.0).as_bytes());
+    dh.extend(old_receiver_keys.1.diffie_hellman(&old_sender_keys.0).as_bytes());
+    dh.extend(old_receiver_keys.0.diffie_hellman(&old_sender_keys.1).as_bytes());
+    dh.extend(old_receiver_keys.1.diffie_hellman(&old_sender_keys.1).as_bytes());
 
     if !one_time_key.is_empty() {
-        dh.extend(priv_pem_to_dh_key(one_time_key).diffie_hellman(&receiver_keys.1).as_bytes());
+        dh.extend(string_to_sec(one_time_key).diffie_hellman(&old_sender_keys.1).as_bytes());
     }
-
-    eprintln!("dh : {}", encode(&dh));
 
     kfd(dh)
 }
 
 pub fn aad_gen(id_key_sender: String, id_key_receiver: String) -> Vec<u8> {
     let mut res = Vec::new();
-    res.extend(VerifyingKey::from(&SigningKey::from_pkcs8_pem(&id_key_sender).unwrap()).as_bytes());
-    res.extend(VerifyingKey::from_public_key_pem(&id_key_receiver).unwrap().as_bytes());
+    res.extend(decode(id_key_sender).unwrap());
+    res.extend(decode(id_key_receiver).unwrap());
 
     res
 }
 
 pub fn _dh(private_pem: String, public_pem: String) -> [u8; 32] {
-    let private = priv_pem_to_dh_key(private_pem);
-    let public = pub_pem_to_dh_key(public_pem);
+    let private = string_to_sec(private_pem);
+    let public = string_to_pub(public_pem);
 
     *private.diffie_hellman(&public).as_bytes()
 }
@@ -116,25 +106,3 @@ pub fn _kdf_rk(root_key: [u8;32], dh_out: [u8;32]) -> ([u8; 32], [u8; 32]) {
 
     (new_root_key, chain_key)
 }
-
-pub fn _test() {
-    let key_a = kpgen();
-    let key_b = kpgen();
-
-    println!("\nTEST");
-
-    println!("{}", encode(priv_pem_to_dh_key(key_a.0).diffie_hellman(&pub_pem_to_dh_key(key_b.1))));
-    println!("{}", encode(priv_pem_to_dh_key(key_b.0).diffie_hellman(&pub_pem_to_dh_key(key_a.1))));
-}
-
-pub fn test2() {
-    let (a_priv, b_priv) = (StaticSecret::random_from_rng(&mut rand::rngs::OsRng), StaticSecret::random_from_rng(&mut rand::rngs::OsRng));
-    let (a_pub, b_pub) = (PublicKey::from(&a_priv), PublicKey::from(&b_priv));
-
-    println!("\nTEST");
-
-    println!("{}", encode(a_priv.diffie_hellman(&b_pub)));
-    println!("{}", encode(b_priv.diffie_hellman(&a_pub)));
-}
-
-// PB AVEC MES CLEFS, pas bien converti!!!!!!!!!! ou pas bone du tout ??????????????

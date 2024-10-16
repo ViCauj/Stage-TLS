@@ -2,13 +2,14 @@ use std::io::{self, Read};
 use reqwest::Client;
 use structures::{InitOutput, Message, Session, SessionData, UserID};
 use tokio::fs;
-use hex::encode;
+use hex::{encode, decode};
 
 mod structures;
 mod signe;
 mod keygen;
 mod enc;
 mod hash;
+
 
 #[tokio::main]
 async fn main() -> Result<(), String> {
@@ -83,7 +84,7 @@ async fn main() -> Result<(), String> {
                         None => {eprintln!("pas de otk");String::from("")},
                     };
                     //  pas sur de ce que j'ai fait, il y a moy que la signed key ne soit plus la bonne si je la change avant de répondre, il faudrait stocker mes signed key
-                    let shared_key = keygen::skrecup(sender_keys.id_key.clone(), last_msg.temp_key.clone(), last_msg.id_key.clone(), sender_keys.signed_key.clone(), one_time_key.clone());
+                    let shared_key = keygen::skrecup(last_msg.id_key.clone(), last_msg.temp_key.clone(), sender_keys.id_key.clone(), sender_keys.signed_key.clone(), one_time_key.clone());
                     
                     // priv // pub // pub // priv
                     eprintln!("{}", encode(shared_key))
@@ -100,7 +101,6 @@ async fn main() -> Result<(), String> {
         // signed key c'est les clefs utilisé dans le dh du dh ratchet
     }
 
-    keygen::test2();
     Ok(())
 }
 
