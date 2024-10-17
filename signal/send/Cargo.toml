@@ -15,3 +15,4 @@ hkdf = "0.12.4"
 sha2 = "0.10.8"
 hex = "0.4.3"
 aes-gcm = "0.10.3"
+indexmap = {version = "2.6.0", features = ["serde"]}

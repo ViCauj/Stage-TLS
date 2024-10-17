@@ -6,6 +6,7 @@ use std::{
 use reqwest::Client;
 use tokio::fs;
 use hex::{encode, decode};
+use indexmap::IndexMap;
 
 mod structures;
 mod keygen;
@@ -45,11 +46,14 @@ async fn main() -> Result<(), String> {
             one_time_keys_pub.insert(hash.clone(), key_pair.1.clone());
         };
 
+        let mut signed_keys = IndexMap::new();
+        signed_keys.insert(hash::sha512(kp_signed.1.clone()), kp_signed.0);
         let priv_keys = structures::KeysPriv {
             id_key: id_keyp.0.clone(),    
-            signed_key: kp_signed.0,
+            signed_keys: signed_keys,
             one_time_keys: one_time_keys_priv,
-            root_keys: HashMap::new()
+            root_keys: HashMap::new(),
+            chain_keys: HashMap::new()
         };
 
         let pub_keys = structures::KeysPub {
@@ -71,5 +75,3 @@ async fn main() -> Result<(), String> {
 
     Ok(())
 }
-
-// ATTENTION IL FAUT TOUT ZEROIZE APRES

@@ -4,8 +4,9 @@ use tokio::{
     fs,
     io::{AsyncReadExt, AsyncWriteExt}
 };
+use indexmap::IndexMap;
 use crate::{
-    structures::{Session, Data2Send, InitOutput, KeysPub, KeysPubOutput, Message, Reader, User, UserID, UserWithKeys}, Json
+    structures::{Data2Send, InitOutput, KeysPub, KeysPubOutput, PremierMessage, MessagesRecus, Session, User, UserID, UserWithKeys}, Json
 };
 
 pub async fn send(Json(payload): Json<Data2Send>) -> Result<(), String> {
@@ -37,27 +38,6 @@ pub async fn send(Json(payload): Json<Data2Send>) -> Result<(), String> {
     Ok(())
 }
 
-pub async fn read(Json(payload): Json<Reader>) -> Result<(), String> {
-    let reader_path = format!("user/{}", payload.reader_id);
-
-    if !Path::new(&reader_path).exists() {
-        return Err("ID inconnu".to_string())
-    }
-    let file_path = format!("user/{}/received_data.json", payload.reader_id);
-    
-    if Path::new(&file_path).exists() {
-        let content = fs::read_to_string(file_path).await.unwrap();
-        let data: serde_json::Value = serde_json::from_str(&content).unwrap();
-        let messages = data.get(&payload.sender_id).unwrap().as_array().unwrap();
-    
-        for message in messages.iter() {
-            eprintln!("{}", message.as_str().unwrap());
-        }
-    }
-    
-    Ok(())
-}
-
 pub async fn register(Json(payload): Json<UserWithKeys>) -> Result<(), String> {
     let path = format!("user/{}", payload.id);
     fs::create_dir(&path).await.unwrap();
@@ -86,7 +66,7 @@ pub async fn suppr_user(Json(payload): Json<User>) -> Result<(), String> {
     Ok(())
 }
 
-pub async fn check_session(Json(payload): Json<Session>) -> Result<(), String> { // Changer
+pub async fn check_session(Json(payload): Json<Session>) -> Result<(), String> {
     let (path1, path2) = (format!("user/{}", payload.sender.id), format!("user/{}", payload.receiver.id));
     if !Path::new(&path1).exists() || !Path::new(&path2).exists(){
         return Err("User non enregistré".to_string())
@@ -134,26 +114,28 @@ pub async fn premier_message(Json(payload): Json<InitOutput>) {
     fs::create_dir(&path_sender).await.unwrap();
     fs::create_dir(&path_receiver).await.unwrap();
 
-    let message = Message {
-        id_key: payload.id_key,
-        temp_key: payload.temp_key,
-        one_time_key_id: payload.one_time_key_id,
-        cipher: payload.cipher,
+    let messages_recus = MessagesRecus {
+        premier_message: PremierMessage {
+            id_key: payload.id_key,
+            temp_key: payload.temp_key,
+            one_time_key_id: payload.one_time_key_id,
+            signed_key_id: payload.signed_key_id,
+            cipher: payload.cipher
+        },
+        messages: IndexMap::new()
     };
-    fs::write(&format!("{}/send.json", path_sender), serde_json::to_string(&message).unwrap()).await.unwrap(); // je ne sais pas si c'est nécessaire
-    fs::write(&format!("{}/receive.json", path_receiver), serde_json::to_string(&message).unwrap()).await.unwrap();
-    // changer le format de send.json et receive.json, il faut que ça puisse être une liste de message (là il ne peut y avoir qu'un seul message, le dernier)
+
+    fs::write(&format!("{}/receive.json", path_sender), serde_json::to_string(&messages_recus).unwrap()).await.unwrap();
+    fs::write(&format!("{}/receive.json", path_receiver), serde_json::to_string(&messages_recus).unwrap()).await.unwrap();
 }
 
-pub async fn feth_dernier_message(Json(payload): Json<Session>) -> Json<Message> {
+pub async fn fetch_messages_recus(Json(payload): Json<Session>) -> Json<MessagesRecus> {
     let path = format!("user/{}/{}/receive.json", payload.sender.id, payload.receiver.id);
     let file_content = fs::read_to_string(&path).await.unwrap();
-    let last_message: Message = serde_json::from_str(&file_content).unwrap();
+    let messages_recus: MessagesRecus = serde_json::from_str(&file_content).unwrap();
 
-    Json(Message{
-        id_key: last_message.id_key,
-        temp_key: last_message.temp_key,
-        one_time_key_id: last_message.one_time_key_id,
-        cipher: last_message.cipher,
+    Json(MessagesRecus{
+        premier_message: messages_recus.premier_message,
+        messages: messages_recus.messages
     })
 }

@@ -1,4 +1,6 @@
 use serde::{Serialize, Deserialize};
+use indexmap::IndexMap;
+
 
 use crate::HashMap;
 
@@ -7,13 +9,6 @@ pub struct Data2Send {
     pub sender_id: String,
     pub reciever_id: String,
     pub data: String,
-}
-
-#[derive(Deserialize)]
-pub struct Reader {
-    pub reader_id: String,
-    pub sender_id: String,
-    // info pour déchiffrer
 }
 
 #[derive(Serialize, Deserialize)]
@@ -64,10 +59,24 @@ pub struct InitOutput {
     pub cipher: String,
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct Message {
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MessagesRecus {
+    pub premier_message: PremierMessage,
+    pub messages: IndexMap<String, Vec<Message>> 
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PremierMessage {
     pub id_key: String,
     pub temp_key: String,
     pub one_time_key_id: String,
+    pub signed_key_id: String,
+    pub cipher: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Message {
+    pub id_key: String,
+    pub sender_signed_key: String,
     pub cipher: String,
 }

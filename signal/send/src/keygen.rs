@@ -77,15 +77,15 @@ pub fn aad_gen(id_key_sender: String, id_key_receiver: String) -> Vec<u8> {
     res
 }
 
-pub fn _dh(private_pem: String, public_pem: String) -> [u8; 32] {
-    let private = string_to_sec(private_pem);
-    let public = string_to_pub(public_pem);
+pub fn dh(private: String, public: String) -> [u8; 32] {
+    let private = string_to_sec(private);
+    let public = string_to_pub(public);
 
     *private.diffie_hellman(&public).as_bytes()
 }
 
 // KDF du symemetric-key ratchet
-pub fn _kdf_ck(chain_key: [u8; 32]) -> ([u8; 32], [u8; 32]) {
+pub fn kdf_ck(chain_key: [u8; 32]) -> ([u8; 32], [u8; 32]) {
     let hk = Hkdf::<Sha512>::new(None, &chain_key);
 
     let (mut new_chain_key , mut message_key) = ([0u8; 32], [0u8;32]);
@@ -96,7 +96,7 @@ pub fn _kdf_ck(chain_key: [u8; 32]) -> ([u8; 32], [u8; 32]) {
 }
 
 // KDF du diffie-hellman ratchet
-pub fn _kdf_rk(root_key: [u8;32], dh_out: [u8;32]) -> ([u8; 32], [u8; 32]) {
+pub fn kdf_rk(root_key: [u8;32], dh_out: [u8;32]) -> ([u8; 32], [u8; 32]) {
     let hk = Hkdf::<Sha512>::new(Some(&root_key), &dh_out);
     
     let (mut new_root_key, mut chain_key) = ([0u8; 32], [0u8; 32]);
