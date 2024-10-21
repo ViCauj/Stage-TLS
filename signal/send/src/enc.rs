@@ -9,5 +9,6 @@ pub fn aesgcm(data: String, aad: Vec<u8>, key: [u8; 32]) -> Vec<u8> {
     let mut ciphertext = data.into_bytes();
     cipher.encrypt_in_place(&nonce, &aad, &mut ciphertext).unwrap();
 
+    eprintln!("{}", nonce.to_vec().len());
     vec![nonce.to_vec(), ciphertext].concat()
 } 

@@ -47,13 +47,14 @@ async fn main() -> Result<(), String> {
         };
 
         let mut signed_keys = IndexMap::new();
-        signed_keys.insert(hash::sha512(kp_signed.1.clone()), kp_signed.0);
+        signed_keys.insert(kp_signed.1.clone(), kp_signed.0);
         let priv_keys = structures::KeysPriv {
             id_key: id_keyp.0.clone(),    
             signed_keys: signed_keys,
             one_time_keys: one_time_keys_priv,
             root_keys: HashMap::new(),
-            chain_keys: HashMap::new()
+            send_key: HashMap::new(),
+            receive_key_chain: HashMap::new(),
         };
 
         let pub_keys = structures::KeysPub {

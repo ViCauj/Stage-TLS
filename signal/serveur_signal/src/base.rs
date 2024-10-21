@@ -1,42 +1,12 @@
 use std::path::Path;
-use serde_json::json;
 use tokio::{
     fs,
-    io::{AsyncReadExt, AsyncWriteExt}
+    io::AsyncReadExt
 };
 use indexmap::IndexMap;
 use crate::{
-    structures::{Data2Send, InitOutput, KeysPub, KeysPubOutput, PremierMessage, MessagesRecus, Session, User, UserID, UserWithKeys}, Json
+    structures::{self, DataToSend, InitOutput, KeysPub, KeysPubOutput, Messages, PremierMessage, Session, User, UserID, UserWithKeys}, Json
 };
-
-pub async fn send(Json(payload): Json<Data2Send>) -> Result<(), String> {
-    let receiver_path = format!("user/{}", payload.reciever_id);
-
-    if !Path::new(&receiver_path).exists() {
-        return Err("Destinataire inconnu".to_string())
-    }
-    let file_path = format!("{}/received_data.json", receiver_path);
-
-    let mut data = if Path::new(&file_path).exists() {
-        let content = fs::read_to_string(&file_path).await.unwrap_or_else(|_| "{}".to_string());
-        serde_json::from_str::<serde_json::Value>(&content).unwrap_or_else(|_| json!({}))
-    } else {
-        json!({})
-    };
-
-    if !data.get(&payload.sender_id).is_some() {
-        data[&payload.sender_id] = json!([]);
-    }
-    if let Some(sender_entry) = data[&payload.sender_id].as_array_mut() {
-        sender_entry.push(json!(payload.data));
-    }
-
-    let mut file = fs::File::create(&file_path).await.unwrap();
-    let serialized_data = serde_json::to_string_pretty(&data).unwrap();
-    file.write_all(serialized_data.as_bytes()).await.unwrap();
-
-    Ok(())
-}
 
 pub async fn register(Json(payload): Json<UserWithKeys>) -> Result<(), String> {
     let path = format!("user/{}", payload.id);
@@ -107,6 +77,17 @@ pub async fn init_session(Json(payload): Json<UserID>) -> Json<KeysPubOutput> {
     })
 }
 
+pub async fn get_keys(Json(payload): Json<UserID>) -> Json<KeysPub> {
+    let path = format!("user/{}/keys.json", payload.id);
+
+    let mut file = fs::File::open(&path).await.unwrap();
+    let mut keys = String::new();
+    file.read_to_string(&mut keys).await.unwrap();
+
+    let keys: KeysPub = serde_yaml::from_str(&keys).unwrap();
+    Json(keys)
+}
+
 pub async fn premier_message(Json(payload): Json<InitOutput>) {
     let path_sender = format!("user/{}/{}", payload.session.sender.id, payload.session.receiver.id);
     let path_receiver = format!("user/{}/{}", payload.session.receiver.id, payload.session.sender.id);
@@ -114,28 +95,55 @@ pub async fn premier_message(Json(payload): Json<InitOutput>) {
     fs::create_dir(&path_sender).await.unwrap();
     fs::create_dir(&path_receiver).await.unwrap();
 
-    let messages_recus = MessagesRecus {
+    let mut messages = Messages {
         premier_message: PremierMessage {
+            id_sender: payload.session.sender.id,
             id_key: payload.id_key,
             temp_key: payload.temp_key,
             one_time_key_id: payload.one_time_key_id,
-            signed_key_id: payload.signed_key_id,
+            signed_keys: payload.signed_keys,
             cipher: payload.cipher
         },
-        messages: IndexMap::new()
+        messages_recus: IndexMap::new(),
+        // messages_envoye: IndexMap::new()
     };
 
-    fs::write(&format!("{}/receive.json", path_sender), serde_json::to_string(&messages_recus).unwrap()).await.unwrap();
-    fs::write(&format!("{}/receive.json", path_receiver), serde_json::to_string(&messages_recus).unwrap()).await.unwrap();
+    fs::write(&format!("{}/messages.json", path_sender), serde_json::to_string(&messages).unwrap()).await.unwrap();
+
+    messages.messages_recus.insert(structures::serial_tuple(messages.premier_message.signed_keys.clone()), vec![messages.premier_message.cipher.clone()]);
+    fs::write(&format!("{}/messages.json", path_receiver), serde_json::to_string(&messages).unwrap()).await.unwrap();
 }
 
-pub async fn fetch_messages_recus(Json(payload): Json<Session>) -> Json<MessagesRecus> {
-    let path = format!("user/{}/{}/receive.json", payload.sender.id, payload.receiver.id);
+pub async fn fetch_messages_sender(Json(payload): Json<Session>) -> Json<Messages> {
+    let path = format!("user/{}/{}/messages.json", payload.sender.id, payload.receiver.id);
     let file_content = fs::read_to_string(&path).await.unwrap();
-    let messages_recus: MessagesRecus = serde_json::from_str(&file_content).unwrap();
+    let messages: Messages = serde_json::from_str(&file_content).unwrap();
 
-    Json(MessagesRecus{
-        premier_message: messages_recus.premier_message,
-        messages: messages_recus.messages
-    })
+    Json(messages)
+}
+
+pub async fn fetch_messages_receiver(Json(payload): Json<Session>) -> Json<Messages> {
+    let path = format!("user/{}/{}/messages.json", payload.receiver.id, payload.sender.id);
+    let file_content = fs::read_to_string(&path).await.unwrap();
+    let messages: Messages = serde_json::from_str(&file_content).unwrap();
+
+    Json(messages)
+}
+
+pub async fn send(Json(payload): Json<DataToSend>) {
+    // let path_sender = format!("user/{}/{}/messages.json", payload.session.sender.id, payload.session.receiver.id);
+    let path_receiver = format!("user/{}/{}/messages.json", payload.session.receiver.id, payload.session.sender.id);
+    // let sender_file = fs::read_to_string(&path_sender).await.unwrap();
+    let receiver_file = fs::read_to_string(&path_receiver).await.unwrap();
+
+    // let mut messages_sender: Messages = serde_json::from_str(&sender_file).unwrap();
+    let mut messages_receiver: Messages = serde_json::from_str(&receiver_file).unwrap();
+    match messages_receiver.messages_recus.get_mut(&structures::serial_tuple(payload.message.signed_keys.clone())) {
+        Some(x) => x.push(payload.message.cipher.clone()),
+        None => {
+            messages_receiver.messages_recus.insert(structures::serial_tuple(payload.message.signed_keys.clone()), vec![payload.message.cipher.clone()]);
+        }
+    };
+
+    fs::write(&path_receiver, serde_json::to_string(&messages_receiver).unwrap()).await.unwrap();
 }
