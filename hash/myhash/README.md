@@ -1,0 +1,1 @@
+Progamme lisant stdin et retournant dans stdout le hash de l'entrée

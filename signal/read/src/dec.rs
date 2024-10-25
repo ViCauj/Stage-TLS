@@ -4,6 +4,7 @@ use aes_gcm::{
     Nonce
 };
 use hex::decode;
+use hex::encode;
 
 pub fn aes_gcm(ciphertext: String, aad: Vec<u8>, key: [u8; 32]) -> String {
     let mut cipher = Aes256Gcm::new(&key.into());

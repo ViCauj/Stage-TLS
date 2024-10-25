@@ -1,4 +1,4 @@
 {
-	"sender": {"id": "alice"},
-	"receiver": {"id": "bob"}
+	"sender": {"id": "bob"},
+	"receiver": {"id": "alice"}
 }

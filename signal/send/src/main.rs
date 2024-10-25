@@ -55,10 +55,11 @@ async fn main() -> Result<(), String> {
         let mut root_keys = IndexMap::new();
         root_keys.insert(structures::serial_tuple((sender_keys.signed_keys.last().unwrap().0.clone(), receiver_keys.signed_key.clone())), encode(current_root_key));
         sender_keys.root_keys.insert(input.receiver.id.clone(), root_keys);
+        let (_new_chain_key, message_key) = keygen::kdf_ck(current_chain_key); // car on envoi directement un message
         send_chain_key.insert(input.receiver.id.clone(), encode(current_chain_key));
 
         fs::write(&path_sender_keys, serde_json::to_string(&sender_keys).unwrap()).await.unwrap();
-        let ciphertext = enc::aesgcm(input.data, keygen::aad_gen(sender_keys.id_key.clone(), receiver_keys.id_key.clone()), current_root_key);
+        let ciphertext = enc::aesgcm(input.data, keygen::aad_gen(keygen::priv_to_pub(sender_keys.id_key.clone()), receiver_keys.id_key.clone()), message_key);
         let data_to_send = InitOutput {
             session: input_session,
             id_key: keygen::priv_to_pub(sender_keys.id_key.clone()),
@@ -118,7 +119,7 @@ async fn main() -> Result<(), String> {
             let (new_send_key, message_key) = keygen::kdf_ck(decode(_current_send_key).unwrap().try_into().unwrap());
             _current_send_key = &encode(new_send_key);
 
-            let ciphertext = enc::aesgcm(input.data, keygen::aad_gen(keygen::priv_to_pub(sender_keys.id_key.clone()), receiver_keys.signed_key), message_key);  
+            let ciphertext = enc::aesgcm(input.data, keygen::aad_gen(keygen::priv_to_pub(sender_keys.id_key.clone()), receiver_keys.id_key), message_key);  
   
             let message = Message { 
                 signed_keys: (his_old_signed_key, my_old_signed_key), // on inverse pour que le format reste le même (ce message sera envoyé chez lui ou l'ordre des clef est inversé)

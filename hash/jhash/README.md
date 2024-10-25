@@ -1,0 +1,1 @@
+Programme pour créer le hash d'un JSON (donné dans STDIN) sous un certain format (en pratique je l'ai utilisé pour le serveur signature) envoyé dans STDOUT

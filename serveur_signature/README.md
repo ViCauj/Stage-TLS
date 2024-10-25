@@ -1,0 +1,1 @@
+Serveur qui permet de signer des documents (il peut le faire localement ou avec un HSM si on lui précise ou regarder dans le fichier de conf)

@@ -2,7 +2,7 @@ use x25519_dalek::{StaticSecret, PublicKey};
 use sha2::Sha512;
 use hkdf::Hkdf;
 
-use crate::decode;
+use crate::{decode, encode};
 
 fn string_to_sec(key: String) -> StaticSecret {
     let priv_key: [u8; 32] = decode(key).unwrap().try_into().unwrap();
@@ -12,6 +12,10 @@ fn string_to_sec(key: String) -> StaticSecret {
 fn string_to_pub(key: String) -> PublicKey {
     let pub_key: [u8; 32] = decode(key).unwrap().try_into().unwrap();
     PublicKey::from(pub_key)
+}
+
+pub fn priv_to_pub(priv_key: String) -> String {
+    encode(PublicKey::from(&string_to_sec(priv_key)).to_bytes())
 }
 
 pub fn aad_gen(id_key_sender: String, id_key_receiver: String) -> Vec<u8> {

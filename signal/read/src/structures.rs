@@ -31,6 +31,7 @@ pub struct KeysPub {
     pub one_time_keys: HashMap<String, String>,
 }
 
+#[derive(Debug)]
 #[derive(Serialize, Deserialize)]
 pub struct KeysPriv {
     pub id_key: String,

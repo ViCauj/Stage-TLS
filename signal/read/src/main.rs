@@ -1,7 +1,7 @@
 use std::io::{self, Read};
 use reqwest::Client;
 use structures::{Messages, Session, UserID, KeysPub};
-use hex::decode;
+use hex::{encode, decode};
 use tokio::fs;
 
 mod structures;
@@ -44,13 +44,15 @@ async fn main() -> Result<(), String> {
             .json().await.unwrap();
 
         for (keys, chain) in messages.messages_recus {
-            let root_key = receiver_keys.root_keys.get(&input_session.sender.id).unwrap().get(&keys).unwrap();
-            let (my_key, his_key) = structures::deserial_tuple(keys);
-            let dh_out = keygen::dh(receiver_keys.signed_keys.get(&my_key).unwrap().clone(), his_key.clone());
-            let _chain_key = keygen::kdf_first_chain_key(decode(root_key).unwrap().try_into().unwrap(), dh_out);
+            // let root_key = receiver_keys.root_keys.get(&input_session.sender.id).unwrap().get(&keys).unwrap();
+            // let (my_key, his_key) = structures::deserial_tuple(keys);
+            // let dh_out = keygen::dh(receiver_keys.signed_keys.get(&my_key).unwrap().clone(), his_key.clone());
+            // let _chain_key = keygen::kdf_first_chain_key(decode(root_key).unwrap().try_into().unwrap(), dh_out);
+            // eprintln!("{}\n{}\n", root_key, encode(_chain_key));
+            let receive_chain = decode(receiver_keys.send_key.get(&input_session.sender.id).unwrap()).unwrap().try_into().unwrap();
             for message in chain {
-                let (_chain_key, message_key) = keygen::kdf_ck(_chain_key);
-                eprintln!("{}", dec::aes_gcm(message, keygen::aad_gen(sender_keys.id_key.clone(), receiver_keys.id_key.clone()), message_key));
+                let (_chain_key, message_key) = keygen::kdf_ck(receive_chain);
+                eprintln!("{}", dec::aes_gcm(message, keygen::aad_gen(sender_keys.id_key.clone(), keygen::priv_to_pub(receiver_keys.id_key.clone())), message_key));
             }
         };
     };
