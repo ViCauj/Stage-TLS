@@ -1,0 +1,1 @@
+fn(Extension<Arc<tokio::sync::Mutex<Session>>>, Json<structures::Hash>) -> impl Future<Output = Json<ed25519_dalek::Signature>> {sign_hsm::sign}

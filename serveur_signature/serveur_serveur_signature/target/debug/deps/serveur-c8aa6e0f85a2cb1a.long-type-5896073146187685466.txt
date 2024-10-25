@@ -1,0 +1,1 @@
+fn(Extension<Arc<tokio::sync::Mutex<Session>>>, axum::Json<structures::Hash>) -> impl Future<Output = axum::Json<{type error}>> {sign_hsm::sign}

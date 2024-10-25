@@ -10,6 +10,6 @@ print(merged_json)
 print(out_json)
 
 
-json_check = {"merged_json": merged_json, "output_json": out_json}
+json_check = {"merged_json": merged_json, "signature": out_json}
 with open("check.json", "w") as f:
     json.dump(json_check, f, indent=1)
