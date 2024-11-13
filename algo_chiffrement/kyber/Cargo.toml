@@ -1,0 +1,8 @@
+[package]
+name = "kyber"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pqc_kyber = {version = "0.7.1", features = ["std"]}
+rand = "0.8.5"

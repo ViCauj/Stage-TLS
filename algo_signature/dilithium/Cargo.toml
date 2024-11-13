@@ -1,0 +1,8 @@
+[package]
+name = "dilithium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pqc_dilithium = "0.2.0"
+hex = "0.4.3"

@@ -1,48 +1,56 @@
 \babel@toc {french}{}\relax 
-\contentsline {section}{\numberline {1}\textcolor {red}{Introduction}}{6}{section.1}%
-\contentsline {section}{\numberline {2}Contexte du stage et organisation de l'entreprise}{6}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Groupe Thales}{6}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Thales Service Numérique (TSN)}{7}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Direction Technique (DT)}{7}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Le positionnement du stage dans les traveaux de l'entreprise}{8}{subsection.2.4}%
-\contentsline {section}{\numberline {3}Travaux réalisé}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1}AES}{9}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Permutation $\Pi $}{10}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Permutation $\hat {\Pi }$}{11}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Création des clefs $k_i$}{12}{subsubsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.2}AES CBC}{12}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Mon implémentation}{14}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Padding oracle attack}{14}{subsubsection.3.2.2}%
-\contentsline {paragraph}{Déchiffrer un bloc}{15}{subsubsection.3.2.2}%
-\contentsline {paragraph}{Généralisation à n blocs}{16}{figure.caption.13}%
-\contentsline {subsection}{\numberline {3.3}AES GCM}{17}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}CTR}{17}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}GMAC}{17}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}GCM}{18}{subsubsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.4}\textcolor {orange}{Mise en place d'un programme de chiffrement/déchiffrement}}{19}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Contexte}{19}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Mise en place}{20}{subsubsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.5}SoftHSM}{20}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Signature}{23}{subsection.3.6}%
-\contentsline {subsubsection}{\numberline {3.6.1}RSA}{24}{subsubsection.3.6.1}%
-\contentsline {paragraph}{Génération des clefs}{24}{subsubsection.3.6.1}%
-\contentsline {paragraph}{Signer avec RSA}{24}{Item.18}%
-\contentsline {paragraph}{Vérifier l'intégrité des données}{24}{Item.18}%
-\contentsline {subsubsection}{\numberline {3.6.2}Courbes elliptiques avec Ed25519}{25}{subsubsection.3.6.2}%
-\contentsline {paragraph}{Courbe elliptique}{25}{subsubsection.3.6.2}%
-\contentsline {paragraph}{Courbe elliptique sur un espace à dimension finie}{26}{figure.caption.20}%
-\contentsline {paragraph}{Ed25519}{27}{Item.21}%
-\contentsline {paragraph}{Génération des clefs}{28}{Item.21}%
-\contentsline {paragraph}{Signer avec Ed25519}{28}{Item.25}%
-\contentsline {paragraph}{Vérifier l'intégrité des données}{29}{Item.25}%
-\contentsline {subsubsection}{\numberline {3.6.3}\textcolor {red}{Serveur signature}}{29}{subsubsection.3.6.3}%
-\contentsline {subsection}{\numberline {3.7}Wireguard}{29}{subsection.3.7}%
-\contentsline {subsubsection}{\numberline {3.7.1}Configuration}{29}{subsubsection.3.7.1}%
-\contentsline {paragraph}{Serveur}{30}{subsubsection.3.7.1}%
-\contentsline {paragraph}{Clients}{30}{subsubsection.3.7.1}%
-\contentsline {subsubsection}{\numberline {3.7.2}Mise en place}{31}{subsubsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.8}\textcolor {red}{Signal}}{31}{subsection.3.8}%
-\contentsline {subsection}{\numberline {3.9}\textcolor {red}{Port knocking}}{31}{subsection.3.9}%
-\contentsline {subsection}{\numberline {3.10}\textcolor {red}{Algo post quantique}}{31}{subsection.3.10}%
-\contentsline {section}{\numberline {4}\textcolor {red}{Le stage d'application dans la construction de mon projet professionel}}{31}{section.4}%
-\contentsline {section}{\numberline {5}\textcolor {red}{Conclusion}}{31}{section.5}%
+\contentsline {section}{\numberline {1}Introduction}{7}{section.1}%
+\contentsline {section}{\numberline {2}Contexte du stage et organisation de l'entreprise}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Groupe Thales}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Thales Service Numérique (TSN)}{8}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Direction Technique (DT)}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Le positionnement du stage dans les traveaux de l'entreprise}{10}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Travaux réalisé}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Chiffrement}{10}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}AES}{10}{subsubsection.3.1.1}%
+\contentsline {paragraph}{Permutation $\Pi $}{11}{figure.caption.6}%
+\contentsline {paragraph}{Permutation $\hat {\Pi }$}{13}{Item.13}%
+\contentsline {paragraph}{Création des clefs $k_i$}{13}{Item.13}%
+\contentsline {subsubsection}{\numberline {3.1.2}AES CBC}{14}{subsubsection.3.1.2}%
+\contentsline {paragraph}{Mon implémentation}{15}{figure.caption.12}%
+\contentsline {paragraph}{Padding oracle attack}{16}{figure.caption.12}%
+\contentsline {paragraph}{Déchiffrer un bloc}{16}{figure.caption.12}%
+\contentsline {paragraph}{Généralisation à n blocs}{18}{figure.caption.14}%
+\contentsline {subsubsection}{\numberline {3.1.3}AES GCM}{19}{subsubsection.3.1.3}%
+\contentsline {paragraph}{CTR}{19}{subsubsection.3.1.3}%
+\contentsline {paragraph}{GMAC}{19}{figure.caption.16}%
+\contentsline {paragraph}{GCM}{20}{figure.caption.17}%
+\contentsline {subsubsection}{\numberline {3.1.4}\textcolor {orange}{Programme de chiffrement/déchiffrement}}{21}{subsubsection.3.1.4}%
+\contentsline {paragraph}{Contexte}{21}{subsubsection.3.1.4}%
+\contentsline {paragraph}{Mise en place}{21}{subsubsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.2}HSM}{22}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Signature}{25}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}RSA}{25}{subsubsection.3.3.1}%
+\contentsline {paragraph}{Génération des clefs}{25}{subsubsection.3.3.1}%
+\contentsline {paragraph}{Signer avec RSA}{26}{Item.25}%
+\contentsline {paragraph}{Vérifier l'intégrité des données}{26}{Item.25}%
+\contentsline {subsubsection}{\numberline {3.3.2}Courbes elliptiques avec Ed25519}{26}{subsubsection.3.3.2}%
+\contentsline {paragraph}{Courbe elliptique}{26}{subsubsection.3.3.2}%
+\contentsline {paragraph}{Courbe elliptique sur un espace à dimension finie}{27}{figure.caption.21}%
+\contentsline {paragraph}{Ed25519}{29}{Item.28}%
+\contentsline {paragraph}{Génération des clefs}{29}{Item.28}%
+\contentsline {paragraph}{Signer avec Ed25519}{30}{Item.32}%
+\contentsline {paragraph}{Vérifier l'intégrité des données}{30}{Item.32}%
+\contentsline {subsubsection}{\numberline {3.3.3}Serveur signature}{31}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Wireguard}{32}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Configuration}{33}{subsubsection.3.4.1}%
+\contentsline {paragraph}{Serveur}{33}{lstnumber.-3.2}%
+\contentsline {paragraph}{Clients}{34}{lstnumber.-4.12}%
+\contentsline {subsubsection}{\numberline {3.4.2}Mise en place}{34}{subsubsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.5}\textcolor {red}{Port knocking}}{34}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Problème et solution}{34}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Mon implémentation}{35}{subsubsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.6}Signal}{36}{subsection.3.6}%
+\contentsline {subsubsection}{\numberline {3.6.1}Extended Triple Diffie-Hellman (X3DH)}{36}{subsubsection.3.6.1}%
+\contentsline {paragraph}{Clefs}{36}{subsubsection.3.6.1}%
+\contentsline {paragraph}{Premier message}{37}{subsubsection.3.6.1}%
+\contentsline {paragraph}{Réception du premier message}{38}{subsubsection.3.6.1}%
+\contentsline {subsubsection}{\numberline {3.6.2}Double ratchet}{38}{subsubsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.7}\textcolor {red}{Algo post quantique}}{38}{subsection.3.7}%
+\contentsline {section}{\numberline {4}\textcolor {red}{Le stage d'application dans la construction de mon projet professionel}}{38}{section.4}%
+\contentsline {section}{\numberline {5}\textcolor {red}{Conclusion}}{38}{section.5}%

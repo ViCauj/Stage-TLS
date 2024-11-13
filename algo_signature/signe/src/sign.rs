@@ -6,6 +6,7 @@ use rsa::{
     signature::{Keypair, RandomizedSigner},
     sha2::Sha256
 };
+use pqc_dilithium::{Keypair as DilithiumKeypair, verify};
 
 
 pub fn signe_ed25519(message: &[u8]) -> (VerifyingKeyED, SignatureED) {
@@ -31,10 +32,20 @@ pub fn signe_rsa(message: &[u8]) -> (VerifyingKeyRSA<Sha256> , SignatureRSA){
     (verifying_key, signature)
 }
 
+pub fn signe_dilithium(message: &[u8]) -> ([u8; 1952], [u8; 3293]) {
+    let keys = DilithiumKeypair::generate();
+    let signature = keys.sign(message);
+    (keys.public, signature)
+}
+
 pub fn check_rsa(message: &[u8], verifying_key: VerifyingKeyRSA<Sha256>, signature: SignatureRSA) {
     verifying_key.verify(message, &signature).unwrap();
 }
 
 pub fn check_ed25519(message: &[u8], verifying_key: VerifyingKeyED, signature: SignatureED) {
     assert!(verifying_key.verify(message, &signature).is_ok());
+}
+
+pub fn check_dilithium(message: &[u8], verifying_key: &[u8; 1952], signature: &[u8; 3293]) {
+    assert!(verify(signature, message, verifying_key).is_ok());
 }

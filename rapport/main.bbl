@@ -71,6 +71,46 @@
       \field{title}{Edwards-Curve Digital Signature Algorithm (EdDSA)}
       \field{year}{2017}
     \endentry
+    \entry{xtroisdh}{online}{}
+      \name{author}{1}{}{%
+        {{hash=7fd3570a5564326980a88f39637b1260}{%
+           family={Moxie\bibnamedelima Marlinspike},
+           familyi={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Trevor\bibnamedelimb Perrin\bibnamedelima (editor)},
+           giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim (\bibinitperiod}}}%
+      }
+      \strng{namehash}{7fd3570a5564326980a88f39637b1260}
+      \strng{fullhash}{7fd3570a5564326980a88f39637b1260}
+      \strng{bibnamehash}{7fd3570a5564326980a88f39637b1260}
+      \strng{authorbibnamehash}{7fd3570a5564326980a88f39637b1260}
+      \strng{authornamehash}{7fd3570a5564326980a88f39637b1260}
+      \strng{authorfullhash}{7fd3570a5564326980a88f39637b1260}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The X3DH Key Agreement Protocol}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://signal.org/docs/specifications/x3dh/
+      \endverb
+      \verb{url}
+      \verb https://signal.org/docs/specifications/x3dh/
+      \endverb
+    \endentry
+    \entry{thalesgroupe}{online}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{title}{Présentation du Groupe}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.thalesgroup.com/sites/default/files/2024-09/20240930%20Thales%20Group%20Overview%202024%20-%20FR.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.thalesgroup.com/sites/default/files/2024-09/20240930%20Thales%20Group%20Overview%202024%20-%20FR.pdf
+      \endverb
+    \endentry
     \entry{courscourt}{book}{}
       \name{author}{1}{}{%
         {{hash=98419613b7fd8103780e4fc807177469}{%
@@ -102,6 +142,33 @@
       \endverb
       \verb{url}
       \verb cryptography.rs
+      \endverb
+    \endentry
+    \entry{doubleratchet}{online}{}
+      \name{author}{1}{}{%
+        {{hash=761ea5960d3cfee1c383411753afb5b8}{%
+           family={Trevor\bibnamedelimb Perrin\bibnamedelima (editor)},
+           familyi={T\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim (\bibinitperiod},
+           given={Moxie\bibnamedelima Marlinspike},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{761ea5960d3cfee1c383411753afb5b8}
+      \strng{fullhash}{761ea5960d3cfee1c383411753afb5b8}
+      \strng{bibnamehash}{761ea5960d3cfee1c383411753afb5b8}
+      \strng{authorbibnamehash}{761ea5960d3cfee1c383411753afb5b8}
+      \strng{authornamehash}{761ea5960d3cfee1c383411753afb5b8}
+      \strng{authorfullhash}{761ea5960d3cfee1c383411753afb5b8}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Double Ratchet Algorithm}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://signal.org/docs/specifications/doubleratchet/
+      \endverb
+      \verb{url}
+      \verb https://signal.org/docs/specifications/doubleratchet/
       \endverb
     \endentry
   \enddatalist

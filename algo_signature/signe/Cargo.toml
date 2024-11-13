@@ -7,3 +7,4 @@ edition = "2021"
 ed25519-dalek = {version = "2.1.1", features = ["rand_core"]}
 rsa = {version = "0.9.6", features = ["sha2"]}
 rand = "0.8.5"
+pqc_dilithium = "0.2.0"
