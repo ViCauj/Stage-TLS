@@ -1,22 +1,26 @@
 \babel@toc {french}{}\relax 
 \contentsline {figure}{\numberline {1}{\ignorespaces Ping pong entre le client et le serveur avec un protocole TCP}}{6}{figure.caption.2}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Chiffres clés de 2023 du groupe Thales}}{8}{figure.caption.3}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Axes majeurs du développement à Thales}}{8}{figure.caption.4}%
-\contentsline {figure}{\numberline {4}{\ignorespaces fonctionnement d'AES}}{11}{figure.caption.6}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Réorganisation du bloc}}{12}{figure.caption.7}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Effet de $\mathtt {SubBytes}$ sur le bloc, avec $\tilde {s} = S(s)$}}{12}{figure.caption.8}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Effet de $\mathtt {ShiftRows}$ sur le bloc}}{12}{figure.caption.9}%
-\contentsline {figure}{\numberline {8}{\ignorespaces réorganisation des clefs en suite de mots de 32 bits}}{13}{figure.caption.10}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Fonctionement d'AES ECB, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{14}{figure.caption.11}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Fonctionement d'AES CBC, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{15}{figure.caption.12}%
-\contentsline {figure}{\numberline {11}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{17}{figure.caption.13}%
-\contentsline {figure}{\numberline {12}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{18}{figure.caption.14}%
-\contentsline {figure}{\numberline {13}{\ignorespaces Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}}{18}{figure.caption.15}%
-\contentsline {figure}{\numberline {14}{\ignorespaces Fonctionnement d'AES CTR, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, \emph {Le +1 signifie qu'on incrémente de 1 l'IV généré aléatoirement.} }}{19}{figure.caption.16}%
-\contentsline {figure}{\numberline {15}{\ignorespaces Fonctionnement du GMAC, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, et $\times \text {H}$ la multiplication dans $GF\left (2^{128}\right )$ par $\text {H} = \text {AES}_k\left ({0}^{128}\right )$.}}{20}{figure.caption.17}%
-\contentsline {figure}{\numberline {16}{\ignorespaces Fonctionnement d'AES GCM avec en vert CTR et en rouge GMAC}}{20}{figure.caption.18}%
-\contentsline {figure}{\numberline {17}{\ignorespaces HSM de Thales}}{23}{figure.caption.19}%
-\contentsline {figure}{\numberline {18}{\ignorespaces Courbe $y^2 = x^3 - x + 9$ sur $\varmathbb {R}$}}{27}{figure.caption.20}%
-\contentsline {figure}{\numberline {19}{\ignorespaces $P + Q$ sur $y^2 = x^3 - x + 9$ sur $\varmathbb {R}$ avec $P = (-1-3)$ et $Q = (1,3)$}}{28}{figure.caption.21}%
-\contentsline {figure}{\numberline {20}{\ignorespaces Courbe $y^2 = x^3 -6x + 2$ sur $ \varmathbb {Z}/59\varmathbb {Z}$}}{28}{figure.caption.22}%
-\contentsline {figure}{\numberline {21}{\ignorespaces architecture du serveur signature}}{32}{figure.caption.23}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Chiffres clés de 2023 du groupe Thales}}{9}{figure.caption.3}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Axes majeurs du développement à Thales}}{9}{figure.caption.4}%
+\contentsline {figure}{\numberline {4}{\ignorespaces fonctionnement d'AES}}{12}{figure.caption.6}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Réorganisation d'un bloc de 128 bits}}{13}{figure.caption.7}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Effet de $\mathtt {SubBytes}$ sur un bloc, avec $\tilde {s} = S(s)$}}{13}{figure.caption.8}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Effet de $\mathtt {ShiftRows}$ sur un bloc}}{14}{figure.caption.9}%
+\contentsline {figure}{\numberline {8}{\ignorespaces réorganisation des clefs en suite de mots de 32 bits}}{15}{figure.caption.10}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Fonctionement d'AES ECB, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{15}{figure.caption.11}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Fonctionement d'AES CBC, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}}{16}{figure.caption.12}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{18}{figure.caption.13}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}}{19}{figure.caption.14}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}}{20}{figure.caption.15}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Fonctionnement d'AES CTR, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, \emph {Le +1 signifie qu'on incrémente de 1 l'IV généré aléatoirement.} }}{21}{figure.caption.16}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Fonctionnement du GMAC, avec $\text {AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, et $\times \text {H}$ la multiplication dans \hyperref [GF]{$GF$}$\left (2^{128}\right )$ par $\text {H} = \text {AES}_k\left ({0}^{128}\right )$.}}{21}{figure.caption.17}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Fonctionnement d'AES GCM avec en vert CTR et en rouge GMAC}}{22}{figure.caption.18}%
+\contentsline {figure}{\numberline {17}{\ignorespaces HSM de Thales}}{24}{figure.caption.19}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Courbe $y^2 = x^3 - x + 9$ sur $\varmathbb {R}$}}{28}{figure.caption.20}%
+\contentsline {figure}{\numberline {19}{\ignorespaces $P + Q$ sur $y^2 = x^3 - x + 9$ sur $\varmathbb {R}$ avec $P = (-1-3)$ et $Q = (1,3)$}}{29}{figure.caption.21}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Courbe $y^2 = x^3 -6x + 2$ sur $ \varmathbb {Z}/59\varmathbb {Z}$}}{30}{figure.caption.22}%
+\contentsline {figure}{\numberline {21}{\ignorespaces architecture du serveur signature}}{34}{figure.caption.23}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Algorithmes finaliste du round 3 à standardiser (voir \blx@tocontentsinit {0}\cite {NISTroundtrois})}}{40}{figure.caption.24}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Problème simple: Connaissant $(A, z)$, trouver $y$}}{41}{figure.caption.25}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Problème dur: Connaissant $(A, z)$, trouver $(y, e)$}}{41}{figure.caption.26}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Illustration d'un treillis issu du choix de $(y,e)$}}{42}{figure.caption.27}%

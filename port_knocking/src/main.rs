@@ -47,7 +47,16 @@ fn main() {
             for (pub_key, instant) in hashmap_instants.iter() {
                 println!("{}: {}", pub_key, instant.elapsed());
             }
-            hashmap_instants.retain(|_, instant| instant.elapsed() <= Duration::from_secs(10));
+            let a_retirer: Vec<String> = hashmap_instants.iter()
+                .filter_map(|(pub_key, instant)| if instant.elapsed() > Duration::from_secs(10) { Some(pub_key.clone()) } else { None })
+                .collect();
+            for pub_key in a_retirer {
+                Command::new("sudo")
+                    .args(["wg", "set", "wg0", "peer", &pub_key, "remove"])
+                    .output().unwrap();   
+                hashmap_instants.remove(&pub_key);
+            }
+            // hashmap_instants.retain(|_, instant| instant.elapsed() <= Duration::from_secs(10));
         }
         thread::sleep(Duration::from_millis(500));
     }
@@ -75,8 +84,8 @@ fn cherche_socket(allowed_pub: &structures::AllowedPub, socket: &UdpSocket, buff
 fn add(allowed_pub: Vec<String>, input: structures::Input) -> Result<(String, Instant), String> {
     if allowed_pub.contains(&input.key_pub) {
         Command::new("sudo")
-        .args(["wg", "set", "wg0", "peer", &input.key_pub, "allowed-ips", &input.allowed_ip])
-        .output().unwrap();   
+            .args(["wg", "set", "wg0", "peer", &input.key_pub, "allowed-ips", &input.allowed_ip])
+            .output().unwrap();   
         return Ok((input.key_pub.clone(), Instant::now()));
     } else {
         return Err("Erreur: la clef publique n'est pas dans la base de données".to_string());

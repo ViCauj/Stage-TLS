@@ -145,25 +145,24 @@ This document presents my application internship (internship that took place at 
 
 \section*{Glosaire}
 \begin{enumerate}
-	\item \textbf{GBU}\label{GBU}: Une Global Business Unit est une division du groupe Thales se concentrant sur un marché spécifique
-	\item \textbf{XOR}\label{XOR} ($\oplus$):\\
-		
-		\begin{table}[h]
-		\center
-		\begin{tabular}{|c|c|c|}
-		\hline
-			$a$ & $b$ & $a\oplus b$ \\ \hline\hline
-			0 & 0 & 0 \\ \hline
-			0 & 1 & 1 \\ \hline
-			1 & 0 & 1 \\ \hline
-			1 & 1 & 0 \\ \hline
-		\end{tabular}
-		\caption{table de vérité du XOR}
-		\label{XOR_table}
-		\end{table}
-
-	\item \textbf{Byte}\label{byte}: 8 bits	
-	\item \textbf{Diffie Hellman (DH)}\label{DH}: L'échange Diffie-Hellman est un protocole qui permet à deux parties, Alice et Bob, de partager un secret commun $K$. Le protocole repose sur la difficulté de résoudre le problème du logarithme discret. \\
+\item \textbf{GBU}\label{GBU}: Une Global Business Unit est une division du groupe Thales se concentrant sur un marché spécifique
+\item \textbf{XOR}\label{XOR} ($\oplus$):\\
+	\begin{table}[h]
+	\center
+	\begin{tabular}{|c|c|c|}
+	\hline
+		$a$ & $b$ & $a\oplus b$ \\ \hline\hline
+		0 & 0 & 0 \\ \hline
+		0 & 1 & 1 \\ \hline
+		1 & 0 & 1 \\ \hline
+		1 & 1 & 0 \\ \hline
+	\end{tabular}
+	\caption{table de vérité du XOR}
+	\label{XOR_table}
+	\end{table}
+\item \textbf{Byte}\label{byte}: 8 bits	
+\item $GF$\label{GF}: 
+\item \textbf{Diffie Hellman (DH)}\label{DH}: L'échange Diffie-Hellman est un protocole qui permet à deux parties, Alice et Bob, de partager un secret commun $K$. Le protocole repose sur la difficulté de résoudre le problème du logarithme discret. \\
 
 \noindent Avec $p \in \mathbb{P}$ et $g\in \mathbb{Z}/p\mathbb{Z}$, Alice et Bob choisissent chacun un nombre qu'ils gardent secret et calculent de leur côté 
 $$
@@ -173,25 +172,25 @@ Alice envoie $A$ à bob et réciproquement, ensuite Alice (resp Bob) calcule $K 
 
 \noindent En effet on a bien $A^b = g^{ab} = B^a \lbrack n \rbrack$ et comme $a$ (resp $b$) n'est connu que de Alice (resp Bob) il n'y a que Alice et/ou Bob qui peuvent retrouver ce secret $K$.\\
 
-\noindent On remarque que ce protocole à besoin de la présence des 2 parties pour permettre l'échange (échange synchrone)
-	
+\noindent On remarque que ce protocole à besoin de la présence des 2 parties pour permettre l'échange (échange synchrone)	
 \item \textbf{Keyed-Hash Message Authentication Code (HMAC)}\label{HMAC}: HMAC est un code d'authentification de message qui utilise une fonction de hachage
-	\item \textbf{Key Derivation Function (KDF)}\label{KDF}: une KDF permet de générer une clef à partir d'une donnée arbitraire. En plus de ça, une KDF doit garantir que la sortie est indépendante de l'entrée et qu'elle est "difficile" à deviner. 
-	\item \textbf{HMAC-based Key Derivation Function (HKDF)}\label{HKDF}: HKDF est une \hyperref[KDF]{KDF} qui utilise la fonction \hyperref[HMAC]{HMAC}.
+\item \textbf{Key Derivation Function (KDF)}\label{KDF}: une KDF permet de générer une clef à partir d'une donnée arbitraire. En plus de ça, une KDF doit garantir que la sortie est indépendante de l'entrée et qu'elle est "difficile" à deviner. 
+\item \textbf{HMAC-based Key Derivation Function (HKDF)}\label{HKDF}: HKDF est une \hyperref[KDF]{KDF} qui utilise la fonction \hyperref[HMAC]{HMAC}.
 
 	\item \textbf{Concaténation} ($\Vert$)\label{concat}: On ajoute bout à bout les deux suites de bits
 	\item \textbf{Transmission Control Protocol (TCP)}\label{TCP}: Le TCP est un protocole de communication qui permet de transmettre des données de manière fiable et ordonnée sur un réseau. \\
 Lors d'une communication TCP il y a un ping pong entre le client et le client
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.7\textwidth]{img/TCP.png}
-	\caption{Ping pong entre le client et le serveur avec un protocole TCP}
-	\label{pingpongtcp}
-\end{figure}
-
-
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.7\textwidth]{img/TCP.png}
+		\caption{Ping pong entre le client et le serveur avec un protocole TCP}
+		\label{pingpongtcp}
+	\end{figure}
 \item \textbf{User Datagram Protocol (UDP)}\label{UDP}: Comme pour \hyperref[TCP]{TCP}, UDP est un protocole de communication qui permet de transmettre des données mais cette fois ci de manière non fiable et sans connexion. \\
 Une caractéristique importante de l'UDP dans le cadre de mon stage est qu'il n'y a pas de détection d'erreur. Ainsi, un attaquant n'aura aucun retour sur les paquets qu'il envoie au serveur UDP.
+\item \textbf{Algorithmes post-quantique}\label{postquant}: Les algorithmes post-quantiques sont des algorithmes de cryptographie qui sont conçus pour résister aux attaques d'un ordinateur quantique. 
+\item \textbf{National Institute of Standards and Technology (NIST)}\label{NIST}: C'est un institut de recherche et de normalisation américain. Dans le domaine de la cryptographie, le NIST joue un rôle important en définissant les standards et les recommandations pour les algorithmes et les protocoles de cryptographie utilisés pour protéger les informations sensibles. Les standards cryptographiques du NIST sont largement adoptés et respectés à l'échelle internationale, et ils ont un impact significatif sur la sécurité des systèmes d'information et des communications.
+\item \textbf{Treillis}\label{treillis}: On appelle treillis tout ensemble ordonné dans lequel deux éléments quelconques ont toujours une borne supérieure et une borne inférieure
 \end{enumerate}
 \newpage
 
@@ -275,13 +274,12 @@ Sakeyna a été initialement développé en Java, mais mon Tuteur, Mahmoud Chila
 
 \section{Travaux réalisé}
 \subsection{Chiffrement}
-\subsubsection{AES}
+\subsubsection{AES}\label{AESsec}
 \noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous sous section sont directement tirées de \cite{courslong}.}\\
 
-Face au manque de standard de chiffrement par bloc, NIST (National Institute of Standards and Technology) a lancé un concours en 1997 pour créer un nouveau standard de chiffrement: AES (Advanced Encryption Standard).
-De là naît un nouvel algorithme inspiré de la proposition des cryptographes belge Joan Daemen et Vincent Rijmen. Il permet de chiffrer des blocs de 128 bits et existe sous trois variantes :
-
-\begin{table}[h]
+Face au manque de standard de chiffrement, le \hyperref[NIST]{NIST} a lancé un concours en 1997 pour créer un nouveau standard: AES (Advanced Encryption Standard). \\
+De là naît un nouvel algorithme inspiré de la proposition des cryptographes belge Joan Daemen et Vincent Rijmen. Il permet de chiffrer des blocs de 128 bits et existe sous trois variantes\footnote{à l'origine cet algorithme pouvait supporter des blocs de 128, 192 et 256 bits. Cette fonctionnalité n'a malheureusement pas été conservé par \hyperref[NIST]{NIST}. Cette fonction aurait permis à AES d'être post quantique.}:
+\begin{table}[H]
 \center
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -296,11 +294,8 @@ De là naît un nouvel algorithme inspiré de la proposition des cryptographes b
 
 \noindent\emph{A partir de maintenant, pour fluidifier la lecture, AES 128 = AES)} \\ 
 
-\noindent Remarque : à l'origine cet algorithme pouvait supporter des blocs de 128, 192 et 256 bits. Cette fonctionnalité n'a malheureusement pas été conservé par la NIST. Cette fonction aurait permis à AES d'être post quantique. \\ 
-
-AES permute successivement son entrée (un bloc de 128 bits) avec une même permutation $\Pi$ (sauf au dernier round ou on utilise $\hat{\Pi}$). Cette permutation est inversible, ce qui permet de déchiffrer la sortie en remontant le processus d'AES. \\
-
-On \hyperref[XOR]{XOR} la sortie de chaque round avec une clef $k_i$ (calculé à partir de la clef secrète de 128 bits). L'avantage du \hyperref[XOR]{XOR} est que  $\hyperref[XOR]{\text{XOR}}^2 = \text{id}$. Donc il suffit de réutiliser \hyperref[XOR]{XOR} pour remonter AES.
+Le fonctionnement d'AES est relativement simple en principe. Il traite son entrée (un bloc de 128 bits) en appliquant une permutation \hyperref[permutPi]{$\Pi$} répétée plusieurs fois, à l'exception du dernier tour où une permutation légèrement différente, notée \hyperref[permutPiChap]{$\hat\Pi$}, est utilisée. La particularité de ces deux permutations, \hyperref[permutPi]{$\Pi$} et \hyperref[permutPiChap]{$\hat\Pi$}, réside dans leur inversibilité, ce qui signifie qu'il est possible de retrouver l'entrée d'origine en appliquant l'opération inverse. Cette propriété permet de déchiffrer le message en remontant étape par étape le processus d'AES. \\
+En plus de ces permutations, le résultat de chacune est soumis à une opération \hyperref[XOR]{XOR}\footnote{L'avantage du \hyperref[XOR]{XOR} est qu'il est auto-inverse, c'est-à-dire $\hyperref[XOR]{\text{XOR}}^2 = \text{id}$, donc $\hyperref[XOR]{\text{XOR}}^{-1} = \hyperref[XOR]{\text{XOR}}$. Ainsi, il suffit de réappliquer le \hyperref[XOR]{XOR} pour remonter le processus d'AES} avec une clé $k_i$ , où $i$ correspond au numéro du round\footnote{Un round est le passage dans une permutation}. Ces clés sont calculées à partir d'une unique clé secrète de 128 bits (voir \ref{clefki}).
 
 \begin{figure}[h]
 \centering
@@ -308,26 +303,26 @@ On \hyperref[XOR]{XOR} la sortie de chaque round avec une clef $k_i$ (calculé �
 	% textes
 	\node[draw, rectangle, align=center] (input) at (0.2,0) {Entrée};
 
-	\node[draw, scale=1.5, rectangle, align=center] (round1) at (3,0) {$\Pi$};
+	\node[draw, scale=1.5, rectangle, align=center] (round1) at (3,0) {$\hyperref[permutPi]{\Pi}$};
 \node[below, scale=0.75] at (round1.south) {round 1};
 	\node[align=center] (dots) at (5.5,0) {$\dots$};
-	\node[draw, scale=1.5, rectangle, align=center] (round9) at (8,0) {$\Pi$};
+	\node[draw, scale=1.5, rectangle, align=center] (round9) at (8,0) {$\hyperref[permutPi]{\Pi}$};
 	\node[below, scale=0.75] at (round9.south) {round 9};
-	\node[draw, scale=1.5, rectangle, align=center] (round10) at (10.4,0) {$\hat{\Pi}$};
+	\node[draw, scale=1.5, rectangle, align=center] (round10) at (10.4,0) {$\hyperref[permutPiChap]{\hat\Pi}$};
 	\node[below, scale=0.75] at (round10.south) {round 10};
 	
 	\node[draw, rectangle, align=center] (output) at (13.2,0) {Sortie};
 
 	% XOR
-	\node[scale=1.5, align=center] (xor1) at (1.8,0) {$\oplus$};
+	\node[scale=1.5, align=center] (xor1) at (1.8,0) {$\hyperref[XOR]{\oplus}$};
 	\node[scale=0.75] at (xor1.north) {$k_0$};
-	\node[scale=1.5, align=center] (xor2) at (4.2,0) {$\oplus$};
+	\node[scale=1.5, align=center] (xor2) at (4.2,0) {$\hyperref[XOR]{\oplus}$};
 	\node[scale=0.75] at (xor2.north) {$k_1$};
-	\node[scale=1.5, align=center] (xor3) at (6.8,0) {$\oplus$};
+	\node[scale=1.5, align=center] (xor3) at (6.8,0) {$\hyperref[XOR]{\oplus}$};
 	\node[scale=0.75] at (xor3.north) {$k_7$};
-	\node[scale=1.5, align=center] (xor4) at (9.2,0) {$\oplus$};
+	\node[scale=1.5, align=center] (xor4) at (9.2,0) {$\hyperref[XOR]{\oplus}$};
 	\node[scale=0.75] at (xor4.north) {$k_8$};
-	\node[scale=1.5, align=center] (xor5) at (11.6,0) {$\oplus$};
+	\node[scale=1.5, align=center] (xor5) at (11.6,0) {$\hyperref[XOR]{\oplus}$};
 	\node[scale=0.75] at (xor5.north) {$k_9$};
 
 	% lignes
@@ -341,8 +336,8 @@ On \hyperref[XOR]{XOR} la sortie de chaque round avec une clef $k_i$ (calculé �
 \label{AES_fonctionnement}
 \end{figure}
 
-\paragraph{Permutation $\Pi$}
-Cette permutation est propre à AES (ne dépend pas de la clef secrète et peut être calculée à l'avance. Cela permet d'avoir un processus de chiffrement très efficace). Elle est le résultat de la composition de 3 sous-permutations (toutes inversible). Pour mieux comprendre comment ces 3 sous-permutations marchent, il faut réorganiser le bloc de 128 bits en une matrice de taille $4\times4$ où chaque cellule contient un \hyperref[byte]{byte}.
+\paragraph{Permutation $\Pi$}\label{permutPi}
+Cette permutation ne dépend pas des paramètres de l'algorithme et peut donc être précalculé\footnote{Cela permet une exécution très rapide}. Elle se décompose en trois sous-permutations (toutes inversibles): $\hyperref[subbytes]{\mathtt{SubBytes}}$, $\hyperref[shiftrows]{\mathtt{ShiftRows}}$ et $\hyperref[mixcolumns]{\mathtt{MixColumns}}$. Pour plus facilement comprendre ces 3 sous-permutations, il faut s'imaginer qu'un bloc de 128 bits\footnote{i.e 4 \hyperref[byte]{bytes}} est une matrice $4\times4$ où chaques cellules contient un \hyperref[byte]{byte}
 
 \begin{figure}[h]
 \centering
@@ -363,13 +358,14 @@ Cette permutation est propre à AES (ne dépend pas de la clef secrète et peut 
 	\draw[->] (s.east) -- (1.8,0);
     }
 \end{tikzpicture}
-\caption{Réorganisation du bloc}
+\caption{Réorganisation d'un bloc de 128 bits}
 \label{reorg_entre}
 \end{figure}
 
+Une fois ce passage au format matriciel admis, on peut facilement expliquer les sous-permutations : 
 \begin{enumerate}
-	\item $\mathtt{SubBytes}$: \\
-		On applique à chaque cellule du bloc une permutation $S: \{0,1\}^8 \rightarrow \{0,1\}^8$ (d'un \hyperref[byte]{byte} vers un autre).
+	\item $\mathtt{SubBytes}\label{subbytes}$ \\
+		On applique à chaque élément de la matrice une permutation $S: \{0,1\}^8 \rightarrow \{0,1\}^8$ (donc d'un \hyperref[byte]{byte} vers un autre).
 
 		\begin{figure}[h]
 		\centering
@@ -394,14 +390,14 @@ Cette permutation est propre à AES (ne dépend pas de la clef secrète et peut 
 			% fleche
 			\draw[->] (4.5,0) -- (5.5,0) node[midway, above, scale=0.8] {$\mathtt{SubBytes}$};
 		\end{tikzpicture}
-		\caption{Effet de $\mathtt{SubBytes}$ sur le bloc, avec $\tilde{s} = S(s)$}
+		\caption{Effet de $\mathtt{SubBytes}$ sur un bloc, avec $\tilde{s} = S(s)$}
 		\label{illu_subbyte}
 		\end{figure}
 
 		\begin{center}RAJOUTER DEF S\end{center}
 
-	\item $\mathtt{ShiftRows}$: \\
-		Cette permutation va pour chaque colonne déplacer de manière cyclique ses élément de tel manière que la colonne $i$ subira le cycle $$\left(0 \quad (1+i)\%4 \quad (2+i)\%4 \quad (3+i)\%4\right)$$
+	\item $\mathtt{ShiftRows}$\label{shiftrows} \\
+		Cette sous-permutation va, pour chaque colonne de la matrice, déplacer de manière cyclique ses éléments de telle manière que la colonne $i$ subira le cycle $$\left(0 \quad (1+i)\%4 \quad (2+i)\%4 \quad (3+i)\%4\right)$$
 
 		\begin{figure}[H]
 		\centering
@@ -433,71 +429,70 @@ Cette permutation est propre à AES (ne dépend pas de la clef secrète et peut 
 			% fleche
 			\draw[->] (4.5,0) -- (5.5,0) node[midway, above, scale=0.8] {$\mathtt{ShiftRows}$};
 		\end{tikzpicture}
-		\caption{Effet de $\mathtt{ShiftRows}$ sur le bloc}
+		\caption{Effet de $\mathtt{ShiftRows}$ sur un bloc}
 		\label{illu_shiftrows}
 		\end{figure}
 
-	\item $\mathtt{MixColumns}$: \\
-		Pour cette permutation, on calcule dans $GF\left(2^8\right)$ (muni du polynome irréductible $x^8 + x^4 + x^3 + x + 1$ ie $100011011$) le produit matriciel (à gauche) de notre bloc par:
+	\item $\mathtt{MixColumns}$\label{mixcolumns} \\
+		Pour cette permutation, on calcule dans \hyperref[GF]{$GF$}$\left(2^8\right)$\footnote{muni du polynôme irréductible $x^8 + x^4 + x^3 + x + 1$ ie $100011011$} le produit matriciel (à gauche) de notre bloc par:
 		
 		$$
-		\begin{bmatrix}
+		\begin{pmatrix}
 			2 & 3 & 1 & 1 \\
 			1 & 2 & 3 & 1 \\
 			1 & 1 & 2 & 3 \\
 			3 & 1 & 1 & 2 \\
-		\end{bmatrix}
+		\end{pmatrix}
 		$$
 		
-		avec les éléments de cette matrices à comprendre comme des éléments de $GF\left(2^8\right)$ 
+		\noindent avec les éléments de cette matrice à comprendre comme des éléments de \hyperref[GF]{$GF$}$\left(2^8\right)$. \\
 \end{enumerate}
 
 \noindent Donc, en résumé : 
 $$
-\begin{bmatrix}
+\begin{pmatrix}
 	s_{0} & s_{1} & s_{2} & s_{3} \\
 	s_{4} & s_{5} & s_{6} & s_{7} \\
 	s_{8} & s_{9} & s_{10} & s_{11} \\
 	s_{12} & s_{13} & s_{14} & s_{15} \\
-\end{bmatrix}
+\end{pmatrix}
 \overset{\Pi}{\rightarrow}
-\begin{bmatrix}
+\begin{pmatrix}
 	2 & 3 & 1 & 1 \\
 	1 & 2 & 3 & 1 \\
 	1 & 1 & 2 & 3 \\
 	3 & 1 & 1 & 2 \\
-\end{bmatrix}
+\end{pmatrix}
 \times
-\begin{bmatrix}
+\begin{pmatrix}
 	\tilde{s}_0 & \tilde{s}_1 & \tilde{s}_2 & \tilde{s}_3 \\
 	\tilde{s}_5 & \tilde{s}_6 & \tilde{s}_7 & \tilde{s}_4 \\
 	\tilde{s}_{10} & \tilde{s}_{11} & \tilde{s}_8 & \tilde{s}_9 \\
 	\tilde{s}_{15} & \tilde{s}_{12} & \tilde{s}_{13} & \tilde{s}_{14} \\
-\end{bmatrix}
+\end{pmatrix}
 $$
 
-\paragraph{Permutation $\hat{\Pi}$}
-Généralement on préfère utiliser $\hat{\Pi}$ au lieu de $\Pi$  au dernier round pour avoir un algorithme de déchiffrement quasiment identique que celui de chiffrement. Avec $\hat{\Pi}$ définie tel que :
+\paragraph{Permutation $\hat{\Pi}$}\label{permutPiChap}
+Généralement, on préfère utiliser $\hat{\Pi}$ au lieu de \hyperref[permutPi]{$\Pi$}  au dernier round pour avoir un algorithme de déchiffrement quasiment identique que celui de chiffrement. Avec $\hat{\Pi}$ définie telle que\footnote{C'est exactement $\Pi$ mais sans la permutation $\mathtt{MixColumns}$} :
 $$
-\begin{bmatrix}
+\begin{pmatrix}
 	s_{0} & s_{1} & s_{2} & s_{3} \\
 	s_{4} & s_{5} & s_{6} & s_{7} \\
 	s_{8} & s_{9} & s_{10} & s_{11} \\
 	s_{12} & s_{13} & s_{14} & s_{15} \\
-\end{bmatrix}
+\end{pmatrix}
 \overset{\hat{\Pi}}{\rightarrow}
-\begin{bmatrix}
+\begin{pmatrix}
 	\tilde{s}_0 & \tilde{s}_1 & \tilde{s}_2 & \tilde{s}_3 \\
 	\tilde{s}_5 & \tilde{s}_6 & \tilde{s}_7 & \tilde{s}_4 \\
 	\tilde{s}_{10} & \tilde{s}_{11} & \tilde{s}_8 & \tilde{s}_9 \\
 	\tilde{s}_{15} & \tilde{s}_{12} & \tilde{s}_{13} & \tilde{s}_{14} \\
-\end{bmatrix}
+\end{pmatrix}
 $$
-C'est exactement $\Pi$ mais sans la permutation $\mathtt{MixColumns}$. 
-
+ 
 \paragraph{Création des clefs $k_i$}\label{clefki}
-A partir d'une clef secrète $k$ (de 128 bits) il faut créer une série de clefs $k_0\dots k_{10}$.
-Pour ça on sépare cette clef en 4 mots de 32 bits (4 \hyperref[byte]{byte}) chacun.
+À partir d'une clef secrète $k$ (de 128 bits) il faut créer une série de clefs $k_0\dots k_{10}$.
+Pour cela on sépare cette clef en 4 mots de 32 bits (4 \hyperref[byte]{byte}) chacun.
 
 \begin{figure}[h]
 \centering
@@ -516,7 +511,7 @@ Pour ça on sépare cette clef en 4 mots de 32 bits (4 \hyperref[byte]{byte}) ch
 \caption{réorganisation des clefs en suite de mots de 32 bits}
 \label{illu_clef}
 \end{figure}
-On définit la première clef $k_0 = \fbox{$\omega_{0,0}|\omega_{0,1}|\omega_{0,2}|\omega_{0,3}$} = k$ (ie $k_0$ est égale à la clef secrète). Ensuite, on calcule $k_i = \fbox{$\omega_{i,0}|\omega_{i,1}|\omega_{i,2}|\omega_{i,3}$}$ en fonction de $k_{i-1}$ tel que:
+\noindent On pose la première clef $k_0 = k = \fbox{$\omega_{0,0}|\omega_{0,1}|\omega_{0,2}|\omega_{0,3}$}$. Ensuite, on calcule $k_i = \fbox{$\omega_{i,0}|\omega_{i,1}|\omega_{i,2}|\omega_{i,3}$}$ une fonction de $k_{i-1}$ avec :
 
 $$
 \forall i \in \{1,2,3\} \quad 
@@ -526,7 +521,8 @@ $$
 \end{cases}
 $$
 
-\noindent Avec $g: \{0,1\}^{32} \rightarrow \{0,1\}^{32}$ une fonction tirée des standards d'AES.
+\noindent Et $g: \{0,1\}^{32} \rightarrow \{0,1\}^{32}$ une fonction tirée des standards d'AES (voir \cite{aesnist}).
+\color{red}
 
 \subsubsection{AES CBC}\label{sectioncbc}
 \noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous section sont directement tirées de \cite{courscourt}.}\\
@@ -969,7 +965,7 @@ Pour obtenir GCM il faut rajouter une étape d'authentification. Elle est fait p
 	\draw[->, line width = 0.6mm] (10.5,-3) -- (10, -3);
 
 \end{tikzpicture}
-\caption{Fonctionnement du GMAC, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, et $\times \text{H}$ la multiplication dans $GF\left(2^{128}\right)$ par $\text{H} = \text{AES}_k\left({0}^{128}\right)$.}
+\caption{Fonctionnement du GMAC, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$, et $\times \text{H}$ la multiplication dans \hyperref[GF]{$GF$}$\left(2^{128}\right)$ par $\text{H} = \text{AES}_k\left({0}^{128}\right)$.}
 \label{gmac}
 \end{figure}
 
@@ -1539,7 +1535,7 @@ sudo chmod 700 /etc/wireguard
 \end{minipage}
 \end{center}
 
-\subsection{\textcolor{red}{Port knocking}}
+\subsection{Port knocking\protect\footnote{En réalité je ne fait pas du Port knocking mais du SPA (Single Packet Authorization)  qui à la différence du port knocking inclu de la cryptographie et est bien plus sécurisé}}
 \subsubsection{Problème et solution}
 
 Un des problèmes avec un canal comme on les utilise avec WireGuard est qu'ils sont ouverts en permanence. Ainsi, une personne qui a accès à un canal l'aura toujours. Une solution à ce problème peut être le port knocking. \\
@@ -1590,7 +1586,7 @@ avec un paquet au format json selon le standard suivant\footnote{Comme c'est un 
 \end{lstlisting}
 \end{minipage}
 \end{center}
-
+Ensuite, le serveur regarde de tempe en temps si l'utilisateur à toujours le droit d'utiliser le canal. Si ce n'est pas le cas il le retire.
 
 \subsection{Signal}
 Dans l'idée de se débarasser définitivement de RSA\footnote{On est capable de rendre RSA robuste à toute sorte d'attaque mais cette robustesse à un prix énorme. Comme remarqué ici \ref{keygenRSA}. En effet la taille des clefs ne cessant d'augmenter, son utilisation est de plus en plus contraignante.}, mon tuteur m'a chargé d'étudier et de recréer le protocole d'échange des clés de l'application signal. Ce protocole à pour énorme avantage de permettre d'échanger les clefs sans avoir besoins au même moment des 2 parties. On le qualifie de protocole d'échange asynchrone\footnote{En plus d'être asynchrone, ce protocole n'utilise pas RSA qui était à peut près la seul solution pour faire de l'asynchrone avant}.
@@ -1647,14 +1643,52 @@ $$\text{SK} = \hyperref[HKDF]{\text{HKDF}}\left(\text{DH}_1\hyperref[concat]{\Ve
 \subsubsection{Double ratchet}\label{doubleratchet}
 Maintenant que Alice et Bob partagent un secret ils peuvent communiquer de manière sécurisé. Pour garantir cette sécurité l'application Signal utilise l'algorithme du double ratchet.\footnote{Cela permet de ne pas compromettre toute la conversation et la conversation future si une clef a été récupéré par un attaquant malveillant}. J'ai aussi programmé cet algorithme\footnote{pas totalement fini} mais il n'a pas énormément d'intéret dans le cadre du stage. Je me passe donc de l'expliquer mais tout est très bien expliqué ici \cite{doubleratchet}
 
-\subsection{\textcolor{red}{Algo post quantique}}
+\subsection{Algorithmes post-quantique}
+Pour finir mon stage j'ai pu m'intéresser aux \hyperref[postquant]{algorithmes post quantique}. Ces nouveaux algorithmes sont vitaux car nos algorithmes asymétrique, tels que RSA et ceux s'appuyant sur les courbes elliptiques, sont basés sur des problèmes mathématiques difficiles à résoudre pour les ordinateurs classiques, mais facile pour un ordinateur quantique\footnote{l'algorithme de Shor, découvert en 1994, permet à un ordinateur quantique de factoriser des nombres très grands en temps polynomial}. Par contre on sait aussi que ces ordinateurs quantiques ne peuvent pas casser les algorithmes cryptographique symétriques tels qu'\hyperref[AESsec]{AES} car ils sont basés sur des opérations de blocs de bits, et que les ordinateurs quantiques ne peuvent pas effectuer ces opérations de manière significativement plus efficace que les ordinateurs classiques\footnote{On sait même que ces ordinateur ne peuvent pas aller plus de 2 fois plus vite que nos ordinateurs classiques sur ce type de problèmes}. \\
+
+En ce moment, le \hyperref[NIST]{NIST} est en train de choisir le standard de la cryptographie post quantique. Le troisième round à déjà permis de fournir 4 algorithmes qui seront standardisé 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{img/NISTround3.png}
+	\caption{Algorithmes finaliste du round 3 à standardiser (voir \cite{NISTroundtrois})}
+	\label{NISTround3}
+\end{figure}
+
+Bien qu'il reste des quandidats à la standardisation dans le round 4, il semblerait que la cryptographie reposant sur les \hyperref[treillis]{treillis} soit le future. En effet, Kyber et Dilithium, les deux algorithmes de la sociéré CRYSTALS qui seront standardisé reposent sur la difficulté à résoudre un problème dans les treillis algébriques.\\
+
+Dans le papier que CRYSTALS à envoyé au NIST (voir \cite{cristalslattice}) on nous présente vaguement le problème qui viendra remplacer le problème du logarithme discret (obsolète avec l'algorthme de Shor) dans les algorithmes post-quantique. \\
+
+En partant de ce problème simple où il suffit d'inverser $A$ et de multiplier par $z$ pour trouver le résultat (voir \ref{quantsimple})
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{img/quantique_simple.png}
+	\caption{Problème simple: Connaissant $(A, z)$, trouver $y$}
+	\label{quantsimple}
+\end{figure}
+
+Ils ont trouver un problème bien plus dur à résoudre qui s'il était facile aurait plein d'application non cryptographique majeurs (voir \ref{quantdur}).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{img/quantique_dur.png}
+	\caption{Problème dur: Connaissant $(A, z)$, trouver $(y, e)$}
+	\label{quantdur}
+\end{figure}
+Ce problème est en effet un problème sur les treillis car pour chaque paire $(y,e)$ on créer un nouveau treillis. Le problème illustré figure \ref{quantdur} en terme de treillis reviens à trouver le point le plus proche de l'origine\footnote{Ce problème est aussi appelé problème BDD (Bilinear Diffie-Hellman)}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{img/treilliIlu.png}
+	\caption{Illustration d'un treillis issu du choix de $(y,e)$}
+	\label{treilliIlu}
+\end{figure}
+
+L'intéret de ce problème est que l'on ne connait pas encore d'algorithme (comme celui de Shor pour le problème du logarithme discret) qui permettrait de résoudre ce problème avec un ordinateur quantique. Par contre on n'a pas non plus de preuve que ce genre de problème est réellement dur pour un ordinateur quantique (contrairement aux algorithmes symétriques). 
+
 
 \section{\textcolor{red}{Le stage d'application dans la construction de mon projet professionel}}
-\section{\textcolor{red}{Conclusion}}
+\section{Conclusion}
+En conclusion, ce stage d'application au sein de Thales a été une expérience extrêmement enrichissante pour moi. J'ai pu approfondir mes connaissances en cryptographie, découvrir de nouveaux algorithmes et mettre en pratique mes compétences en programmation en Rust.\\
 
+Ce stage m'a également permis de mieux définir mon projet professionnel. J'ai pu prendre conscience de la manière dont fonctionne un grand groupe et, plus particulièrement, de ce à quoi ressemble le métier d'ingénieur informatique dans ce contexte. \\J'ai également pu me rendre compte que mon penchant pour la recherche me fait préférer d'autres domaines que la cryptographie, et où les mathématiques sont plus présentes\footnote{comme la physique quantique par exemple}\footnote{Les mathématiques y sont la base de tout en cryptogaphie, mais en pratique et d'après l'expérience que j'ai eue, il n'y a qu'un petit nombre de chercheurs qui vont à la base des modèles et utilisent réellement les outils qui m'intéressent}. \\
 
-
-
-
-\printbibliography
+Enfin, je tiens à remercier M. Mahmoud Chilali, mon tuteur, pour son accompagnement et ses conseils tout au long de ce stage. Je remercie également l'ensemble des employés de Thales que j'ai pu rencontrer pour leur accueil chaleureux et leur disponibilité.\printbibliography
 \end{document}

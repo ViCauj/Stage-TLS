@@ -19,6 +19,19 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{aesnist}{article}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{title}{Advanced Encryption Standard (AES)}
+      \field{year}{2001}
+      \verb{urlraw}
+      \verb https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf
+      \endverb
+      \verb{url}
+      \verb https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf
+      \endverb
+    \endentry
     \entry{courslong}{book}{}
       \name{author}{2}{}{%
         {{hash=9ef331cc9e5b527723547dfa1becd8cf}{%
@@ -70,6 +83,19 @@
       \field{labeltitlesource}{title}
       \field{title}{Edwards-Curve Digital Signature Algorithm (EdDSA)}
       \field{year}{2017}
+    \endentry
+    \entry{cristalslattice}{article}{}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labeltitlesource}{title}
+      \field{title}{Lattice Cryptography}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://csrc.nist.gov/CSRC/media/Presentations/Crystals-Dilithium/images-media/CRYSTALS-Dilithium-April2018.pdf
+      \endverb
+      \verb{url}
+      \verb https://csrc.nist.gov/CSRC/media/Presentations/Crystals-Dilithium/images-media/CRYSTALS-Dilithium-April2018.pdf
+      \endverb
     \endentry
     \entry{xtroisdh}{online}{}
       \name{author}{1}{}{%
@@ -142,6 +168,19 @@
       \endverb
       \verb{url}
       \verb cryptography.rs
+      \endverb
+    \endentry
+    \entry{NISTroundtrois}{article}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{title}{Status Report on the Third Round of the NIST Post-Quantum Cryptography Standardization Process}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf
+      \endverb
+      \verb{url}
+      \verb https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf
       \endverb
     \endentry
     \entry{doubleratchet}{online}{}
