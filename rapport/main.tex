@@ -161,6 +161,8 @@ This document presents my application internship (internship that took place at 
 	\label{XOR_table}
 	\end{table}
 \item \textbf{Byte}\label{byte}: 8 bits	
+\item \textbf{American Standard Code for Information Interchange (ASCII)}\label{ASCII}: C'est un code de caractères standard utilisé pour représenter les textes en informatique et en télécommunication. L'ensemble des caractères ASCII sont codé sur 7 bits ce qui laisse dont $2^7 = 128$ caractères possibles (donc on est très limité avec l'ASCII)
+\item \textbf{UTF-8}\label{utf}: Comme \hyperref[ASCII]{ASCII}, c'est un code de caractères standard utilisé pour représenter les textes en informatique et en télécommunication. Mais par contre il code ses caractères sur 1 à 4 \hyperref[byte]{byte}s selon la rareté d'utilisation du caractère. 
 \item $GF$\label{GF}: 
 \item \textbf{Diffie Hellman (DH)}\label{DH}: L'échange Diffie-Hellman est un protocole qui permet à deux parties, Alice et Bob, de partager un secret commun $K$. Le protocole repose sur la difficulté de résoudre le problème du logarithme discret. \\
 
@@ -522,12 +524,12 @@ $$
 $$
 
 \noindent Et $g: \{0,1\}^{32} \rightarrow \{0,1\}^{32}$ une fonction tirée des standards d'AES (voir \cite{aesnist}).
-\color{red}
+
 
 \subsubsection{AES CBC}\label{sectioncbc}
-\noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous section sont directement tirées de \cite{courscourt}.}\\
+\noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous-section sont directement tirées de \cite{courscourt}.}\\
 
-A lui seul, AES ne permet de chiffrer que des blocs de 128 bits. On pourrait se dire qu'il suffit d'appliquer AES sur l'ensemble des blocs (c'est le mode ECB). 
+À lui seul, AES ne permet de chiffrer que des blocs de 128 bits. On pourrait se dire qu'il suffit d'appliquer AES sur l'ensemble des blocs (ça correspond à l'utilisation d'AES en mode ECB). 
 
 \begin{figure}[h]
 \centering
@@ -557,13 +559,11 @@ A lui seul, AES ne permet de chiffrer que des blocs de 128 bits. On pourrait se 
 	\draw[line width = 0.6mm] (3,0) -- (e2.north);
 	\draw[->, line width = 0.6mm] (e2.south) -- (3, -2);
 \end{tikzpicture}
-\caption{Fonctionement d'AES ECB, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
+\caption{Fonctionnement d'AES ECB, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
 \label{ilu_ECB}
 \end{figure}
 
-Mais, si on utilise la même clef sur plusieurs blocs, le chiffré deviens est très facile à déchiffrer. Il faudrait donc autant de clefs que de blocs pour assurer un chiffrement sécurisé. Cela doublerai la taille du message chiffré et n'est donc pas utilisé. \\
-
-Il faut donc rajouter une couche supplémentaire pour pouvoir utiliser AES afin de chiffrer ce que l'on veut. On s'intéresse ici au mode CBC (Cipher Block Chaining). Son fonctionnement est décrit sur la figure \ref{ilu_cbc}.\\
+Mais, si on utilise la même clef sur plusieurs blocs, le chiffré devient très facile à déchiffrer. Il faudrait donc autant de clefs que de blocs pour assurer un chiffrement sécurisé. Cela doublerait la taille du message après le chiffrement, ce qui n'est pas du tout pratique.  Il faut donc trouver une autre manière d'utiliser AES de manière sécurisée sans pour autant se limiter à des données d'un bloc de 128 bits\footnote{dans la pratique, on ne chiffre quasiment jamais qu'un bloc, il faut donc un algorithme pour permettre à AES de chiffrer des données de plusieurs blocs}. Une solution proposée est d'utiliser AES en mode CBC (Cipher Block Chaining). \\
 
 \begin{figure}[h]
 \centering
@@ -588,9 +588,9 @@ Il faut donc rajouter une couche supplémentaire pour pouvoir utiliser AES afin 
 	}
 	\node[align=center]  at (5, -2.75) {$\dots$};
 	
-	\node[align=center, scale=1.5] (x1) at (0.5,-0.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x1) at (0.5,-0.75) {$\hyperref[XOR]{\oplus}$};
 	\node[draw, rectangle, align=center] (e1) at (0.5,-1.75) {$\text{AES}_k$};
-	\node[align=center, scale=1.5] (x2) at (2.5,-0.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x2) at (2.5,-0.75) {$\hyperref[XOR]{\oplus}$};
 	\node[draw, rectangle, align=center] (e2) at (2.5,-1.75) {$\text{AES}_k$};
 
 
@@ -635,9 +635,9 @@ Il faut donc rajouter une couche supplémentaire pour pouvoir utiliser AES afin 
 	\node[align=center]  at (5, -2.75) {$\dots$};
 	
 	\node[draw, rectangle, align=center] (e1) at (0.5,-0.7) {$\text{AES}^{-1}_k$};
-	\node[align=center, scale=1.5] (x1) at (0.5,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x1) at (0.5,-1.75) {$\hyperref[XOR]{\oplus}$};
 	\node[draw, rectangle, align=center] (e2) at (2.5,-0.7) {$\text{AES}^{-1}_k$};
-	\node[align=center, scale=1.5] (x2) at (2.5,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x2) at (2.5,-1.75) {$\hyperref[XOR]{\oplus}$};
 
 	\draw[line width = 0.6mm] (0.5,0) -- (e1.north);
 	\draw[->, line width = 0.6mm] (e1.south) -- (x1.north);
@@ -654,35 +654,35 @@ Il faut donc rajouter une couche supplémentaire pour pouvoir utiliser AES afin 
 \end{tikzpicture}
 \caption{Déchiffrement}
 \end{subfigure}
-\caption{Fonctionement d'AES CBC, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
+\caption{Fonctionnement d'AES CBC, avec $\text{AES}_k$ le chiffrement d'un bloc par AES avec la clef secrète $k$}
 \label{ilu_cbc}
 \end{figure}
 
-On remarque que le premier bloc du chiffré est un Initialization Vector (IV). C'est un bloc choisit aléatoirement. Ensuite, un deuxième point important de ce mode d'utilisation d'AES (ou de tout autre méthode de chiffrement par bloc) est qu'il faut que la taille du message en clair soit exactement un multiple de 128 bits. La solution est de rajouter un padding. C'est à dire que l'on complète le message pour que sa taille soit exactement égale au prochain multiple de 128 bits (si le message est déjà un multiple de 128 bits on rajoute 16 \hyperref[byte]{byte} de padding). Il peut prendre plein de forme différente, on peut compléter avec des $0$, des bits aléatoires... La seul règle importante est que le dernier \hyperref[byte]{byte} du bloc doit contenir le nombre de \hyperref[byte]{byte} de padding qui ont été rajouté (entre 0 et 15). \\
+Le premier bloc du chiffré est un Initialization Vector (IV), c'est un bloc choisi aléatoirement. \\
+Ensuite, un deuxième point important est qu'il faut que la taille du message en clair soit exactement un multiple de 128 bits\footnote{c'est aussi vrai pour toutes les autres méthodes de chiffrement par bloc} La solution à ce problème\footnote{C'est un problème, car en pratique les données que l'on chiffre n'ont aucune raison d'avoir une taille multiple de 128} est de rajouter un padding. C'est-à-dire que l'on complète le message pour que sa taille soit exactement égale au prochain multiple de 128 bits\footnote{si le message est déjà un multiple de 128 bits on rajoute 128 bits de padding (i.e un bloc)}. 
+En pratique, le padding peut prendre plein de forme différente, on peut compléter avec des $0$, des bits aléatoires, ect...\\ La seule règle importante est que le dernier \hyperref[byte]{byte} du bloc doit contenir le nombre de \hyperref[byte]{byte} de padding qui ont été rajoutés (entre 0 et 15)\footnote{Sinon on n'a aucun moyen de savoir ce qui faisait partie ou non du message original}. \\
 
-Pour ma part mon padding suivra la règle suivante : tous les \hyperref[byte]{byte}s du padding ont la même valeurs (donc celle du dernier \hyperref[byte]{byte}).
-Par exemple s'il manque 3 \hyperref[byte]{byte}s à mon message pour être un multiple de 16 \hyperref[byte]{byte} (i.e 128 bites) alors je rajoute à la fin du message $\fbox{02|02|02}$. Si c'est déjà un multiple de 16 \hyperref[byte]{byte} je rajoute à la fin\\ $\fbox{15|15|15|15|15|15|15|15|15|15|15|15|15|15|15|15}$.\\
+Pour ma part, mon padding suivra la règle suivante : tous les \hyperref[byte]{byte}s du padding ont la même valeur (donc celle du dernier \hyperref[byte]{byte}).
+Par exemple, s'il manque 3 \hyperref[byte]{byte}s à mon message pour être un multiple de 16 \hyperref[byte]{byte} (i.e 128 bites) alors, je rajoute à la fin du message $\fbox{02|02|02}$. Si c'est déjà un multiple de 16 \hyperref[byte]{byte} je rajoute à la fin\\ $\fbox{15|15|15|15|15|15|15|15|15|15|15|15|15|15|15|15}$.\\
 
-J'avais essayé d'implémenter la padding classique (remplir de $0$, par exemple pour un padding de 3 \hyperref[byte]{byte}s cela donne $\fbox{00|00|02}$) mais je devais mal implémenter quelque chose car je n'arrivais pas à me munir d'un padding oracle (voir \ref{padoracle}) alors que la théorie veux que ça ne change rien.
+J'ai aussi essayé d'implémenter un padding plus classique\footnote{On remplit de $0$ (par exemple pour un padding de 3 \hyperref[byte]{byte}s cela donne $\fbox{00|00|02}$)} mais j'ai du mal le faire, car ce type de padding me posais des problèmes dans \ref{padoracle} alors que la théorie m'assure que ça ne devrait pas être le cas. 
 
 \paragraph{Mon implémentation}
-Dans le cade de ma mission je dois implémenter AES CBC en RUST. 
-J'ai choisit de ne pas réimplémenter AES car j'avais du mal à implémenter des éléments relatif à $g$ (voir \ref{clefki}) mais aussi car une implémentation d'AES est très régulièrement inutilisable en réalité car trop facile à attaquer. Rien que des informations tels que la consommation électrique de l'ordinateur, le temps qu'il met à répondre ou encore le champ électromagnétique qu'il émet sont suffisant pour casser mon implémentation.  \\
+Dans le cadre de ma mission, je dois implémenter AES CBC en RUST. 
+J'ai choisi de ne pas réimplémenter AES, car j'avais du mal à implémenter des éléments relatif à $g$ (voir \ref{clefki}) mais aussi car une implémentation d'AES est très régulièrement inutilisable en pratique car trop facile à attaquer. Rien que des informations telles que la consommation électrique de l'ordinateur, le temps qu'il met à répondre ou encore le champ électromagnétique qu'il émet sont suffisantes pour casser une implémentation "normal"\footnote{La seule solution pour régler ce problème est d'utiliser directement les instructions du processeur}. \\
 
-J'ai donc implémenté le mode CBC avec le padding énoncé à la fin de \ref{sectioncbc}. J'ai choisit pour simplifier la tâche de me restreindre à chiffrer des chaînes de caractères. De là est apparu un pseudo problème, le type Char en RUST peut faire de 1 à 4 \hyperref[byte]{byte}. Mais,au déchiffrement, ne connaissant pas le nombre de \hyperref[byte]{byte} associé à chaque caractères, j'ai été dans l'obligation de faire comme si chaque charactère ne faisait qu'un \hyperref[byte]{byte}. Donc si mon message n'est pas uniquement écris avec des caractères ASCI (1 \hyperref[byte]{byte}) alors j'aurais de la perte d'information. \\
-Par exemple si je chiffre et déchiffre le message : "Je vais à l'école" j'obtiendrai un message du type "Je vais \$£ l'\&ùcole". 
-J'ai choisit d'ignorer ce problème étant donné qu'il n'est du qu'au format de l'entrée.
+J'ai donc implémenté le mode CBC avec le padding énoncé à la fin de \ref{sectioncbc}. J'ai choisi pour simplifier la tâche de me restreindre à chiffrer des chaînes de caractères\footnote{C'est une des premières choses que j'ai faites dans mon stage. À l'époque, cette approche me semblait la plus intuitive et la plus simple. En fait, je me compliquais la vie sans le savoir. C'est bien plus simple de ne pas se préoccuper du type d'entrée et juste de tout convertir au format binaire}. De là est apparu un pseudo-problème, le type Char en RUST peut faire de 1 à 4 \hyperref[byte]{byte} (ce type est codé selon le standard \hyperref[utf]{UTF-8}). Mais, au déchiffrement, ne connaissant pas le nombre de \hyperref[byte]{byte} associé à chaque caractère, j'ai été dans l'obligation de faire comme si chaque caractère ne faisait qu'un \hyperref[byte]{byte}. Donc, si mon message n'est pas uniquement écrit avec des caractères \hyperref[ASCII]{ASCII}, j'aurais de la perte d'information. \\
+Par exemple, si je chiffre et déchiffre le message : "Je vais à l'école" j'obtiendrai un message du type "Je vais \$£ l'\&ùcole" car les caractères "à" et "é" ne font pas partie du tableau \hyperref[ASCII]{ASCII} car ils sont codés sur plusieurs \hyperref[byte]{byte}s. 
+J'ai choisi d'ignorer ce problème, étant donné qu'il n'est dû qu'au format de l'entrée.
 
 \paragraph{Padding oracle attack}\label{padoracle}
-Dans cette sous sous section, j'explique comment j'ai attaqué AES CBC et de manière équivalente tout les modes de chiffrement non autentifié (qui ne fournissent pas une preuve d'authenticité du chiffré) et qui utilisent un padding. \\ 
+Dans cette sous-sous-section, j'explique comment j'ai attaqué AES CBC et par extension tous les modes de chiffrement par bloc non authentifié (qui ne fournissent pas une preuve d'authenticité du chiffré). \\ 
 
-L'attaque que j'ai mené repose sur un principe simple. Pour chaque algorithme de chiffrement qui utillisent un padding, n'importe qui pourra toujours avoir accès à un padding oracle (On n'a encore jamais trouvé de contre exemple). 
-
-Avoir accès à un padding oracle c'est pouvoir déduire du comportement du serveur si le padding du message que je lui demande de déchiffrer est correct (on peut par exemple déduire cette information du temps que mets le serveur à nous répondre).
-Je vais montré ci dessous qu'à partir du moment ou on a accès à ce genre d'information on peut casser le chiffré.
+L'attaque que j'ai menée repose sur un principe simple. Pour chaque algorithme de chiffrement qui utilisent un padding, l'attaquant trouvera toujours un moyen d'avoir un padding oracle\footnote{Avoir accès à un padding oracle, c'est pouvoir déduire du comportement du serveur si le padding du message que je lui demande de déchiffrer est correct (on peut par exemple déduire cette information du temps que met le serveur à nous répondre).} (pas encore de contre-exemples).
+Je vais montrer ci-dessous qu'à partir du moment où on a accès à ce genre d'information, on peut déchiffrer le message.
 
 \paragraph{Déchiffrer un bloc}
-\noindent En reprenant la figure \ref{ilu_cbc} et en l'adaptant pour un bloc c on obtien la figure \ref{cbcdec1bloc}. 
+\noindent En reprenant la figure \ref{ilu_cbc} et en l'adaptant pour un bloc c on obtient la figure \ref{cbcdec1bloc}. 
 
 \begin{figure}[h]
 \centering
@@ -699,7 +699,7 @@ Je vais montré ci dessous qu'à partir du moment ou on a accès à ce genre d'i
 	\node[align=center]  at (3, -2.75) {m};
 
 	\node[draw, rectangle, align=center] (e2) at (3,-0.7) {$\text{AES}^{-1}_k$};
-	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\hyperref[XOR]{\oplus}$};
 	
 	\draw[line width = 0.6mm] (3,0) -- (e2.north);
 	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
@@ -711,39 +711,92 @@ Je vais montré ci dessous qu'à partir du moment ou on a accès à ce genre d'i
 	\draw[->, line width = 0.6mm] (4,-2.75) -- (pad_or.west);
 
 \end{tikzpicture}
-\caption{Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}
+\caption{Déchiffrement d'un bloc (en rouge : ce qui ne nous est pas accessible)}
 \label{cbcdec1bloc}
 \end{figure}
 
-Le but de l'attaque est de trouver un IV tel que le padding du bloc déchiffré m est valide. En effet, si on arrive à trouver un IV tel que $m = \fbox{15|\dots|15}$ alors 
+\label{demodinpaddingracle}Le but de l'attaque est de trouver un IV tel que $m = \fbox{15|\dots|15}$ car si on y arrive alors, on a : 
 $$ 
-\text{IV} \oplus \fbox{15|\dots|15} = \text{AES}^{-1}_{k}\left(\text{c}\right)
+\text{IV} \oplus \text{AES}^{-1}_{k}\left(\text{c}\right) = \fbox{15|\dots|15} \quad \Rightarrow \quad \text{IV} \oplus \fbox{15|\dots|15} = \text{AES}^{-1}_{k}\left(\text{c}\right)
 $$
-On aura donc réussi à déchiffrer c! Pour arriver à trouver cet IV on procède de la manière suivante : \\
+On aura donc réussi à déchiffrer c ! Pour arriver à trouver cet IV on procède de la manière suivante : \\
 
-On pose IV = \fbox{00|00|00|00|00|00|00|00|00|00|00|00|00|00|00|b} avec b un \hyperref[byte]{byte} quelconque. On fait varier b (256 possibilités) jusqu'à obtenir une réponse positive du padding oracle. Une fois arrivé à cette étape il existe 2 situation dans lesquelles on peut se trouver :
+On pose IV = \fbox{$00$|$\dots$|$00$|b} avec b un \hyperref[byte]{byte} quelconque. On fait varier b (256 possibilités) jusqu'à obtenir une réponse positive du padding oracle. Une fois arrivé à cette étape il existe 2 situations dans lesquelles on peut se trouver :
 
 \begin{enumerate}
-	\item Dans le cas le plus courant on aura m = \fbox{??|??|$\dots$|??|00}. C'est ce qu'on cherche!
-	\item Mais il se peut aussi que l'avant dernier \hyperref[byte]{byte} permette à plus d'un padding d'être correcte. En effet, si ce \hyperref[byte]{byte} vaut 01 alors il existe un \hyperref[byte]{byte} b tel que l'IV produise un m = \fbox{??|??|$\dots$|??|01|01}.
+	\item Dans le cas le plus courant, on aura m = \fbox{??|??|$\dots$|??|00}. C'est ce qu'on cherche !
+	\item Mais il se peut aussi que l'avant-dernier \hyperref[byte]{byte} permette à plus d'un padding d'être correcte. En effet, si ce \hyperref[byte]{byte} vaut 01 alors, il existe un \hyperref[byte]{byte} b tel que l'IV produise un m = \fbox{??|??|$\dots$|??|01|01}.
 \end{enumerate}
-
-Ce deuxième cas est gênant mais il est facile de vérifier dans quel cas on se trouve en modifiant l'avant dernier \hyperref[byte]{byte} de l'IV.
-En effet si en modifiant l'avant dernier \hyperref[byte]{byte} de l'IV produit une réponse favorable du padding oracle cela signifie qu'on est dans le premier cas sinon on est dans le deuxième. 
+Ce deuxième cas est gênant, mais il est facile de vérifier dans quel cas on se trouve en modifiant l'avant-dernier \hyperref[byte]{byte} de l'IV.
+En effet, si en modifiant l'avant-dernier \hyperref[byte]{byte} de l'IV, on a une réponse favorable du padding oracle, cela signifie qu'on est dans le premier cas, sinon on est dans le deuxième. 
 \begin{align*}
 	&\fbox{??|??|$\dots$|42|00} \rightarrow \text{padding valide}\\
 	&\fbox{??|??|$\dots$|42|01} \rightarrow \text{padding invalide}
 \end{align*}
 
-Une fois à cette étape on peut créer un IV qu'on appelle ZIV (zeroing IV). Cet IV permet de mettre à 0 les \hyperref[byte]{byte}s que l'on change dans m. Dans notre cas on a directement IV = ZIV. \\
+Une fois à cette étape, on peut créer un IV qu'on appelle ZIV (zeroing IV). Cet IV permet de mettre à 0 les \hyperref[byte]{byte}s que l'on change dans m. Dans notre cas, on a directement IV = ZIV = $\text{ZIV}_{0}$\footnote{Car on a fait en sorte que notre IV produise un m du type \fbox{??|??|$\dots$|??|00}}\footnote{On note $\text{ZIV}_{\text{n}}$ l'IV qui impose que les n derniers bytes de m valent 00}. \\
 
-On sait maintenant comment créer le premier ZIV, supposons que l'on soit cappable de créer le n-ième ZIV : $\text{ZIV}_n$ (cet IV assure que les n derniers \hyperref[byte]{byte}s de m valent 0). Essayons de trouver $\text{ZIV}_{n+1}$. \\
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+	\fill[red!20, opacity=0.5] (1,-0.1) rectangle (5,-3.35);
+	% message clair
+	\draw (0,0) rectangle (2,0.5);
+	\node[align=center] at (1, 0.25) {$\text{ZIV}_{\text{n}}$};
+	\draw (2,0) rectangle (4,0.5);
+	\node[align=center] at (3,0.25) {c};
 
-On pose $\text{IV} = \text{ZIV}_n + \fbox{00|$\dots$|00|b|n|$\dots$|n}$ avec n \hyperref[byte]{byte}s \fbox{n} et b, un \hyperref[byte]{byte} quelconque. Cet IV permet d'avoir $\text{m} = \fbox{??|??|\dots|??|n|$\dots$|n}$ car 0 est l'élément neutre de $\oplus$ dans $\mathbb{Z}/2\mathbb{Z}$. \\
-Comme à la première étape (celle qui sert à trouver le premier ZIV), on fait varier b (256 possiblités) jusqu'à avoir une réponse positive du padding oracle. En effectuant la même vérification qu'à la première étape, on est en mesure de trouver b tel que $\text{m} = \fbox{??|??|$\dots$|??|n|$\dots$|n|}$ avec cette fois ci n+1 \hyperref[byte]{byte} \fbox{n}. Alors on remarque que $\text{ZIV}_{n+1} = \text{IV} \oplus \fbox{00|$\dots$|00|n|$\dots$|n}$ car $m \oplus \fbox{00|$\dots$|00|n|$\dots$|n} = \fbox{??|$\dots$|??|00|$\dots$|00}$. \\
+	% message caché
+	\draw (1.2, -3) rectangle (1.8, -2.5) node[align=center] at (1.5, -2.75) {??};
+	\draw (1.8, -3) rectangle (2.4, -2.5) node[align=center] at (2.1, -2.75) {$\dots$};
+	\draw (2.4, -3) rectangle (3, -2.5) node[align=center] at (2.7, -2.75) {??};
+	\draw (3, -3) rectangle (3.6, -2.5) node[align=center] at (3.3, -2.75) {00};
+	\draw (3.6, -3) rectangle (4.2, -2.5) node[align=center] at (3.9, -2.75) {$\dots$};
+	\draw (4.2, -3) rectangle (4.8, -2.5) node[align=center] at (4.5, -2.75) {00};
 
-Ainsi, on est en mesure de trouver un IV ($\text{ZIV}_{16}$) tel que $m=\fbox{00|$\dots$|00}$ et donc comme on l'a dit en début de section et comme on peut le voir sur la figure \ref{pad_ora_blo} on peut déchiffrer le bloc c car si $a \oplus b = 0$ alors $a = b$ donc $\text{AES}_k^{-1}(\text{c}) = \text{ZIV}_{16}$.
+	\draw[thick] (2.9,-3.2) -- (4.9,-3.2) node[midway, below, scale=0.8] {n  \hyperref[byte]{byte}s zéroizé};
 
+	\node[draw, rectangle, align=center] (e2) at (3,-0.7) {$\text{AES}^{-1}_k$};
+	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\hyperref[XOR]{\oplus}$};
+	
+	\draw[line width = 0.6mm] (3,0) -- (e2.north);
+	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
+	\draw[->, line width = 0.6mm] (x2.south) -- (3, -2.5);
+
+	\draw[->, line width = 0.6mm] (1,0) to[out=-90, in=180] (x2.west);
+
+	\node[align=center] (pad_or) at (7,-2.75) {Padding Oracle};
+	\draw[->, line width = 0.6mm] (4.8,-2.75) -- (pad_or.west);
+
+\end{tikzpicture}
+\caption{Illustration de l'effet de $\text{ZIV}_{\text{n}}$ sur le message déchiffré par le serveur(en rouge : ce qui ne nous est pas accessible)}
+\label{expliqueziv}
+\end{figure}
+
+\noindent On sait donc créer $\text{ZIV}_0$. Supposons que l'on soit capable créer $\text{ZIV}_n$, essayons de trouver $\text{ZIV}_{n+1}$. On pose 
+$$\text{IV} = \text{ZIV}_n \hyperref[XOR]{\oplus} \fbox{00|$\dots$|00|b|n|$\dots$|n} \quad \text{avec n \hyperref[byte]{byte}s \fbox{n}}$$
+ et b, un \hyperref[byte]{byte} quelconque (256 possibilités). Comme $0 \hyperref[XOR]{\oplus} x = x$\footnote{$0$ est l'élément neutre de \hyperref[XOR]{$\oplus$} dans $\mathbb{Z}/2\mathbb{Z}$}, alors on a 
+$$\text{m} = \fbox{??|??|\dots|??|n|$\dots$|n} \quad \text{avec n \hyperref[byte]{byte}s \fbox{n}}$$
+Comme à la première étape (celle qui permet de trouver $\text{ZIV}_0$), on fait varier b (256 possibilités) jusqu'à avoir une réponse positive du padding oracle. \\ En effectuant la même vérification qu'à la première étape, on est en mesure de trouver b tel que $\text{m} = \fbox{??|??|$\dots$|??|n|$\dots$|n|}$ avec cette fois-ci n+1 \hyperref[byte]{byte}s \fbox{n}. Alors
+\begin{align*}
+	m \hyperref[XOR]{\oplus} \fbox{00|$\dots$|00|n|$\dots$|n} &= \fbox{??|$\dots$|??|00|$\dots$|00} \\
+	\underbrace{\fbox{??|??|\dots|??|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} \hyperref[XOR]{\oplus} \underbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} &= \underbrace{\fbox{??|$\dots$|??|00|$\dots$|00}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{00}}}
+\end{align*}
+Donc 
+\begin{align*}
+	\text{IV} \hyperref[XOR]{\oplus} \overbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}^{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} \hyperref[XOR]{\oplus} \text{AES}^{-1}_k\left(c\right) &= m \hyperref[XOR]{\oplus} \overbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}^{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}}\\
+					&= \underbrace{\fbox{??|$\dots$|??|00|$\dots$|00}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{00}}}\end{align*}
+Et on cherche $\text{ZIV}_{n+1}$ tel que 
+$$\text{ZIV}_{n+1} \hyperref[XOR]{\oplus} \text{AES}^{-1}_k\left(c\right) = \underbrace{\fbox{??|$\dots$|??|00|$\dots$|00}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{00}}}$$
+Donc par identification
+\begin{align*}
+	\text{ZIV}_{n+1} &= \text{IV} \hyperref[XOR]{\oplus} \fbox{00|$\dots$|00|n|$\dots$|n}\\
+			 &= \text{ZIV}_n \hyperref[XOR]{\oplus} \underbrace{\fbox{00|$\dots$|00|b|n|$\dots$|n}}_{\text{avec n \hyperref[byte]{byte}s \fbox{n}}} \oplus \underbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}}
+\end{align*}
+D'où l'hérédité. On a donc montré par récurrence que $\forall n$, on peut trouver $\text{ZIV}_n$\footnote{dans notre cas comme on a des blocs de 16 \hyperref[byte]{bytes}, $n\in\llbracket0;~15\rrbracket$}.\\
+Or, on sait que (voir \ref{pad_ora_blo})
+$$\text{AES}^{-1}\left(c\right) = \text{ZIV}_{15}$$
+Donc, on a déchiffré le bloc c en trouvant $\text{ZIV}_{15}$ 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
@@ -763,7 +816,7 @@ Ainsi, on est en mesure de trouver un IV ($\text{ZIV}_{16}$) tel que $m=\fbox{00
 	\draw (3.33,-3) rectangle (4,-2.5) node[align=center] at (3.62,-2.75) {00};
 
 	\node[draw, rectangle, align=center] (e2) at (3,-0.7) {$\text{AES}^{-1}_k$};
-	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x2) at (3,-1.75) {$\hyperref[XOR]{\oplus}$};
 	
 	\draw[line width = 0.6mm] (3,0) -- (e2.north);
 	\draw[->, line width = 0.6mm] (e2.south) -- (x2.north);
@@ -772,12 +825,13 @@ Ainsi, on est en mesure de trouver un IV ($\text{ZIV}_{16}$) tel que $m=\fbox{00
 	\draw[->, line width = 0.6mm] (1,0) to[out=-90, in=180] (x2.west);
 
 \end{tikzpicture}
-\caption{Déchiffrement d'un bloc, (en rouge: ce qui ne nous est pas accessible)}
+\caption{Déchiffrement d'un bloc, (en rouge : ce qui ne nous est pas accessible)}
 \label{pad_ora_blo}
 \end{figure}
 
 \paragraph{Généralisation à n blocs}
-On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}. On remarque alors que si on est en mesure de trouver $\text{AES}^{-1}_k(c_i)$ alors on est cappable de trouver $m_i$ $\forall i$. En effet $\text{AES}^{-1}_k(c_i) \oplus c_{i-1} = m_i$. Donc en déchiffran chaque bloc avec une attack par padding oracle on peut déchiffrer l'entierté du chiffré.   
+On rappelle le schéma de déchiffrement d'AES CBC sur la figure \ref{dechif_cbc}. On remarque alors qu'on peut très facilement généraliser à n blocs ce que l'on a fait pour un bloc, car pour trouver $c_i$ il suffit de faire comme si $c_{i-1}$ est l'IV et on remonte comme ça jusqu'à avoir trouvé tous les $c_i$.  
+
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
@@ -796,15 +850,15 @@ On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}.
 	% message caché
 	\foreach \x in {0,2} {
 		\pgfmathtruncatemacro{\n}{(\x)/2+1}
-		\draw (\x, -3) rectangle (\x+2, -2.5);
-		\node[align=center]  at (\x+1, -2.75) {$m_{\n}$};
+		\draw (\x-0.5, -3) rectangle (\x+1.5, -2.5);
+		\node[align=center]  at (\x+0.5, -2.75) {$m_{\n}$};
 	}
-	\node[align=center]  at (5, -2.75) {$\dots$};
+	\node[align=center]  at (4.5, -2.75) {$\dots$};
 	
 	\node[draw, rectangle, align=center] (e1) at (0.5,-0.7) {$\text{AES}^{-1}_k$};
-	\node[align=center, scale=1.5] (x1) at (0.5,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x1) at (0.5,-1.75) {$\hyperref[XOR]{\oplus}$};
 	\node[draw, rectangle, align=center] (e2) at (2.5,-0.7) {$\text{AES}^{-1}_k$};
-	\node[align=center, scale=1.5] (x2) at (2.5,-1.75) {$\oplus$};
+	\node[align=center, scale=1.5] (x2) at (2.5,-1.75) {$\hyperref[XOR]{\oplus}$};
 
 	\draw[line width = 0.6mm] (0.5,0) -- (e1.north);
 	\draw[->, line width = 0.6mm] (e1.south) -- (x1.north);
@@ -818,13 +872,12 @@ On rappelle le shéma de déchifrement d'AES CBC sur la figure \ref{dechif_cbc}.
 	\draw[->, line width = 0.6mm] (1.5,0) to[out=-90, in=180] (x2.west);
 	\node[align=center, scale=1.5, opacity=0] (xc) at (4.5,-1.75) {$\oplus$};
 	\draw[->, line width = 0.6mm] (3.5,0) to[out=-90, in=180] (xc.west);
-
-
 \end{tikzpicture}
 \caption{Déchiffrement d'AES CBC avec en rouge ce qui ne nous est pas accessible}
 \label{dechif_cbc}
 \end{figure}
 
+\color{red}
 \subsubsection{AES GCM}
 \noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous section sont directement tirées de \cite{courscourt}.}\\
 
