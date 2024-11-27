@@ -1,5 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[79] biber:340> INFO - === jeu. nov. 21, 2024, 15:16:16
-[93] Utils.pm:399> ERROR - main.bcf is malformed, last biblatex run probably failed. Deleted main.bbl
-[93] Biber.pm:136> INFO - ERRORS: 1
+[80] biber:340> INFO - === mar. nov. 26, 2024, 10:59:31
+[95] Biber.pm:419> INFO - Reading 'main.bcf'
+[157] Biber.pm:979> INFO - Found 10 citekeys in bib section 0
+[168] Biber.pm:4419> INFO - Processing section 0
+[178] Biber.pm:4610> INFO - Looking for bibtex file 'biblio.bib' for section 0
+[179] bibtex.pm:1713> INFO - LaTeX decoding ...
+[183] bibtex.pm:1519> INFO - Found BibTeX data source 'biblio.bib'
+[244] UCollate.pm:68> INFO - Overriding locale 'fr-FR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[244] UCollate.pm:68> INFO - Overriding locale 'fr-FR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[244] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'fr-FR'
+[244] Biber.pm:4245> INFO - No sort tailoring available for locale 'fr-FR'
+[269] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[273] bbl.pm:763> INFO - Output to main.bbl

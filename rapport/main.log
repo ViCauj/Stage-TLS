@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.6.20)  21 NOV 2024 17:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.6.20)  27 NOV 2024 11:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -883,7 +883,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip77
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 94.
+Package hyperref Info: Option `colorlinks' set `true' on input line 98.
  (/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2022-09-14 v5.2n context-sensitive quotations (JAW)
 \csq@reset=\count458
@@ -921,57 +921,57 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'french'.
-LaTeX Font Info:    Trying to load font information for T1+FiraSans-OsF on input line 125.
+LaTeX Font Info:    Trying to load font information for T1+FiraSans-OsF on input line 129.
  (/usr/share/texlive/texmf-dist/tex/latex/fira/T1FiraSans-OsF.fd
 File: T1FiraSans-OsF.fd 2019/10/10 (autoinst) Font definitions for T1/FiraSans-OsF.
 )
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <12> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 125.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 129.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 10.20007pt on input line 125.
+(Font)              scaled to size 10.20007pt on input line 129.
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxsfmi/m/it on input line 125.
-LaTeX Font Info:    Trying to load font information for OML+ntxsfmi on input line 125.
+LaTeX Font Info:    Checking defaults for OML/ntxsfmi/m/it on input line 129.
+LaTeX Font Info:    Trying to load font information for OML+ntxsfmi on input line 129.
  (/usr/share/texlive/texmf-dist/tex/latex/newtxsf/omlntxsfmi.fd
 File: omlntxsfmi.fd 2014/11/16 Fontinst v1.933 font definitions for OML/ntxsfmi.
 )
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 125.
-LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 125.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 129.
+LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 129.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 125.
-LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 125.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 129.
+LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 129.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 125.
-LaTeX Font Info:    ... okay on input line 125.
-LaTeX Info: Redefining \degres on input line 125.
-LaTeX Info: Redefining \up on input line 125.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Info: Redefining \degres on input line 129.
+LaTeX Info: Redefining \up on input line 129.
 \c@mv@tabular=\count464
 \c@mv@boldtabular=\count465
-LaTeX Info: Command `\dddot' is already robust on input line 125.
-LaTeX Info: Command `\ddddot' is already robust on input line 125.
+LaTeX Info: Command `\dddot' is already robust on input line 129.
+LaTeX Info: Command `\ddddot' is already robust on input line 129.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count466
@@ -1007,86 +1007,85 @@ Package biblatex Info: Automatic encoding selection.
 \openout4 = `main.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'main.bbl' not found.
-
-No file main.bbl.
-Package biblatex Info: Reference section=0 on input line 125.
-Package biblatex Info: Reference segment=0 on input line 125.
-Package hyperref Info: Link coloring ON on input line 125.
-(./main.out) (./main.out)
+Package biblatex Info: ... file 'main.bbl' found.
+ (./main.bbl)
+Package biblatex Info: Reference section=0 on input line 129.
+Package biblatex Info: Reference segment=0 on input line 129.
+Package hyperref Info: Link coloring ON on input line 129.
+ (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-<img/ECLlogoCroped.jpg, id=123, 296.10625pt x 296.10625pt>
+<img/ECLlogoCroped.jpg, id=119, 296.10625pt x 296.10625pt>
 File: img/ECLlogoCroped.jpg Graphic file (type jpg)
 <use img/ECLlogoCroped.jpg>
-Package pdftex.def Info: img/ECLlogoCroped.jpg  used on input line 126.
+Package pdftex.def Info: img/ECLlogoCroped.jpg  used on input line 130.
 (pdftex.def)             Requested size: 155.99762pt x 156.00029pt.
-<img/thalesLOGO.png, id=124, 1557.82pt x 1111.15125pt>
+<img/thalesLOGO.png, id=120, 1557.82pt x 1111.15125pt>
 File: img/thalesLOGO.png Graphic file (type png)
 <use img/thalesLOGO.png>
-Package pdftex.def Info: img/thalesLOGO.png  used on input line 126.
+Package pdftex.def Info: img/thalesLOGO.png  used on input line 130.
 (pdftex.def)             Requested size: 198.89786pt x 141.86064pt.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <20.74> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 126.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 17.62912pt on input line 126.
+(Font)              scaled to size 17.62912pt on input line 130.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <14.4> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 126.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 12.24008pt on input line 126.
-LaTeX Font Info:    Trying to load font information for OT1+FiraSans-OsF on input line 126.
+(Font)              scaled to size 12.24008pt on input line 130.
+LaTeX Font Info:    Trying to load font information for OT1+FiraSans-OsF on input line 130.
  (/usr/share/texlive/texmf-dist/tex/latex/fira/OT1FiraSans-OsF.fd
 File: OT1FiraSans-OsF.fd 2019/10/10 (autoinst) Font definitions for OT1/FiraSans-OsF.
 )
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <14.4> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 126.
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 12.24008pt on input line 126.
+(Font)              scaled to size 12.24008pt on input line 130.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <10.5> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 126.
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 8.92506pt on input line 126.
+(Font)              scaled to size 8.92506pt on input line 130.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <7.9> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 126.
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 130.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 6.71504pt on input line 126.
-LaTeX Font Info:    Trying to load font information for U+ntxsfmia on input line 126.
+(Font)              scaled to size 6.71504pt on input line 130.
+LaTeX Font Info:    Trying to load font information for U+ntxsfmia on input line 130.
  (/usr/share/texlive/texmf-dist/tex/latex/newtxsf/untxsfmia.fd
 File: untxsfmia.fd 2014/11/16 Fontinst v1.933 font definitions for U/ntxsfmia.
 )
-LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 126.
+LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 130.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
 )
-LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 126.
+LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 130.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_iln36p.enc} <./img/ECLlogoCroped.jpg> <./img/thalesLOGO.png>]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <10.95> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 130.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 9.30756pt on input line 130.
+(Font)              scaled to size 9.30756pt on input line 134.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/b/n' in size <10.95> not available
-(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 130.
+(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 134.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/bold/n' will be
-(Font)              scaled to size 9.30756pt on input line 130.
+(Font)              scaled to size 9.30756pt on input line 134.
 
-Overfull \hbox (0.631pt too wide) in paragraph at lines 136--137
+Overfull \hbox (0.631pt too wide) in paragraph at lines 140--141
 []\T1/FiraSans-OsF/regular/n/10.95 This do-cu-ment pre-sents my ap-pli-ca-tion in-ter-n-ship (in-ter-n-ship that took place
  []
 
 [2]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <17.28> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 140.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 144.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 14.6881pt on input line 140.
+(Font)              scaled to size 14.6881pt on input line 144.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/b/n' in size <17.28> not available
-(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 140.
+(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 144.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/bold/n' will be
-(Font)              scaled to size 14.6881pt on input line 140.
+(Font)              scaled to size 14.6881pt on input line 144.
  (./main.toc
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/b/n' in size <12> not available
 (Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 2.
@@ -1135,71 +1134,63 @@ LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/it' will be
 
  [4]
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/sc' in size <12> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/sc' tried instead on input line 160.
+(Font)              Font shape `T1/FiraSans-OsF/regular/sc' tried instead on input line 164.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/sc' will be
-(Font)              scaled to size 10.20007pt on input line 160.
+(Font)              scaled to size 10.20007pt on input line 164.
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--168
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 172--174
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 176--178
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 179--180
 
  []
 
 [5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_2mfh3o.enc}]
-<img/TCP.png, id=173, 803.0pt x 833.1125pt>
+<img/TCP.png, id=171, 803.0pt x 833.1125pt>
 File: img/TCP.png Graphic file (type png)
 <use img/TCP.png>
-Package pdftex.def Info: img/TCP.png  used on input line 187.
+Package pdftex.def Info: img/TCP.png  used on input line 191.
 (pdftex.def)             Requested size: 272.99881pt x 283.24179pt.
  [6 <./img/TCP.png>] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--204
+Underfull \hbox (badness 10000) in paragraph at lines 206--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
 
  []
 
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/b/n' in size <14.4> not available
-(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 211.
+(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 215.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/bold/n' will be
-(Font)              scaled to size 12.24008pt on input line 211.
+(Font)              scaled to size 12.24008pt on input line 215.
 
-LaTeX Warning: Citation 'thalesgroupe' on page 8 undefined on input line 212.
-
-
-Overfull \hbox (14.8135pt too wide) in paragraph at lines 212--213
-\T1/FiraSans-OsF/regular/it/12 Les in-for-ma-tions qui m'ont per-mis d'Ècrire cette sous sec-tion sont ti-rÈes de [[]]. 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 212--213
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 214--215
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
-<img/thales_pres.png, id=195, 1261.71375pt x 481.8pt>
+<img/thales_pres.png, id=194, 1261.71375pt x 481.8pt>
 File: img/thales_pres.png Graphic file (type png)
 <use img/thales_pres.png>
-Package pdftex.def Info: img/thales_pres.png  used on input line 218.
+Package pdftex.def Info: img/thales_pres.png  used on input line 222.
 (pdftex.def)             Requested size: 390.0pt x 148.9227pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1208,149 +1199,112 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/thales_mission.png, id=200, 1179.40625pt x 240.9pt>
 File: img/thales_mission.png Graphic file (type png)
 <use img/thales_mission.png>
-Package pdftex.def Info: img/thales_mission.png  used on input line 228.
+Package pdftex.def Info: img/thales_mission.png  used on input line 232.
 (pdftex.def)             Requested size: 390.0pt x 79.65897pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
 [9 <./img/thales_pres.png> <./img/thales_mission.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 253--254
+Underfull \hbox (badness 10000) in paragraph at lines 257--258
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 271--272
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 273--274
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
 
  []
 
 
-LaTeX Warning: Citation 'courslong' on page 11 undefined on input line 280.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 280--281
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 297--298
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
 
  []
 
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <10> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 300.
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 304.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 8.50006pt on input line 300.
+(Font)              scaled to size 8.50006pt on input line 304.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <7.3> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 300.
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 304.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 6.20503pt on input line 300.
+(Font)              scaled to size 6.20503pt on input line 304.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <5.5> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 300.
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 304.
 LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 4.67503pt on input line 300.
+(Font)              scaled to size 4.67503pt on input line 304.
 
 LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <5.5> not available
-(Font)              size <5> substituted on input line 300.
+(Font)              size <5> substituted on input line 304.
 
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <7.3> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 300.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 304.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 6.20503pt on input line 300.
+(Font)              scaled to size 6.20503pt on input line 304.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <5.5> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 300.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 304.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 4.67503pt on input line 300.
+(Font)              scaled to size 4.67503pt on input line 304.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [12] [13{/usr/share/texlive/texmf-dist/fonts/enc/dvips/fira/fir_337jzs.enc}]
-Overfull \hbox (4.61125pt too wide) in paragraph at lines 438--440
+Overfull \hbox (4.61125pt too wide) in paragraph at lines 442--444
 \T1/FiraSans-OsF/regular/n/12 Pour cette per-mu-ta-tion, on cal-cule dans [][]$\OML/ntxsfmi/m/it/12 GF$[][]$[]$[][][][][] \T1/FiraSans-OsF/regular/n/12 le pro-duit ma-tri-ciel (‡ gauche)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 450--451
+Underfull \hbox (badness 10000) in paragraph at lines 454--455
 
  []
 
 [14]
-
-LaTeX Warning: Citation 'aesnist' on page 15 undefined on input line 526.
-
-
-LaTeX Warning: Citation 'courscourt' on page 15 undefined on input line 530.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 530--531
+Underfull \hbox (badness 10000) in paragraph at lines 534--535
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 566--567
+Underfull \hbox (badness 10000) in paragraph at lines 570--571
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 661--664
+Underfull \hbox (badness 10000) in paragraph at lines 665--668
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 665--667
+Underfull \hbox (badness 10000) in paragraph at lines 669--671
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 671--673
+Underfull \hbox (badness 10000) in paragraph at lines 675--677
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 679--680
+Underfull \hbox (badness 10000) in paragraph at lines 683--684
 
  []
 
 [17]
-
-./main.tex:722: LaTeX Error: Unicode character ‚ÄØ (U+202F)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.722 On aura donc r√©ussi √† d√©chiffrer c‚ÄØ
-                                              ! Pour arriver √† trouver cet ...
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 721--723
+Underfull \hbox (badness 10000) in paragraph at lines 725--727
 
  []
 
-
-./main.tex:727: LaTeX Error: Unicode character ‚ÄØ (U+202F)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.727 ...$\dots$|??|00}. C'est ce qu'on cherche‚ÄØ
-                                                  !
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
 [18]
-Underfull \hbox (badness 10000) in paragraph at lines 737--738
+Underfull \hbox (badness 10000) in paragraph at lines 741--742
 
  []
 
@@ -1362,10 +1316,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Citation 'courscourt' on page 20 undefined on input line 882.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 882--883
+Underfull \hbox (badness 10000) in paragraph at lines 885--886
 
  []
 
@@ -1375,33 +1326,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 1175--1177
  []
 
 [23]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1180.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1182.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-Overfull \hbox (15.91856pt too wide) in paragraph at lines 1184--1185
-\T1/FiraSans-OsF/regular/n/12 va-loir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou en-core "aes_stream"
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <10.95> not available
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1183.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 9.30756pt on input line 1183.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <8> not available
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1183.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 6.80005pt on input line 1183.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <6.1> not available
+(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1183.
+LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
+(Font)              scaled to size 5.18503pt on input line 1183.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1192
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1184--1185
-
- []
-
-
-LaTeX Warning: Citation 'bddrustcrypto' on page 24 undefined on input line 1190.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1190--1191
-
- []
-
-[24{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
 Underfull \hbox (badness 10000) in paragraph at lines 1201--1202
 
  []
 
-<img/hsm.png, id=519, 501.875pt x 250.9375pt>
+[24{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+<img/hsm.png, id=536, 501.875pt x 250.9375pt>
 File: img/hsm.png Graphic file (type png)
 <use img/hsm.png>
 Package pdftex.def Info: img/hsm.png  used on input line 1208.
@@ -1416,233 +1368,176 @@ Underfull \hbox (badness 10000) in paragraph at lines 1215--1216
 
  []
 
-[25 <./img/hsm.png>] [26]
-
-LaTeX Warning: Citation 'bddrustcrypto' on page 27 undefined on input line 1268.
-
-
-Overfull \hbox (14.05293pt too wide) in paragraph at lines 1268--1270
-[]\T1/FiraSans-OsF/regular/n/12 Pour la suite, j'uti-lise la crate cryp-toki de Rust que j'ai trou-vÈe gr‚ce ‡ [[]],
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1268--1270
+[25 <./img/hsm.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1262--1264
 
  []
 
-[27] [28]
-Underfull \hbox (badness 10000) in paragraph at lines 1328--1330
+
+Underfull \hbox (badness 10000) in paragraph at lines 1265--1266
 
  []
 
-<img/courbe1.png, id=544, 269.005pt x 284.06125pt>
+[26] [27]
+Overfull \hbox (3.5194pt too wide) in paragraph at lines 1288--1289
+[]\T1/FiraSans-OsF/regular/n/12 Calcluler $\OML/ntxsfmi/m/it/12 '\LMS/ntxsy/m/n/12 π\OML/ntxsfmi/m/it/12 n\LMS/ntxsy/m/n/12 ∫$ \T1/FiraSans-OsF/regular/n/12 (l'in-di-ca-trice d'eu-ler), le nombre d'ÈlÈ-ments in-ver-sibles de $\U/ntxsfmia/m/it/12 ⁄\LMS/ntxsy/m/n/12 ù\OML/ntxsfmi/m/it/12 n\U/ntxsfmia/m/it/12 ⁄$
+ []
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 1320--1322
+
+ []
+
+<img/courbe1.png, id=579, 269.005pt x 284.06125pt>
 File: img/courbe1.png Graphic file (type png)
 <use img/courbe1.png>
-Package pdftex.def Info: img/courbe1.png  used on input line 1333.
+Package pdftex.def Info: img/courbe1.png  used on input line 1325.
 (pdftex.def)             Requested size: 195.0pt x 205.91527pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<img/courbe1op.png, id=545, 315.1775pt x 284.06125pt>
+<img/courbe1op.png, id=580, 315.1775pt x 284.06125pt>
 File: img/courbe1op.png Graphic file (type png)
 <use img/courbe1op.png>
-Package pdftex.def Info: img/courbe1op.png  used on input line 1348.
+Package pdftex.def Info: img/courbe1op.png  used on input line 1340.
 (pdftex.def)             Requested size: 195.0pt x 175.74771pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1354--1355
+Underfull \hbox (badness 10000) in paragraph at lines 1346--1347
 
  []
 
-[29]
-Underfull \hbox (badness 10000) in paragraph at lines 1363--1365
+[29 <./img/courbe1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1355--1357
 
  []
 
-<img/courbezpz.png, id=551, 727.71875pt x 472.76625pt>
+<img/courbezpz.png, id=588, 727.71875pt x 472.76625pt>
 File: img/courbezpz.png Graphic file (type png)
 <use img/courbezpz.png>
-Package pdftex.def Info: img/courbezpz.png  used on input line 1368.
+Package pdftex.def Info: img/courbezpz.png  used on input line 1360.
 (pdftex.def)             Requested size: 312.00119pt x 202.7012pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-LaTeX Warning: Citation 'courslong' on page 30 undefined on input line 1391.
-
-[30 <./img/courbe1.png>]
-Overfull \hbox (13.81306pt too wide) in paragraph at lines 1400--1405
+[30 <./img/courbe1op.png>]
+Overfull \hbox (13.81306pt too wide) in paragraph at lines 1392--1397
 \T1/FiraSans-OsF/regular/n/12 avec $\OML/ntxsfmi/m/it/12 d \LMS/ntxsy/m/n/12 2 \U/ntxsfmia/m/it/12 ⁄\LMS/ntxsy/m/n/12 ù\OML/ntxsfmi/m/it/12 p\U/ntxsfmia/m/it/12 ⁄$ \T1/FiraSans-OsF/regular/n/12 et $\OML/ntxsfmi/m/it/12 d \U/ntxsfmia/m/it/12 < Å\OML/ntxsfmi/m/it/12 ;  \U/ntxsfmia/m/it/12 Ç$\T1/FiraSans-OsF/regular/n/12 . On peut alors dÈ-fi-nir + par $\U/ntxsfmia/m/it/12 [\LMS/ntxsy/m/n/12 π\OML/ntxsfmi/m/it/12 P; Q\LMS/ntxsy/m/n/12 ∫ \U/ntxsfmia/m/it/12 = \LMS/ntxsy/m/n/12 ππ\OML/ntxsfmi/m/it/12 x[]; y[]\LMS/ntxsy/m/n/12 ∫\OML/ntxsfmi/m/it/12 ; \LMS/ntxsy/m/n/12 π\OML/ntxsfmi/m/it/12 x[]; y[]\LMS/ntxsy/m/n/12 ∫∫ 2
  []
 
 
-LaTeX Warning: Citation 'eddsa' on page 31 undefined on input line 1419.
-
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/b/n' in size <10> not available
-(Font)              Font shape `T1/FiraSans-OsF/bold/n' tried instead on input line 1419.
-LaTeX Font Info:    Font shape `T1/FiraSans-OsF/bold/n' will be
-(Font)              scaled to size 8.50006pt on input line 1419.
-
-LaTeX Warning: Citation 'eddsa' on page 31 undefined on input line 1419.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1419--1420
+Underfull \hbox (badness 10000) in paragraph at lines 1411--1412
 
  []
 
-[31 <./img/courbe1op.png>]
-
-LaTeX Warning: Citation 'eddsa' on page 32 undefined on input line 1424.
-
-
-LaTeX Warning: Citation 'eddsa' on page 32 undefined on input line 1425.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1424--1426
+[31 <./img/courbezpz.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1418
 
  []
 
-
-LaTeX Warning: Citation 'eddsa' on page 32 undefined on input line 1428.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1428--1428
-[][][]\T1/FiraSans-OsF/regular/n/10 .[][]$\OML/ntxsfmi/m/it/10 L$ \T1/FiraSans-OsF/regular/n/10 est une constante in-tro-duite dans [[]] et vaut $\U/ntxsfmia/m/it/10 É[] \LMS/ntxsy/m/n/10 œ
- []
-
-[32 <./img/courbezpz.png>]
-
-LaTeX Warning: Citation 'eddsa' on page 33 undefined on input line 1445.
-
-[33]
-LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <10.95> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1471.
-LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 9.30756pt on input line 1471.
-LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <8> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1471.
-LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 6.80005pt on input line 1471.
-LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/m/n' in size <6.1> not available
-(Font)              Font shape `OT1/FiraSans-OsF/regular/n' tried instead on input line 1471.
-LaTeX Font Info:    Font shape `OT1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 5.18503pt on input line 1471.
- [34] [35]
-Underfull \hbox (badness 10000) in paragraph at lines 1528--1529
+[32] [33] [34]
+Underfull \hbox (badness 10000) in paragraph at lines 1519--1520
 
  []
 
-[36]
-Overfull \hbox (2.77304pt too wide) in paragraph at lines 1578--1579
-[]\T1/FiraSans-OsF/regular/n/12 Pour ac-ti-ver la confi-gu-ra-tion il suf-fit de lan-cer [][]\T1/cmtt/m/n/12 wg-quick up wg0 []\T1/FiraSans-OsF/regular/n/12 et pour la dÈsac-
+[35]
+Overfull \hbox (52.25052pt too wide) in paragraph at lines 1569--1570
+\T1/FiraSans-OsF/regular/n/12 que-ment quand la ma-chine s'al-lume, il faut lan-cer [][]\T1/cmtt/m/n/12 sudo systemctl start wg-quick@wg0[]\T1/FiraSans-OsF/regular/n/12 (et
  []
 
 
-Overfull \hbox (6.8624pt too wide) in paragraph at lines 1578--1579
-\T1/FiraSans-OsF/regular/n/12 quand la ma-chine s'al-lume il faut lan-cer [][]\T1/cmtt/m/n/12 sudo systemctl start wg-quick@wg0[]\T1/FiraSans-OsF/regular/n/12 (et
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1578--1579
+Underfull \hbox (badness 10000) in paragraph at lines 1569--1570
 
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmtt/m/n' in size <10.5> not available
-(Font)              size <10.95> substituted on input line 1591.
+(Font)              size <10.95> substituted on input line 1582.
 
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/m/n' in size <10.5> not available
-(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 1591.
+(Font)              Font shape `T1/FiraSans-OsF/regular/n' tried instead on input line 1582.
 LaTeX Font Info:    Font shape `T1/FiraSans-OsF/regular/n' will be
-(Font)              scaled to size 8.92506pt on input line 1591.
+(Font)              scaled to size 8.92506pt on input line 1582.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 1591.
+(hyperref)                removing `\@ifnextchar' on input line 1582.
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 1612--1613
+
+ []
 
 [37]
-Underfull \hbox (badness 10000) in paragraph at lines 1621--1622
+Underfull \hbox (badness 10000) in paragraph at lines 1639--1640
 
  []
 
 [38]
-
-LaTeX Warning: Citation 'xtroisdh' on page 39 undefined on input line 1648.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1648--1649
+Underfull \hbox (badness 10000) in paragraph at lines 1653--1654
 
  []
 
 [39]
-Underfull \hbox (badness 10000) in paragraph at lines 1662--1663
+Underfull \hbox (badness 10000) in paragraph at lines 1691--1692
 
  []
 
-[40]
-
-LaTeX Warning: Citation 'doubleratchet' on page 41 undefined on input line 1697.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1700--1701
-
- []
-
-<img/NISTround3.png, id=772, 624.3325pt x 203.76125pt>
+<img/NISTround3.png, id=814, 624.3325pt x 203.76125pt>
 File: img/NISTround3.png Graphic file (type png)
 <use img/NISTround3.png>
-Package pdftex.def Info: img/NISTround3.png  used on input line 1705.
+Package pdftex.def Info: img/NISTround3.png  used on input line 1696.
 (pdftex.def)             Requested size: 272.99881pt x 89.09868pt.
-
-LaTeX Warning: Citation 'NISTroundtrois' on page 41 undefined on input line 1706.
-
-
-LaTeX Warning: Citation 'NISTroundtrois' on page 41 undefined on input line 1706.
-
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 1710--1711
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 1701--1702
 
  []
 
 
-LaTeX Warning: Citation 'cristalslattice' on page 42 undefined on input line 1712.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1712--1713
+Underfull \hbox (badness 10000) in paragraph at lines 1703--1704
 
  []
 
-<img/quantique_simple.png, id=783, 852.18375pt x 288.07625pt>
+<img/quantique_simple.png, id=830, 852.18375pt x 288.07625pt>
 File: img/quantique_simple.png Graphic file (type png)
 <use img/quantique_simple.png>
-Package pdftex.def Info: img/quantique_simple.png  used on input line 1717.
+Package pdftex.def Info: img/quantique_simple.png  used on input line 1708.
 (pdftex.def)             Requested size: 390.0pt x 131.83974pt.
-<img/quantique_dur.png, id=785, 837.1275pt x 251.94125pt>
+<img/quantique_dur.png, id=832, 837.1275pt x 251.94125pt>
 File: img/quantique_dur.png Graphic file (type png)
 <use img/quantique_dur.png>
-Package pdftex.def Info: img/quantique_dur.png  used on input line 1725.
+Package pdftex.def Info: img/quantique_dur.png  used on input line 1716.
 (pdftex.def)             Requested size: 390.0pt x 117.37059pt.
-<img/treilliIlu.png, id=788, 774.895pt x 419.5675pt>
+<img/treilliIlu.png, id=835, 774.895pt x 419.5675pt>
 File: img/treilliIlu.png Graphic file (type png)
 <use img/treilliIlu.png>
-Package pdftex.def Info: img/treilliIlu.png  used on input line 1732.
+Package pdftex.def Info: img/treilliIlu.png  used on input line 1723.
 (pdftex.def)             Requested size: 390.0pt x 211.16608pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[42 <./img/NISTround3.png> <./img/quantique_simple.png>]
+[41 <./img/NISTround3.png> <./img/quantique_simple.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 1742--1743
 
  []
 
-[43 <./img/quantique_dur.png> <./img/treilliIlu.png>]
+[42 <./img/quantique_dur.png> <./img/treilliIlu.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 1744--1745
 
  []
 
 
-LaTeX Warning: Empty bibliography on input line 1746.
+Overfull \hbox (11.92476pt too wide) in paragraph at lines 1748--1748
+[]\T1/FiraSans-OsF/regular/n/12 S. []\T1/FiraSans-OsF/regular/sc/12 Josefsson []\T1/FiraSans-OsF/regular/n/12 et I. []\T1/FiraSans-OsF/regular/sc/12 Liusvaara[]\T1/FiraSans-OsF/regular/n/12 . ^^S   Edwards-Curve Di-gi-tal Si-gna-ture Al-go-rithm (EdDSA) ^^T.
+ []
+
+
+Overfull \hbox (16.69357pt too wide) in paragraph at lines 1748--1748
+\T1/cmtt/m/n/12 media / Presentations / Crystals -[] Dilithium / images -[] media / CRYSTALS -[]
+ []
+
+[43]
+Overfull \hbox (22.5723pt too wide) in paragraph at lines 1748--1748
+[]\T1/FiraSans-OsF/regular/it/12 Showcase of no-table cryp-to-gra-phy li-bra-ries de-ve-lo-ped in Rust\T1/FiraSans-OsF/regular/n/12 . \T1/FiraSans-OsF/regular/sc/12 url \T1/FiraSans-OsF/regular/n/12 : [][]$\T1/cmtt/m/n/12 cryptography .
+ []
 
 [44] (./main.aux)
  ***********
@@ -1654,36 +1549,28 @@ L3 programming layer <2024-01-22>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.36998pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 223F410DC9685E974A6EADA114757D80;5805.
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                main
-(biblatex)                and rerun LaTeX afterwards.
-
+(rerunfilecheck)             Checksum: FF6938998D971C080A8C0AFF9BFD2950;5399.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36847 strings out of 474222
- 672081 string characters out of 5748733
- 1977975 words of memory out of 5000000
- 58288 multiletter control sequences out of 15000+600000
- 999484 words of font info for 250 fonts, out of 8000000 for 9000
+ 36988 strings out of 474222
+ 674944 string characters out of 5748733
+ 2019975 words of memory out of 5000000
+ 58397 multiletter control sequences out of 15000+600000
+ 1013744 words of font info for 250 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,21n,117p,1149b,3092s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,21n,117p,1159b,3133s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-pdfTeX warning (dest): name{Hfootnote.26} has been referenced but does not exist, replaced by a fixed one
+pdfTeX warning (dest): name{Hfootnote.28} has been referenced but does not exist, replaced by a fixed one
 
 </usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Bold.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Italic.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fira/FiraSans-Regular.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txexas.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmi-reg.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxsf/zsfmia-reg.pfb>
-Output written on main.pdf (44 pages, 823547 bytes).
+Output written on main.pdf (44 pages, 834440 bytes).
 PDF statistics:
- 951 PDF objects out of 1000 (max. 8388607)
- 757 compressed objects within 8 object streams
- 261 named destinations out of 1000 (max. 500000)
- 310 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1023 PDF objects out of 1200 (max. 8388607)
+ 827 compressed objects within 9 object streams
+ 292 named destinations out of 1000 (max. 500000)
+ 302 words of extra memory for PDF output out of 10000 (max. 10000000)
 

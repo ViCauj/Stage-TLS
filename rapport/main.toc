@@ -20,37 +20,36 @@
 \contentsline {paragraph}{CTR}{21}{subsubsection.3.1.3}%
 \contentsline {paragraph}{GMAC}{22}{figure.caption.17}%
 \contentsline {paragraph}{GCM}{23}{figure.caption.18}%
-\contentsline {subsubsection}{\numberline {3.1.4}\textcolor {orange}{Programme de chiffrement/déchiffrement}}{23}{subsubsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.4}Programme de chiffrement/déchiffrement}{23}{subsubsection.3.1.4}%
 \contentsline {paragraph}{Contexte}{23}{subsubsection.3.1.4}%
-\contentsline {paragraph}{Mise en place}{24}{subsubsection.3.1.4}%
+\contentsline {paragraph}{Mise en place}{24}{lstnumber.-1.2}%
 \contentsline {subsection}{\numberline {3.2}HSM}{25}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Signature}{28}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}RSA}{28}{subsubsection.3.3.1}%
-\contentsline {paragraph}{Génération des clefs}{28}{subsubsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3}Signature}{27}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}RSA}{27}{subsubsection.3.3.1}%
+\contentsline {paragraph}{Génération des clefs}{27}{subsubsection.3.3.1}%
 \contentsline {paragraph}{Signer avec RSA}{28}{Item.31}%
-\contentsline {paragraph}{Vérifier l'intégrité des données}{29}{Item.31}%
-\contentsline {subsubsection}{\numberline {3.3.2}Courbes elliptiques avec Ed25519}{29}{subsubsection.3.3.2}%
+\contentsline {paragraph}{Vérifier l'intégrité des données}{28}{Item.31}%
+\contentsline {subsubsection}{\numberline {3.3.2}Courbes elliptiques avec Ed25519}{28}{subsubsection.3.3.2}%
 \contentsline {paragraph}{Courbe elliptique}{29}{subsubsection.3.3.2}%
 \contentsline {paragraph}{Courbe elliptique sur un espace à dimension finie}{30}{figure.caption.22}%
 \contentsline {paragraph}{Ed25519}{31}{Item.34}%
 \contentsline {paragraph}{Génération des clefs}{31}{Item.34}%
 \contentsline {paragraph}{Signer avec Ed25519}{32}{Item.38}%
 \contentsline {paragraph}{Vérifier l'intégrité des données}{33}{Item.38}%
-\contentsline {subsubsection}{\numberline {3.3.3}Serveur signature}{34}{subsubsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.4}Wireguard}{35}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.3}Serveur signature}{33}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Wireguard}{34}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {3.4.1}Configuration}{35}{subsubsection.3.4.1}%
-\contentsline {paragraph}{Serveur}{36}{lstnumber.-3.2}%
-\contentsline {paragraph}{Clients}{36}{lstnumber.-4.12}%
-\contentsline {subsubsection}{\numberline {3.4.2}Mise en place}{37}{subsubsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.5}Port knocking\footnote {En réalité je ne fait pas du Port knocking mais du SPA (Single Packet Authorization) qui à la différence du port knocking inclu de la cryptographie et est bien plus sécurisé}}{37}{subsection.3.5}%
-\contentsline {subsubsection}{\numberline {3.5.1}Problème et solution}{37}{subsubsection.3.5.1}%
-\contentsline {subsubsection}{\numberline {3.5.2}Mon implémentation}{38}{subsubsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.6}Signal}{39}{subsection.3.6}%
-\contentsline {subsubsection}{\numberline {3.6.1}Extended Triple Diffie-Hellman (X3DH)}{39}{subsubsection.3.6.1}%
-\contentsline {paragraph}{Clefs}{39}{subsubsection.3.6.1}%
-\contentsline {paragraph}{Premier message}{40}{subsubsection.3.6.1}%
-\contentsline {paragraph}{Réception du premier message}{41}{subsubsection.3.6.1}%
-\contentsline {subsubsection}{\numberline {3.6.2}Double ratchet}{41}{subsubsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.7}Algorithmes post-quantique}{41}{subsection.3.7}%
-\contentsline {section}{\numberline {4}\textcolor {red}{Le stage d'application dans la construction de mon projet professionel}}{44}{section.4}%
-\contentsline {section}{\numberline {5}Conclusion}{44}{section.5}%
+\contentsline {paragraph}{Serveur}{35}{lstnumber.-10.2}%
+\contentsline {paragraph}{Clients}{36}{lstnumber.-11.12}%
+\contentsline {subsubsection}{\numberline {3.4.2}Mise en place}{36}{subsubsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.5}Port knocking\footnote {En réalité, je ne fais pas du Port knocking mais du SPA (Single Packet Authorization) qui, à la différence du port knocking inclu de la cryptographie et est bien plus sécurisé}}{36}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Problème et solution}{36}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Mon implémentation}{37}{subsubsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.6}Signal}{38}{subsection.3.6}%
+\contentsline {subsubsection}{\numberline {3.6.1}Extended Triple Diffie-Hellman (X3DH)}{38}{subsubsection.3.6.1}%
+\contentsline {paragraph}{Clefs}{38}{subsubsection.3.6.1}%
+\contentsline {paragraph}{Premier message}{39}{subsubsection.3.6.1}%
+\contentsline {paragraph}{Réception du premier message}{40}{subsubsection.3.6.1}%
+\contentsline {subsubsection}{\numberline {3.6.2}Double ratchet}{40}{subsubsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.7}Algorithmes post-quantiques}{40}{subsection.3.7}%
+\contentsline {section}{\numberline {4}Conclusion}{43}{section.4}%

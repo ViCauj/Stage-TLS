@@ -4,6 +4,8 @@
 \usepackage[french]{babel}
 \usepackage{float}
 
+%Pour ne pas afficher les warning
+
 % Pour utiliser la font Fira
 \usepackage[sfdefault,scaled=.85]{FiraSans}
 \usepackage{newtxsf}
@@ -19,6 +21,8 @@
 
 % Pour des environement pour le code
 \usepackage{listings}
+
+%\DeclareUnicodeCharacter{202F}{FIX ME!!!!}
 
 \lstdefinelanguage{shell}{
     numbers=none, % --- Masque les numéros de ligne
@@ -163,7 +167,7 @@ This document presents my application internship (internship that took place at 
 \item \textbf{Byte}\label{byte}: 8 bits	
 \item \textbf{American Standard Code for Information Interchange (ASCII)}\label{ASCII}: C'est un code de caractères standard utilisé pour représenter les textes en informatique et en télécommunication. L'ensemble des caractères ASCII sont codé sur 7 bits ce qui laisse dont $2^7 = 128$ caractères possibles (donc on est très limité avec l'ASCII)
 \item \textbf{UTF-8}\label{utf}: Comme \hyperref[ASCII]{ASCII}, c'est un code de caractères standard utilisé pour représenter les textes en informatique et en télécommunication. Mais par contre il code ses caractères sur 1 à 4 \hyperref[byte]{byte}s selon la rareté d'utilisation du caractère. 
-\item $GF$\label{GF}: 
+\item $\textbf{Gallois Field (}GF\textbf{)}$\label{GF}: En mathématiques, un corps fini ou corps de Galois est un corps qui contient un nombre fini d'éléments. L'exemple le plus courant de corps finit est $\mathbb{Z}/p\mathbb{Z}$.
 \item \textbf{Diffie Hellman (DH)}\label{DH}: L'échange Diffie-Hellman est un protocole qui permet à deux parties, Alice et Bob, de partager un secret commun $K$. Le protocole repose sur la difficulté de résoudre le problème du logarithme discret. \\
 
 \noindent Avec $p \in \mathbb{P}$ et $g\in \mathbb{Z}/p\mathbb{Z}$, Alice et Bob choisissent chacun un nombre qu'ils gardent secret et calculent de leur côté 
@@ -719,12 +723,12 @@ Je vais montrer ci-dessous qu'à partir du moment où on a accès à ce genre d'
 $$ 
 \text{IV} \oplus \text{AES}^{-1}_{k}\left(\text{c}\right) = \fbox{15|\dots|15} \quad \Rightarrow \quad \text{IV} \oplus \fbox{15|\dots|15} = \text{AES}^{-1}_{k}\left(\text{c}\right)
 $$
-On aura donc réussi à déchiffrer c ! Pour arriver à trouver cet IV on procède de la manière suivante : \\
+On aura donc réussi à déchiffrer c! Pour arriver à trouver cet IV on procède de la manière suivante : \\
 
 On pose IV = \fbox{$00$|$\dots$|$00$|b} avec b un \hyperref[byte]{byte} quelconque. On fait varier b (256 possibilités) jusqu'à obtenir une réponse positive du padding oracle. Une fois arrivé à cette étape il existe 2 situations dans lesquelles on peut se trouver :
 
 \begin{enumerate}
-	\item Dans le cas le plus courant, on aura m = \fbox{??|??|$\dots$|??|00}. C'est ce qu'on cherche !
+	\item Dans le cas le plus courant, on aura m = \fbox{??|??|$\dots$|??|00}. C'est ce qu'on cherche!
 	\item Mais il se peut aussi que l'avant-dernier \hyperref[byte]{byte} permette à plus d'un padding d'être correcte. En effet, si ce \hyperref[byte]{byte} vaut 01 alors, il existe un \hyperref[byte]{byte} b tel que l'IV produise un m = \fbox{??|??|$\dots$|??|01|01}.
 \end{enumerate}
 Ce deuxième cas est gênant, mais il est facile de vérifier dans quel cas on se trouve en modifiant l'avant-dernier \hyperref[byte]{byte} de l'IV.
@@ -780,7 +784,7 @@ $$\text{m} = \fbox{??|??|\dots|??|n|$\dots$|n} \quad \text{avec n \hyperref[byte
 Comme à la première étape (celle qui permet de trouver $\text{ZIV}_0$), on fait varier b (256 possibilités) jusqu'à avoir une réponse positive du padding oracle. \\ En effectuant la même vérification qu'à la première étape, on est en mesure de trouver b tel que $\text{m} = \fbox{??|??|$\dots$|??|n|$\dots$|n|}$ avec cette fois-ci n+1 \hyperref[byte]{byte}s \fbox{n}. Alors
 \begin{align*}
 	m \hyperref[XOR]{\oplus} \fbox{00|$\dots$|00|n|$\dots$|n} &= \fbox{??|$\dots$|??|00|$\dots$|00} \\
-	\underbrace{\fbox{??|??|\dots|??|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} \hyperref[XOR]{\oplus} \underbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} &= \underbrace{\fbox{??|$\dots$|??|00|$\dots$|00}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{00}}}
+	\Leftrightarrow	\underbrace{\fbox{??|??|\dots|??|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} \hyperref[XOR]{\oplus} \underbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}} &= \underbrace{\fbox{??|$\dots$|??|00|$\dots$|00}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{00}}}
 \end{align*}
 Donc 
 \begin{align*}
@@ -793,7 +797,7 @@ Donc par identification
 	\text{ZIV}_{n+1} &= \text{IV} \hyperref[XOR]{\oplus} \fbox{00|$\dots$|00|n|$\dots$|n}\\
 			 &= \text{ZIV}_n \hyperref[XOR]{\oplus} \underbrace{\fbox{00|$\dots$|00|b|n|$\dots$|n}}_{\text{avec n \hyperref[byte]{byte}s \fbox{n}}} \oplus \underbrace{\fbox{00|$\dots$|00|n|$\dots$|n}}_{\text{avec n+1 \hyperref[byte]{byte}s \fbox{n}}}
 \end{align*}
-D'où l'hérédité. On a donc montré par récurrence que $\forall n$, on peut trouver $\text{ZIV}_n$\footnote{dans notre cas comme on a des blocs de 16 \hyperref[byte]{bytes}, $n\in\llbracket0;~15\rrbracket$}.\\
+D'où l'hérédité. On a donc montré par récurrence que $\forall n$\footnote{dans notre cas comme on a des blocs de 16 \hyperref[byte]{bytes}, $\forall n\in\llbracket0;~15\rrbracket$}, on peut trouver $\text{ZIV}_n$.\\
 Or, on sait que (voir \ref{pad_ora_blo})
 $$\text{AES}^{-1}\left(c\right) = \text{ZIV}_{15}$$
 Donc, on a déchiffré le bloc c en trouvant $\text{ZIV}_{15}$ 
@@ -877,17 +881,14 @@ On rappelle le schéma de déchiffrement d'AES CBC sur la figure \ref{dechif_cbc
 \label{dechif_cbc}
 \end{figure}
 
-\color{red}
 \subsubsection{AES GCM}
-\noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous section sont directement tirées de \cite{courscourt}.}\\
+\noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous-section sont directement tirées de \cite{courscourt}.}\\
 
 
-On s'est intéressé dans la sous section précédente au mode CBC en montrant qu'AES CBC était facilement attaquable et donc pas fiable. On s'intéresse ici au mode GCM (Galois Counter Mode), le mode d'utilisation le plus courant d'AES. Comme pour AES CBC, AES GCM fait des opérations sur des blocs de 128 bits pour permettre de chiffrer de grands fichiers. Mais, à la différence d'AES CBC, AES GCM utilise un algorithme d'authentification en parallle du chiffrement ce qui permet d'assurer que le chiffré n'a pas été changé. Cette deuxième partie est essentielle car il a été montré qu'un algorithme de chiffrement non authentifié est quasiment systématiquement attaquable.
+On s'est intéressé dans la sous-section précédente au mode CBC en montrant qu'AES CBC était facilement attaquable et donc pas fiable. On s'intéresse ici au mode GCM (Galois Counter Mode), le mode d'utilisation le plus courant d'AES. Comme pour AES CBC, AES GCM fait des opérations sur des blocs de 128 bits pour permettre de chiffrer de grands fichiers. Mais, à la différence d'AES CBC, AES GCM utilise un algorithme d'authentification en parallèle du chiffrement, ce qui permet d'assurer que le chiffré n'a pas été changé. Cette deuxième partie est essentielle, car il a été montré qu'un algorithme de chiffrement non authentifié est quasiment systématiquement attaquable.
 
 \paragraph{CTR} \label{CTR}
-Comme CBC, CTR (Counter) est un mode de manipulation des blocs qui permet de chiffrer des données avec des algorithme de chiffrement par blocs (comme AES) tout en garantisant un certain niveau de sécurité. CTR est le mode utilisé dans GCM mais sans l'authentification.Il est assez similaire à CBC mais à comme gros avantage de ne pas obliger de rajouter un padding à la fin des données clairs.
-
-Son fonctionnement est décrit sur la figure \ref{aesctr}. 
+Comme CBC, CTR (Counter) est un mode de manipulation des blocs qui permet de chiffrer des données avec des algorithmes de chiffrement par blocs (comme AES) tout en garantissant un certain niveau de sécurité. CTR, c'est GCM mais sans l'authentification. Il est assez similaire à CBC mais à comme gros avantage de ne pas obliger de rajouter un padding à la fin des données claires. Son fonctionnement est décrit sur la figure \ref{aesctr}. 
 
 \begin{figure}[h]
 \centering
@@ -945,10 +946,9 @@ Son fonctionnement est décrit sur la figure \ref{aesctr}.
 }
 \label{aesctr}
 \end{figure}
-
 \paragraph{GMAC} \label{GMAC}
 
-Pour obtenir GCM il faut rajouter une étape d'authentification. Elle est fait par un algorithme incrémental GMAC (Galois Message Authentification Code). Cet algorithme produit au cours du chiffrement des blocs un Tag qui résume de manière sécurisé toutes les informations sur la donné à chiffré. L'intérêt de cela est que chaque entrée produira un Tag unique. Donc si quelqu'un a modifié le chiffré, alors il y aura une erreur lors du déchiffrement.Cela permet de garantir que la donné que vous déchiffrez est bien celle que l'on souhaite récupérer.
+Pour obtenir GCM il faut rajouter une étape d'authentification à CTR. Elle est faite par un algorithme incrémental GMAC (Galois Message Authentification Code). Cet algorithme produit au cours du chiffrement des blocs un Tag qui résume de manière sécurisée toutes les informations sur la donnée à chiffrer. L'intérêt de cela est que chaque entrée produira un Tag unique. Donc, si quelqu'un a modifié le chiffré, alors il y aura une erreur lors du déchiffrement. Cela permet de garantir que la donnée que vous déchiffrez est bien celle que l'on souhaite récupérer.
 
 \begin{figure}[h]
 \centering
@@ -1022,7 +1022,7 @@ Pour obtenir GCM il faut rajouter une étape d'authentification. Elle est fait p
 \label{gmac}
 \end{figure}
 
-Dans la figure \ref{gmac}, une nouvelle entrée, appelée AAD (Additional Authenticated Data), est introduite. L'AAD est une donnée que l'on souhaite authentifier, mais pas nécessairement chiffrer. Par exemple, imaginons que vous envoyez un mot de passe accompagné d'une adresse web. Vous voudriez chiffrer le mot de passe pour le protéger, tout en laissant l'adresse en clair. Cependant, si l'adresse n'est pas authentifiée, un attaquant pourrait la modifier, et vous ne le sauriez pas lors du déchiffrement. L'AAD permet de protéger contre ce risque en garantissant que l'adresse n'a pas été altérée."
+Dans la figure \ref{gmac}, une nouvelle entrée, appelée AAD (Additional Authenticated Data), est introduite. L'AAD est une donnée que l'on souhaite authentifier, mais pas chiffrer. Par exemple, imaginons que vous envoyez un mot de passe accompagné d'une adresse web. Vous voudriez chiffrer le mot de passe pour le protéger, tout en laissant l'adresse en clair. Cependant, si l'adresse n'est pas authentifiée, un attaquant pourrait la modifier, et vous ne le sauriez pas lors du déchiffrement. L'AAD permet de garantir que l'adresse n'a pas été altérée."
 
 \paragraph{GCM}
 
@@ -1159,48 +1159,48 @@ GCM est la combinaison du mode CTR (voir \ref{CTR}) et de la création d'un Tag 
 
 \noindent Pour résumer, AES GCM prend 4 entrées : 
 \begin{enumerate}
-	\item un nonce (ou IV) généré aléatoirement (que l'on choisit de mettre au début du chiffré pour réduir le nombre d'objets à stocker).
+	\item un nonce (ou IV) généré aléatoirement (que l'on choisit de mettre au début du chiffré pour réduire le nombre d'objets à stocker).
 	\item une clef (de préférence générée aléatoirement)
 	\item des données à chiffrer et authentifier 
 	\item des données à authentifier (on peut aussi ne pas en fournir)
 \end{enumerate}
 \noindent et fournit 2 sorties :
 \begin{enumerate}
-	\item Le chiffré de la donné à chiffrer
+	\item Le chiffré de la donnée à chiffrer
 \item Le tag associé aux entrées (mis à la fin du chiffré)
 \end{enumerate}
 
-\subsubsection{\textcolor{orange}{Programme de chiffrement/déchiffrement}}
+\subsubsection{Programme de chiffrement/déchiffrement}
 \paragraph{Contexte}
-Maintenant que j'ai pris connaissance des algorithmes pour chiffrer et signer des données, je dois mettre en place une solution écrite en Rust qui permettra de chiffrer et de déchiffrer des fichierss. Cette solution devra permettre d'utiliser soit AES-GCM, soit ChaCha20-Poly1305 (un autre algorithme de chiffrement non détaillé précédemment).
-Une optimisation que je pourrais envisager serait de proposer une version qui chiffrerait "au fil de l'eau", c'est-à-dire de manière progressive, bloc par bloc, à mesure que les données sont lues ou écrites. Cette méthode présente l'avantage de maintenir un coût constant en espace mémoire, car elle ne nécessite pas de charger l'intégralité du fichiers en mémoire avant de le chiffrer. \\
+Maintenant que j'ai pris connaissance des algorithmes pour chiffrer des données, je dois mettre en place une solution écrite en Rust qui permettra de chiffrer et de déchiffrer des fichiers. Cette solution devra permettre d'utiliser soit AES-GCM, soit ChaCha20-Poly1305 (un autre algorithme de chiffrement non détaillé précédemment).
+Une optimisation que je pourrais envisager serait de proposer une version qui chiffrerait "au fil de l'eau", c'est-à-dire de manière progressive, bloc par bloc, à mesure que les données sont lues ou écrites. Cette méthode présente l'avantage de maintenir un coût constant en espace mémoire, car elle ne nécessite pas de charger l'intégralité du fichier en mémoire avant de le chiffrer. \\
 
 
-Pour exécuter ce programme de chiffrement, il suffira d'utiliser les commandes suivantes : 
-\begin{verbatim}
-cat clair.data | ./rucrypt options > enc.data
-cat enc.data | ./rudecrypt options > dec.data
-\end{verbatim}
-Les options permettront de choisir l'algorithme utilisé. Pour le moment peuvent soit valoir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou encore "aes\_stream" pour la version au fil de l'eau d'AES-GCM.\\
-
-
-\noindent\emph{le programme de chifrement s'appelle rucrypt et celui de déchifrement rudecrypt}
+Pour exécuter ce programme de chiffrement, il suffira d'utiliser les commandes suivantes\footnote{le programme de chiffrement s'appelle rucrypt et celui de déchiffrement rudecrypt} : 
+\begin{center}
+\begin{minipage}{.63\linewidth}
+\begin{lstlisting}[language = shell]
+rucrypt [options] < input > output
+rudecrypt [options] < input > output
+\end{lstlisting}
+\end{minipage}
+\end{center}
+Les options permettront de choisir l'algorithme utilisé\footnote{Pour le moment, peuvent soit valoir "aes" pour AES-GCM, ou bien "cha" pour ChaCha20-Poly1305 ou encore "aes\_stream" pour la version au fil de l'eau d'AES-GCM}.
 
 \paragraph{Mise en place}
-Cette fois-ci, contrairement à Ed25519, je n'ai pas tout reprogrammé. J'ai décidé d'utiliser des crates de confiance, largement éprouvées. Pour les identifier, je me suis aidé d'un site qui référence toutes les solutions couramment utilisées pour la cryptographie en Rust \cite{bddrustcrypto}. J'utilise AES 256 (voir le tableau \ref{AES-versions}). Pour chaque algorithme, je dois donc générer, avant le chiffrement, une clé de 32 octets (256 bits) et un nonce (vecteur d'initialisation) de 12 octets (96 bits). Il est démontré que cacher le nonce n'a aucun intérêt en termes de sécurité. Je place donc le nonce en clair avant le texte chiffré. \\
+Cette fois-ci, contrairement à Ed25519, je n'ai pas tout reprogrammé. J'ai décidé d'utiliser des crates de confiance, largement éprouvées. Pour les identifier, je me suis aidé d'un site qui référence toutes les solutions couramment utilisées pour la cryptographie en Rust \cite{bddrustcrypto}. Pour AES, j'utilise AES 256 (voir le tableau \ref{AES-versions}). Pour chaque algorithme, je dois donc générer, avant le chiffrement, une clé de 32 octets (256 bits) et un nonce (vecteur d'initialisation) de 12 octets (96 bits). Il est démontré que cacher le nonce n'a aucun intérêt en termes de sécurité. Je place donc le nonce en clair avant le texte chiffré. \\
 
-On pourrait s'arrêter là, mais il est possible d'ajouter un niveau de sécurité supplémentaire. Actuellement, le chiffrement et le déchiffrement se font avec une seule clé (c'est-à-dire une clé symétrique). Le problème de cette symétrie est que toute personne ayant accès à cette clé peut lire le message en clair. Dans le cadre de ma mission, cela représente une potentielle faille. En effet, le but final de ce programme est de permettre la création de sauvegardes chiffrées de données. Il est donc préférable d'utiliser une clé asymétrique (une pour le chiffrement et une pour le déchiffrement). Dans ce cas de figure, tout le monde peut effectuer une sauvegarde de ses fichierss, mais seules les personnes autorisées pourront les récupérer, cela permet de garder le contrôle sur les flux. Pour cette raison, je génère une clé privée et une clé publique RSA, avec laquelle je chiffre ma clé symétrique. Ainsi, seule la personne en possession de la clé privée pourra déchiffrer le document. Pour plus de simplicité, je place la clé symétrique chiffrée avant le nonce.
+On pourrait s'arrêter là, mais il est possible d'ajouter un niveau de sécurité supplémentaire. Actuellement, le chiffrement et le déchiffrement se font avec une seule clé (c'est-à-dire une clé symétrique). Le problème de cette symétrie est que toute personne ayant accès à cette clé peut lire le message en clair. Dans le cadre de ma mission, cela représente une potentielle faille. En effet, le but final de ce programme est de permettre la création de sauvegardes chiffrées de données. Il est donc préférable d'utiliser une clé asymétrique (une pour le chiffrement et une pour le déchiffrement). Dans ce cas de figure, tout le monde peut effectuer une sauvegarde de ses fichiers, mais seules les personnes autorisées pourront les récupérer. Cela permet de garder le contrôle sur les flux. Pour cette raison, je génère une clé privée et une clé publique RSA, avec laquelle je chiffre ma clé symétrique. Ainsi, seule la personne en possession de la clé privée pourra déchiffrer le document. Pour plus de simplicité, je place la clé symétrique chiffrée avant le nonce.
 
 
 $$
 \text{rucrypt(data)} \rightarrow \fbox{RSA(clef symétrique) | nonce | data chiffré}
 $$
-
 \subsection{HSM} \label{HSMsec}
 
-Le but des cryptographe est de créer des problèmes facile à résoudre quand on a la clefs mais beaucoup trop long à casser le cas inverse. Donc, dans beaucoup de cas trouver un moyen de récupérer cette clef est beaucoup plus raisonnable que de chercher une faille dans le cryptosystème. Il faut donc trouver un moyen sécuriser de garder nos clefs, i.e il faut un coffre fort moderne. \\
+Le but du cryptographe est de créer des problèmes faciles à résoudre quand on a la clefs, mais beaucoup trop longs à casser sinon. Donc, dans beaucoup de cas, trouver un moyen de récupérer cette clef est beaucoup plus raisonnable que de chercher une faille dans le cryptosystème. Il faut donc trouver un moyen sécurisé pour garder nos clefs, i.e, il faut un coffre-fort moderne. \\
 
-Pour ça, il existe les HSM (Hardware Securty Module) qui sont des dispositif physique dédié à la gestion, au stockage et à la protection des clefs cryptographique. Il est conçu pour exécuter des opérations cryptographiques, telles que le chiffrement, le déchiffrement, la signature numérique et la gestion de clés, de manière sécurisée.
+Pour cela, il existe les HSM (Hardware Securty Module) qui sont des dispositifs physiques dédiés à la gestion, au stockage et à la protection des clefs cryptographiques. Ils sont conçus pour exécuter des opérations cryptographiques, telles que le chiffrement, le déchiffrement, la signature numérique et la gestion de clés, de manière sécurisée.
 
 
 \begin{figure}[h]
@@ -1210,123 +1210,115 @@ Pour ça, il existe les HSM (Hardware Securty Module) qui sont des dispositif ph
 	\label{hsmthales}
 \end{figure}
 
-Ici on ne n'intéressera pas réellement aux HSM mais plutôt aux SoftHSM, une implémentation logicielle d'un HSM. Il permettent de développer des programmes, faire des tests en ammont d'une utilisation d'un HSM. \\
+Ici on ne n'intéressera pas réellement aux HSM mais plutôt aux SoftHSM, une implémentation logicielle d'un HSM. Ils permettent de développer des programmes, de faire des tests en amont d'une utilisation d'un HSM. \\
 
-Dans un premier temps j'ai du me familiariser avec ce nouvel object, puis, j'ai du regarder les solutions en rust qui nous permettent de communiquer avec des HSM, les documenter et les tester (via un SoftHSM). \\
+Dans un premier temps, j'ai dû me familiariser avec ce nouvel objet, puis, j'ai dû regarder les solutions en Rust qui nous permettent de communiquer avec des HSM, de les documenter et de les tester (via un SoftHSM). \\
 
 
-Pour communiquer avec un SoftHSM j'ai du me plonger dans la doc du logiciel. Avant de pouvoir entammer des opérations cryptographiques il faut créer un envronement dédié dans le SoftHSM. \\
-Pour le créer la commande est la suivante :
-\begin{verbatim}
-sudo softhsm2-util --init-token 
-		--slot <slot-num> 
-		--token <token-label>
-\end{verbatim}
+Pour communiquer avec un SoftHSM j'ai dû me plonger dans la documentation du logiciel. Avant de pouvoir entamer des opérations cryptographiques, il faut créer un environnement dédié dans le SoftHSM. 
+Pour le créer, la commande est la suivante :
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language = shell]
+sudo softhsm2-util --init-token --slot <slot-num> --token <token-label>
+\end{lstlisting}
+\end{minipage}
+\end{center}
 et pour le supprimer :
-\begin{verbatim}
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language = shell]
 sudo softhsm2-util --delete-token --label <token-label>
-\end{verbatim}
-Ici il faut bien comprendre qu'un token est une émulation d'un HSM (on peut émuler plusieur HSM sur un SoftHSM), le slot est un point d'entrée d'un HSM, il simule l'endroit ou l'on insère nos informations dans un HSM). \\
-Après avoir initialiser mon softHSM, je peux communiquer avec lui en utilisant le standard pkcs11. C'est cette partie plus tard que je devrais programmer en rust. Pour le moment, j'utilise openssl, un logiciel qui me permet directement de communiquer avec le SoftHSM. Après avoir étudier la documentation, j'en ai tiré les informations suivantes :
-Pour créer une clef je dois utiliser : 
-\begin{verbatim}
-sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
-		-l -p <usr-PIN> 
-		--keygen --key-type <enc-mech> 
-		--id <clef-id> 
-		--label <clef-label>
-\end{verbatim}
+\end{lstlisting}
+\end{minipage}
+\end{center}
+Ici, il faut bien comprendre qu'un token est une émulation d'un HSM (on peut émuler plusieurs HSM sur un SoftHSM), le slot est un point d'entrée d'un HSM, il simule l'endroit ou l'on insère nos informations dans un HSM). \\
+Après avoir initialisé mon softHSM, je peux communiquer avec lui en utilisant le standard pkcs11. C'est cette partie plus tard que je devrais programmer en Rust. Pour le moment, j'utilise OpenSSL, un logiciel qui me permet directement de communiquer avec le SoftHSM. Après avoir étudié la documentation, j'en ai tiré les informations suivantes : Pour créer une clef, je dois utiliser 
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language = shell]
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> --keygen --key-type <enc-mech> --id <clef-id> --label <clef-label>
+\end{lstlisting}
+\end{minipage}
+\end{center}
 Avec <enc-mech> qui prend la forme AES:16, AES:32, ect. Pour la supprimer on utilise la commande : 
-\begin{verbatim}
-sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
--l -p <usr-PIN> 
--b --type secrkey 
---id <clef-ID>
-\end{verbatim}
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language = shell]
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> -b --type secrkey --id <clef-ID>
+\end{lstlisting}
+\end{minipage}
+\end{center}
+Maintenant qu'on a réussi à créer des clefs, on peut les utiliser pour chiffrer et déchiffrer des données. Pour le faire, il faut utiliser :
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language = shell]
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --login -p <usr-PIN> --encrypt --id <key-ID> -m AES-CBC-PAD --iv <iv-value> -i <input file> -o <output file>
 
-Maintenant qu'on a réussit à créer des clefs, on peut les utiliser pour chiffrer et déchiffrer des données. Pour le faire, il faut utiliser :
-\begin{verbatim}
-sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
-		--login -p <usr-PIN> 
-		--encrypt 
-		--id <key-ID> 
-		-m AES-CBC-PAD 
-		--iv <iv-value> 
-		-i <input file> 
-		-o <output file>
-
-sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
-		--login -p <usr-PIN> 
-		--decrypt 
-		--id <key-ID> 
-		-m AES-CBC-PAD 
-		--iv <iv-value> 
-		-i <input file> 
-		-o <output file>
-\end{verbatim}
-
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so --login -p <usr-PIN> --decrypt --id <key-ID> -m AES-CBC-PAD --iv <iv-value> -i <input file> -o <output file>
+\end{lstlisting}
+\end{minipage}
+\end{center}
 Pour la suite, j'utilise la crate cryptoki de Rust que j'ai trouvée grâce à \cite{bddrustcrypto}, ce qui me permet de garantir sa fiabilité.
-La documentation de cette crate n'étant pas encore faite, j'ai créé un fichiers tuto dans lequel je réalise toutes les opérations que je pourrais être amené à faire sur le SoftHSM, c'est-à-dire créer et supprimer des clés ainsi que chiffrer et déchiffrer des données. Pour y arriver, j'ai parcouru le code source de la documentation et je me suis aidé d'outils tels que ChatGPT. Après beaucoup d'essais, j'ai fini par obtenir un tutoriel fonctionnel.\\
+La documentation de cette crate n'étant pas encore faite, j'ai créé un fichier tuto dans lequel je réalise toutes les opérations que je pourrais être amené à faire sur le SoftHSM, c'est-à-dire créer et supprimer des clés ainsi que chiffrer et déchiffrer des données. Pour y arriver, j'ai parcouru le code source de la documentation et je me suis aidé d'outils tels que ChatGPT. Après beaucoup d'essais, j'ai fini par obtenir un tutoriel fonctionnel.\\
 
-La dernière étape consistait à vérifier que les résultats produits par mon programme correspondaient bien aux attentes. Pour cela, il est nécessaire de tester le programme avec des vecteurs de test. Chaque vecteur de test fournit une clé, un IV (Initialisation Vector), des données à chiffrer, le résultat chiffré attendu, et, si le programme le permet, des données à authentifier ainsi que le TAG correspondant. L'objectif de ces vecteurs est de comparer les sorties théoriques avec celles produites par notre algorithme. Pour que les tests soient validés, il faut que ces dernières soient identiques.
+La dernière étape consistait à vérifier que les résultats produits par mon programme correspondaient bien aux attentes. Pour cela, il est nécessaire de tester le programme avec des vecteurs de test. Chaque vecteur de test fournit une clé, un IV (Initialisation Vector), des données à chiffrer, le résultat chiffré attendu, et, si le programme le permet, des données à authentifier ainsi que le TAG correspondant. L'objectif de ces vecteurs est de comparer les sorties théoriques avec celles produites par notre algorithme. Pour que les tests soient validés, il faut que ces dernières soient identiques. \\
 
-Pour faire ces test j'ai eu une grosse difficulté : je ne peux pas imposer la valeur d'une clef via mon programme (c'est une donnée protégé donc le softhsm me l'interdit). Pour contourner ce problème, je lance un script bash dans mon code rust qui crée la clef avec openssl. Ce script est le suivant : 
-\begin{verbatim}
+Pour faire ces tests, j'ai eu une grosse difficulté : je ne peux pas imposer la valeur d'une clef via mon programme (c'est une donnée protégée donc le softhsm me l'interdit). Pour contourner ce problème, je lance un script bash dans mon code Rust qui crée la clef avec OpenSSL. Ce script est le suivant : 
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language = shell]
 echo -n <key-value> > aes_key.txt
 xxd -r -p aes_key.txt > aes_key.bin
-sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so 
-		-l -p <usr-PIN> --write-object
-aes_key.bin 
-		--type secrkey --key-type <enc-mech> 
-		--id <clef-id> 
-		--label <clef-label>
-\end{verbatim}
-Mon programme à passé tout les test, et donc, grâce à mon tutoriel je suis maintenant capable de remplacer openssl par un programme "maison" en rust.
+sudo pkcs11-tool --module /usr/lib/softhsm/libsofthsm2.so -l -p <usr-PIN> --write-object
+aes_key.bin --type secrkey --key-type <enc-mech> --id <clef-id> --label <clef-label>
+\end{lstlisting}
+\end{minipage}
+\end{center}
+Mon programme a passé tous les tests, et donc, grâce à mon tutoriel, je suis maintenant capable de remplacer OpenSSL par un programme "maison" en Rust.
+
 \subsection{Signature}
-Ensuite, pour compléter mes connaissance en cryptographie, j'ai eu à implémenter 2 algorithme de signature. Comme pour le TAG qu'on créer dans AES GCM (voir \ref{GMAC}), une signature électronique permet d'authentifier une donnée et de garantir son intégrité. Mais, contrairement au Tag, elle peut aussi servir comme une preuve dans un context légal. Avec une signature numérique, l'expéditeur ne peut pas nier avoir signé la donnée. En effet on verra plus tard que les algorithme utilisés nécessitent des clefs assymétrique : une clef publique et une clef privée. Comme seul l'expéditeur connait la clef privée, il est le seul  pouvoir signer le document.
+Pour compléter mes connaissances en cryptographie, j'ai eu à implémenter deux algorithmes de signature. Comme pour le Tag dans AES GCM (voir \ref{GMAC}), une signature électronique permet d'authentifier une donnée et de garantir son intégrité. Mais, contrairement au Tag, elle peut aussi servir comme une preuve dans un contexte légal. Avec une signature numérique, l'expéditeur ne peut pas nier avoir signé la donnée. En effet, on verra plus tard que les algorithmes utilisés nécessitent des clefs asymétriques : une clef publique et une clef privée. Comme seul l'expéditeur connait la clef privée, il est le seul à pouvoir signer le document.
 
 \subsubsection{RSA}
 \paragraph{Génération des clefs}\label{keygenRSA}
-\noindent Pour créer la clef publique et la clef privée il faut :
+\noindent Pour créer la clef publique et la clef privée, il faut :
 \begin{enumerate}
 	\item Poser $n = pq$ avec $p$ et $q$ deux nombres premiers
-	\item Calcluler $\varphi(n)$ (l'indicatrice d'euler), le nombre d'élément inversible de $\mathbb{Z}/n\mathbb{Z}$ i.e $\varphi\left( n\right) = (p-1)(q-1)$
+	\item Calcluler $\varphi(n)$ (l'indicatrice d'euler), le nombre d'éléments inversibles de $\mathbb{Z}/n\mathbb{Z}$ i.e $\varphi\left( n\right) = (p-1)(q-1)$
 	\item Choisir $e$, un entier premier avec $\varphi(n)$
 	\item Calculer $d = e^{-1}$ dans $\mathbb{Z}/\varphi(n)\mathbb{Z}$ (existe car $e \wedge \varphi(n) = 1$) 
 \end{enumerate}
-On a alors une clef privée = $(n, d)$ et une clef publique = $(n,e)$. Pour des raison de sécurité, il faut choisir $n$ et $d$ grand (au moins 3072 bits) mais $e$ peut être petit.On remarque alors le grand défault de RSA :  les clefs sont extrèmement grande. C'est la principale raison pour laquelle on essaye d'éviter d'utiliser RSA quand il faut générer plusieurs clefs. Ce problème ne fera que devenir de plus en plus important avec le temps car il faut constamment addapter la taille des clefs avec l'apparition des nouveaux composants.
+On a alors une clef privée = $(n, d)$ et une clef publique = $(n,e)$. Pour des raisons de sécurité, il faut choisir $n$ et $d$ grands (au moins 3072 bits) mais $e$ peut être petit. On remarque alors le grand défault de RSA :  les clefs sont extrêmement grande. C'est la principale raison pour laquelle on essaye d'éviter d'utiliser RSA quand il faut générer plusieurs clefs. Ce problème ne fera que devenir de plus en plus important avec le temps, car il faut constamment adapter la taille des clefs avec l'apparition des nouveaux composants.
 
 \paragraph{Signer avec RSA}
-Pour une donnée quelquonque $m$ on calcule $h = \text{hash}(m)$ avec hash une fonction de hashage tel que 
+Pour une donnée quelconque $m$ on calcule $h = \text{hash}(m)$ avec hash une fonction de hashage telle que 
 $$
 \forall m, \, \text{hash}(m) < n
 $$ 
-\emph{Si cette condition n'est pas vérifié rien ne garanti que la signature poura être vérifié.}
-Enfin pour calculer la signature $s$ associé à m, on chiffre h en calculant 
+\emph{Si cette condition n'est pas vérifiée, rien ne garantit que la signature pourra être vérifiée.}
+Enfin, pour calculer la signature $s$ associée à m, on chiffre h en calculant 
 $$
 s = h^d \, \lbrack n \rbrack
 $$
-On remarque bien qu'on utilise la clef privé pour créer la signature.
+On remarque bien qu'on utilise la clef privée pour créer la signature.
 
 \paragraph{Vérifier l'intégrité des données}
 N'importe qui en possession de la clef publique $(n, e)$ est en mesure de dire si le message $\tilde{m}$ qu'il a reçu avec la signature $s$ est authentique (i.e $\tilde{m} = m$). \\
-Pour ça il doit calculer $\tilde{h} = \text{hash}(\tilde{m})$ et déchiffrer la signature en calculant $s^e \, \lbrack n \rbrack$. Son message est authentique si et seulement si 
+Pour cela, il faut calculer $\tilde{h} = \text{hash}(\tilde{m})$ et déchiffrer la signature en calculant $s^e \, \lbrack n \rbrack$. Son message est authentique si et seulement si 
 $$
 \tilde{h} = s^e \, \lbrack n \rbrack
 $$
 Car $s^e = h^{ed} = h \lbrack n \rbrack$, donc $\tilde{h} = s^e \, \lbrack n \rbrack \Leftrightarrow \tilde{h} = h \lbrack n \rbrack$. Cette dernière égalité modulaire souligne bien l'importance de la condition sur le hash.
 
-
-
-
 \subsubsection{Courbes elliptiques avec Ed25519}\label{courbeEd25519}
-Nous avons vu qu'il était possible de faire de la signature numérique avec RSA mais que ce cryptosystème n'a qu'un intéret très limité à la vu de la taille gigantesque des clefs. Une alternative présenté ici permet est bien plus performante que RSA.
+Nous avons vu qu'il était possible de faire de la signature numérique avec RSA, mais que ce cryptosystème n'a qu'un intérêt très limité à la vue de la taille gigantesque des clefs. Une alternative bien plus performante que RSA serait un cryptosystème s'appuyant sur les courbes elliptiques.
 \paragraph{Courbe elliptique}
-\noindent Pour un corp $K$, on peut définir une courbe ellitique par une équation de la forme 
+\noindent Pour un corps $K$, on peut définir une courbe elliptique par une équation de la forme 
 $$
 y^2 + a_1xy + a_3y = x^3 + a_2x^2 +a_4x + a_6
 $$
-avec $(a_1,\, \dots, a_6) \in K^6$. On sait que ces courbes sont symétrique par rapport à l'axe des abscices (donc si $P$ est sur la courbe alors $-P$ aussi). \\
+avec $(a_1,\, \dots, a_6) \in K^6$. On sait que ces courbes sont symétriques par rapport à l'axe des abscisses (donc si $P$ est sur la courbe alors $-P$ aussi). \\
 
 \begin{figure}[h]
 	\centering
@@ -1337,8 +1329,8 @@ avec $(a_1,\, \dots, a_6) \in K^6$. On sait que ces courbes sont symétrique par
 
 
 
-\label{methodecorde}Un problème compliqué à résoudre sur ces courbes est de trouver les points rationnels de la courbe. Par contre, on sait qu'avec deux points $(U, V)$ rationnels tels que $U \neq -V$, on peut facilement en trouver deux autres. En effet, la droite qui passe par $U$ et $V$ coupera la courbe en un nouveau point $W$ rationnel (on a le qatrième point par symétrie).
-De là on définit l'addition sur une coube elliptique par 
+\label{methodecorde}Un problème compliqué à résoudre sur ces courbes est de trouver les points rationnels de la courbe. Par contre, on sait qu'avec deux points $(U, V)$ rationnels tels que $U \neq -V$, on peut facilement en trouver deux autres. En effet, la droite qui passe par $U$ et $V$ coupera la courbe en un nouveau point $W$ rationnel (on a le quatrième point par symétrie).
+De là, on définit l'addition sur une courbe elliptique par 
 $$
 U + V = - W
 $$
@@ -1351,12 +1343,12 @@ $$
 \end{figure}
 
 
-\label{methodetangente}On peut étendre cette définition en partant d'un point rationnel $P$ de la croube elliptique avec une ordonnée non nulle. Cette fois ci on prend sa tangente (on fait tendre $U$ et $V$ vers $P$, la droite qui passait par $U$ et $V$ tend bien vers la tangente passant par $P$). Alors cette tangente va bien couper la courbe en un deuxième point rationnel.Cette extention nous permet de définir $P+P$. \\
+\label{methodetangente}On peut étendre cette définition en partant d'un point rationnel $P$ de la courbe elliptique avec une ordonnée non nulle. Cette fois-ci, on prend sa tangente (on fait tendre $U$ et $V$ vers $P$, la droite qui passait par $U$ et $V$ tend bien vers la tangente passant par $P$). Alors cette tangente va bien couper la courbe en un deuxième point rationnel. Cette extention nous permet de définir $P+P$. \\
 
 \noindent\emph{On appelle respectivement ces méthodes la méthode de la corde et de la tangente.}
 
 \paragraph{Courbe elliptique sur un espace à dimension finie}
-En cryptographie, on définit les courbes elliptiques sur des espaces à dimension finie de dimmension $p$ : $\mathbb{Z}/p\mathbb{Z}$. Avec $p$ un premier suppérieur à 3. \\
+En cryptographie, on définit les courbes elliptiques sur des espaces à dimension finie de dimension $p$ : $\mathbb{Z}/p\mathbb{Z}$. Avec $p$ un premier supérieur à 3. \\
 la courbe elliptique $(E)$ sur $ \mathbb{Z}/p\mathbb{Z}$ vérifiera 
 $$
 y^2 = x^3 + ax + b
@@ -1374,7 +1366,7 @@ avec $(a,b) \in \left(\mathbb{Z}/p\mathbb{Z}\right)^2$ et $4a^3 + 27b^2 \neq 0$,
 
 \noindent On définit le groupe $\left(E\left( \mathbb{Z}/p\mathbb{Z} \right), +\right)$ par :
 \begin{itemize}
-	\item $E\left( \mathbb{Z}/p\mathbb{Z} \right)$ l'ensembles des points rationnels de la courbes $E$ définit sur $\mathbb{Z}/p\mathbb{Z}$
+	\item $E\left( \mathbb{Z}/p\mathbb{Z} \right)$ l'ensemble des points rationnels de la courbe $E$ définie sur $\mathbb{Z}/p\mathbb{Z}$
 	\item $\mathcal{O}$ l'élément neutre pour l'addition définit comme le point de la courbe à l'infinit. Alors
 		$$
 		\forall P \in E\left( \mathbb{Z}/p\mathbb{Z} \right), \, P + \mathcal{O} = \mathcal{O}+P=P
@@ -1382,8 +1374,8 @@ avec $(a,b) \in \left(\mathbb{Z}/p\mathbb{Z}\right)^2$ et $4a^3 + 27b^2 \neq 0$,
 	\item Posant $P = (x_1, y_1)$ et $Q = (x_2, y_2)$, on définit l'addition par ces trois règles pour calcluler $P+Q$ :
 	\begin{enumerate}
 		\item Si $x_1 \neq x_2$ on utilise la méthode de la corde (voir \ref{methodecorde})
-		\item Sinon si $P = Q$ on utilise la méthode de la tangente (voir \ref{methodetangente})
-		\item Sinon ($P = -Q$) alors on pose 
+		\item Sinon, si $P = Q$ on utilise la méthode de la tangente (voir \ref{methodetangente})
+		\item Sinon ($P = -Q$) alors, on pose 
 		$$
 		P+Q = \mathcal{O}
 		$$
@@ -1394,7 +1386,7 @@ avec $(a,b) \in \left(\mathbb{Z}/p\mathbb{Z}\right)^2$ et $4a^3 + 27b^2 \neq 0$,
 
 \paragraph{Ed25519}\label{courbeed}
 
-On s'intéresse maintenat à un cas particulier des courbes elliptiques (toujours sur $ \mathbb{Z}/p\mathbb{Z}$). On définit les courbes d'Edward comme des courbes elliptiques pouvant se mettre sous la forme 
+On s'intéresse maintenant à un cas particulier des courbes elliptiques (toujours sur $ \mathbb{Z}/p\mathbb{Z}$). On définit les courbes d'Edward comme des courbes elliptiques pouvant se mettre sous la forme 
 $$
 x^2 + y^2 = 1 + dx^2y^2
 $$
@@ -1407,29 +1399,29 @@ P + Q = \left(\frac{x_1y_2+x_2y_1}{1+dx_1x_2y_1y_2},\, \frac{y_1y_2-x_1y_2}{1-dx
 $$
 Cette simplicité d'implémentation permet de limiter certaines attaques. 
 
-A partir de maintenant, on se concentre sur la courbe d'Edward avec $d = 3709570\\59346694393431380835087545651895421138798432190163887855330859402\\83555$ définit sur $ \mathbb{Z}/p\mathbb{Z}$ avec $p = 2^{255}-19$.
+À partir de maintenant, on se concentre sur la courbe d'Edward avec $d = 3709570\\59346694393431380835087545651895421138798432190163887855330859402\\83555$ définit sur $ \mathbb{Z}/p\mathbb{Z}$ avec $p = 2^{255}-19$.
 
 
 \paragraph{Génération des clefs}
-\noindent Pour créer la clef publique et la clef privée il faut :
+\noindent Pour créer la clef publique et la clef privée, il faut :
 \begin{enumerate}
 	\item choisir un algorithme de hashage produisant un résultat sur 512 bits (généralement Sha512)
 	\item créer une chaine $k$ de 256 bits (de préférence généré aléatoirement).
 	\item calculer $h = hash(k)$ et puis $s$ à partir des 256 premiers bits de $h$ avec la convention "little endians".
-	\item calculer $A = sB$ avec $B$\footnote{Pour des raisons de simplicité, caclulatoire, on utilise une convention différente que celle présentée dans ici \ref{courbeed} mais elle est détaillé dans \cite{eddsa}} un point de Ed25519 donné dans \cite{eddsa}\\
+	\item calculer $A = sB$ avec $B$\footnote{Pour des raisons de simplicité, calculatoire, on utilise une convention différente que celle présentée dans ici \ref{courbeed} mais elle est détaillée dans \cite{eddsa}} un point de Ed25519 donné dans \cite{eddsa}\\
 \end{enumerate}
 
-On a alors la clef privée $k$ et la clef publique $\text{compress}(A)$\footnote{compresse() est l'algorithme de compression de EdDSA. Dans notre cas, c'est une chaine de 256 bits. les 255 premiers bits sont les 255 premiers bits de la coordonée y du point en convention "little endians" (comme y<p, son bit de poids fort est tout le temps nul). Le dernier bit de la chaine vaut 1 si le point est négatif, 0 sinon}. On remarque bien que contrairement à RSA EdDSA permet d'avoir des clefs bien plus petite (256 bits chacune)
+On a alors la clef privée $k$ et la clef publique $\text{compress}(A)$\footnote{compresse() est l'algorithme de compression de EdDSA. Dans notre cas, c'est une chaine de 256 bits. Les 255 premiers bits sont les 255 premiers bits de la coordonnée y du point en convention "little endians" (comme y<p, son bit de poids fort est tout le temps nul). Le dernier bit de la chaine vaut 1 si le point est négatif, 0 sinon}. On remarque bien que contrairement à RSA, EdDSA permet d'avoir des clefs bien plus petites (256 bits chacune).
 \paragraph{Signer avec Ed25519}\label{signerEd25519}
 Pour signer des données avec les courbes d'Edward on utilise l'algorithme EdDSA décrit plus précisément dans \cite{eddsa}.
-Il y a de paramètre généreaux propre à l'agorithme EdDSA sur Ed25519 mais je ne les présentes pas. Pour les voir, je vous invite à lire la Section 5.1 de \cite{eddsa}.\\
+Il y a des paramètres généraux propres à l'algorithme EdDSA sur Ed25519, mais je ne les présente pas. Pour les voir, je vous invite à lire la section 5.1 de \cite{eddsa}.\\
 
 L'idée principale de cet algorithme est de générer à partir et du message et de la clef privée un point $R = rB$.
-Pour calculer $r$, il faut calculer le hash modulo $L$\footnote{$L$ est une constante introduite dans \cite{eddsa} et vaut $2^{252}+2774231777737235353585193779088364\\8493$} des 256 derniers bits de du hash de la clef privé $h = hash(k)$ concaténé à la donnée $m$ à signer.
+Pour calculer $r$, il faut calculer le hash modulo $L$\footnote{$L$ est une constante introduite dans \cite{eddsa} et vaut $2^{252}+2774231777737235353585193779088364\\8493$} des 256 derniers bits du hash de la clef privé $h = hash(k)$ concaténé à la donnée $m$ à signer.
 $$
 r = \text{hash}\left(h[32..64] \, \hyperref[concat]{\Vert} \, m\right) \, \lbrack L \rbrack
 $$
-Ensuite on calcule $\tilde{h}$ tel que
+Ensuite, on calcule $\tilde{h}$ tel que
 $$
 \tilde{h} = \text{hash}\left(\text{compress}(R) \, \hyperref[concat]{\Vert} \, \text{compress}(A) \, \hyperref[concat]{\Vert} \, m\right) \, \lbrack L \rbrack
 $$
@@ -1438,12 +1430,12 @@ $$
 \text{signature}_{\text{Ed25519}} = \text{compress}(R) \, \hyperref[concat]{\Vert} \, x
 $$
 
-On remarque que la signature fait 512 bits et à besoins de la clef privée et de la clef publique (dérive dirrectement de la clef privée) pour la générer.
+On remarque que la signature fait 512 bits et a besoin de la clef privée et de la clef publique (dérive directement de la clef privée) pour la générer.
 
 \paragraph{Vérifier l'intégrité des données}
 N'importe qui en possession de la clef publique $A$ est en mesure de dire si le message $\tilde{m}$ qu'il a reçu avec la signature est authentique (i.e $\tilde{m} = m$). \\
-Pour ça il doit décomprésser\footnote{Algorithme assez intuitif mais avec des astuces de calcul détaillé dans \cite{eddsa}. Il consiste à récupérer la coordonnée $y$, vérifier qu'il existe bien des points avec cette coordonée appartenant à la courbe, puis choisir le bon point graçe au signe} le point $R$ en récupérant les 256 premiers bits de la signature. 
-Ensuite il faut récupérer l'entier $x$ écrit en convention "little endian" dans les 256 derniers bits de la signature et calculer 
+Pour cela, il doit décompresser\footnote{Algorithme assez intuitif, mais avec des astuces de calcul détaillées dans \cite{eddsa}. Il consiste à récupérer la coordonnée $y$, à vérifier qu'il existe bien des points avec cette coordonée appartenant à la courbe, puis à choisir le bon point grâce au signe} le point $R$ en récupérant les 256 premiers bits de la signature. 
+Ensuite, il faut récupérer l'entier $x$ écrit en convention "little endian" dans les 256 derniers bits de la signature et calculer. 
 $$
 \tilde{\tilde{h}} =  \text{hash}\left(\text{compress}(R) \, \hyperref[concat]{\Vert} \, \text{compress}(A) \, \hyperref[concat]{\Vert} \, \tilde{m}\right) \, \lbrack L \rbrack
 $$
@@ -1459,10 +1451,9 @@ Car
 	\footnote{Argument géométrique}&\Rightarrow\; \tilde{h} = \tilde{\tilde{h}} \\
 							&\Rightarrow \; m = \tilde{m}
 \end{align*}
-On remarque qu'on a bien besoins que de la clef publique $A$ pour vérifier la signature.
+On remarque qu'on n'a bien besoin que de la clef publique $A$ pour vérifier la signature.
 
 \subsubsection{Serveur signature}
-
 Pour proposer ces services de signature, il est nécessaire de déployer un serveur qui recevra des données et renverra leurs signatures correspondantes. En pratique, c'est ainsi que les algorithmes de signature sont utilisés pour permettre aux entreprises de contrôler l'accès aux clés sensibles. De plus, j'ai intégré à ce serveur la possibilité de connexion à un HSM (cf \ref{HSMsec}) si nous en disposons, afin de renforcer la sécurité. Conformément à la demande de mon responsable, les données doivent être au format JSON et présenter le format suivant :
 
 \begin{center}
@@ -1520,15 +1511,15 @@ En réalité, les données seront transmises à un client tiers, qui les hachera
 \end{figure}
 
 \subsection{Wireguard}
-Le but ici est de créer à l'aide de Wireguard un flux chiffré entre plusieurs machines pour permettre à ces machines de communiquer de manière simple et sécurisé.
+Maintenant, on veut créer à l'aide de Wireguard un flux chiffré entre plusieurs machines pour permettre à ces machines de communiquer de manière simple et sécurisée.
 \subsubsection{Configuration}
-Pour le serveur et les clients il faut créer un fichier de configuration dans \\\verb+\ect\wireguard\wg0.conf+ (On n'est pas obligé de l'appeller \verb+wg0+). A l'intérieur, le fichier est séparé en au moins 2 sections :
+Pour le serveur et les clients, il faut créer un fichier de configuration dans \\\verb+\ect\wireguard\wg0.conf+ (On n'est pas obligé de l'appeller \verb+wg0+). À l'intérieur, le fichier est séparé en au moins 2 sections :
 \begin{itemize}
-\item une qui commence par \verb+[Interface]+, elle contient les informations de la machine, comme la clef privée et adresse.
-\item une autre (ou plus) qui commence par \verb+[Peer]+ et qui contient les informations des machines (comme la clef publique et les adresses authorisées) avec lesquelles on va communiquer. \\
+\item une qui commence par \verb+[Interface]+, elle contient les informations de la machine, comme la clef privée et l'adresse.
+\item une autre (ou plus) qui commence par \verb+[Peer]+ et qui contient les informations des machines (comme la clef publique et les adresses autorisées) avec lesquelles on va communiquer. \\
 \end{itemize}
 
-Pour chaque machine, il faudra générer une paire de clefs. Pour cela, WireGuard nous fournit un outil. Il permet de créer une clé privée et de dériver la clé publique à partir de celle là.
+Pour chaque machine, il faudra générer une paire de clefs. Pour cela, WireGuard nous fournit un outil. Il permet de créer une clé privée et de dériver la clé publique à partir de celle-là.
 
 \begin{center}
 \begin{minipage}{.6\linewidth}
@@ -1540,7 +1531,7 @@ wg pubkey < privatekey > publickey
 \end{center}
 
 \paragraph{Serveur}
-Pour la configuration du serveur, il faut rajouter le port utilisé pour communiquer (typiquement 51820). Une configuration complete côté serveur pourra ressembler par exemple à
+Pour la configuration du serveur, il faut rajouter le port utilisé pour communiquer (typiquement 51820). Une configuration complète côté serveur pourra ressembler par exemple à
 
 \begin{lstlisting}[language = shell]
 [Interface]
@@ -1556,11 +1547,11 @@ AllowedIPs = 10.8.8.1/32
 PublicKey = NIeEDlBPTJrM7389yaRKzXWJeAEicmrFm0zkfhnDVCo=  
 AllowedIPs = 10.8.8.2/32
 \end{lstlisting}
-Chaque peer est un client avec lequel peut communiquer le serveur. Attention, il faut bien penser à àctiver l'IP forwarding du serveur pour lui permettre aux clients de communiquer entre eux (en pas uniquement au serveur). \\
-Pour l'activer il faut décommenter la ligne \verb+net.ipv4.ip_forward=1+ du fichier \\\verb+/etc/sysctl.conf+.
+Chaque peer est un client avec lequel peut communiquer le serveur. Attention, il faut bien penser à activer l'IP forwarding du serveur pour lui permettre aux clients de communiquer entre eux (en pas uniquement au serveur). \\
+Pour l'activer, il faut décommenter la ligne \verb+net.ipv4.ip_forward=1+ du fichier \\\verb+/etc/sysctl.conf+.
 
 \paragraph{Clients}
-La configuration d'un client est quasiment identique à celle d'un serveur à la différence qu'il n'y a qu'un peer : le serveur. Elle ressemblera typiquement à 
+La configuration d'un client est quasiment identique à celle d'un serveur, à la différence qu'il n'y a qu'un peer : le serveur. Elle ressemblera typiquement à 
 
 \begin{lstlisting}[language = shell]
 [Interface]
@@ -1573,11 +1564,11 @@ Endpoint = 192.168.218.180:51820
 AllowedIPs = 10.8.8.0/24
 PersistentKeepalive = 25
 \end{lstlisting}
-La dernière ligne permet d'éviter d'avoir des problèmes mais n'est pas obligatoire.
+La dernière ligne permet d'éviter d'avoir des problèmes, mais n'est pas obligatoire.
 \subsubsection{Mise en place}
-Pour activer la configuration il suffit de lancer \verb+wg-quick up wg0+ et pour la désactiver \verb+wg-quick down wg0+. Maintenant, si on veut qu'elle s'active automatiquement quand la machine s'allume il faut lancer \verb+sudo systemctl start wg-quick@wg0+(et \verb+sudo systemctl stop wg-quick@wg0+ pour que ça ne soit plus le cas). \\
+Pour activer la configuration, il suffit de lancer \verb+wg-quick up wg0+ et pour la désactiver \verb+wg-quick down wg0+. Maintenant, si on veut qu'elle s'active automatiquement quand la machine s'allume, il faut lancer \verb+sudo systemctl start wg-quick@wg0+(et \verb+sudo systemctl stop wg-quick@wg0+ pour que ça ne soit plus le cas). \\
 
-Attention, pour l'instant les clefs et les fichiers de configuration sont accessibles à tout le monde. Il faut veiller à supprimer les clefs (on en a plus besoijns une fois qu'elles sont dans les fichiers de configurations) et à restreindre l'accès aux fichiers de configuration. 
+Attention, pour l'instant, les clefs et les fichiers de configuration sont accessibles à tout le monde. Il faut veiller à supprimer les clefs (on n'en a plus besoin une fois qu'elles sont dans les fichiers de configuration) et à restreindre l'accès aux fichiers de configuration. 
 
 \begin{center}
 \begin{minipage}{.51\linewidth}
@@ -1588,7 +1579,7 @@ sudo chmod 700 /etc/wireguard
 \end{minipage}
 \end{center}
 
-\subsection{Port knocking\protect\footnote{En réalité je ne fait pas du Port knocking mais du SPA (Single Packet Authorization)  qui à la différence du port knocking inclu de la cryptographie et est bien plus sécurisé}}
+\subsection{Port knocking\protect\footnote{En réalité, je ne fais pas du Port knocking mais du SPA (Single Packet Authorization)  qui, à la différence du port knocking inclu de la cryptographie et est bien plus sécurisé}}
 \subsubsection{Problème et solution}
 
 Un des problèmes avec un canal comme on les utilise avec WireGuard est qu'ils sont ouverts en permanence. Ainsi, une personne qui a accès à un canal l'aura toujours. Une solution à ce problème peut être le port knocking. \\
@@ -1600,14 +1591,14 @@ En effet, le port knocking est une manière d'ouvrir temporairement un canal. So
 \item Le port se referme automatiquement après un laps de temps défini.
 \end{enumerate}
 \subsubsection{Mon implémentation}
-J'ai du mettre en place le port knocking sur un canal WireGuard. Pour faire ça, j'ouvre un canal sans aucun Peer (personne ne peut communiquer sur ce canal). Le fichier de configuration de ce canal ressemble donc à ça 
+J'ai dû mettre en place le port knocking sur un canal WireGuard. Pour faire ça, j'ouvre un canal sans aucun Peer (personne ne peut communiquer sur ce canal). Le fichier de configuration de ce canal ressemble donc à ça 
 \begin{lstlisting}[language = shell]
 [Interface]
 PrivateKey = 6GK6HC9adKr0OwGxU8jlidcTTh+A29clxBB+D1vUzXU= 
 Address = 10.0.0.0/24
 ListenPort = 51820
 \end{lstlisting}
-Ensuite sur un serveur UDP je regarde si les paquets que je reçoit contienent une clef publique qui fait partie de la liste des clefs publique authorisées (C'est comme ça que j'identifie un utilisateur). Si c'est le cas j'édite le fichier de configuration pour rajouter le peer qui correspond à la clef publique et je met à jour le canal. La configuration devient alors temporairement la suivante\footnote{Par contre le fichier de configuration lui est toujours le même et si je redémarre le canal alors on retourne à la configuration initiale.}
+Ensuite, sur un serveur \hyperref[UDP]{UDP} je regarde si les paquets que je reçois contiennent une clef publique qui fait partie de la liste des clefs publiques autorisées (C'est comme ça que j'identifie un utilisateur). Si c'est le cas, j'édite le fichier de configuration pour rajouter le peer qui correspond à la clef publique et je mets à jour le canal. La configuration devient alors temporairement la suivante\footnote{Par contre, le fichier de configuration lui est toujours le même et si je redémarre le canal, alors on retourne à la configuration initiale.}
 \begin{lstlisting}[language = shell]
 [Interface]
 PrivateKey = 6GK6HC9adKr0OwGxU8jlidcTTh+A29clxBB+D1vUzXU= 
@@ -1620,7 +1611,7 @@ AllowedIPs = 10.0.0.1/32
 \end{lstlisting}
 Ensuite, j'ai rajouté un compteur qui supprime automatiquement le nouveau peer au bout d'un moment. \\
 
-\noindent Dans la pratique, pour envoyer un paquet au serveur je dois rentrer 
+\noindent Dans la pratique, pour envoyer un paquet au serveur, je dois rentrer 
 \begin{center}
 \begin{minipage}{.67\linewidth}
 \begin{lstlisting}[language = shell]
@@ -1628,7 +1619,7 @@ nc -u -w 1 localhost 3000 < input.json
 \end{lstlisting}
 \end{minipage}
 \end{center}
-avec un paquet au format json selon le standard suivant\footnote{Comme c'est un serveur UDP, on peut envoyer ce que l'on veut mais on ne saura jamais s'il y a eu une erreur, c'est l'avantage de ce type de serveur.}
+Avec un paquet au format json selon le standard suivant\footnote{Comme c'est un serveur UDP, on peut envoyer ce que l'on veut, mais on ne saura jamais s'il y a eu une erreur, c'est l'avantage de ce type de serveur.}
 \begin{center}
 \begin{minipage}{.51\linewidth}
 \begin{lstlisting}[language = json]
@@ -1639,32 +1630,32 @@ avec un paquet au format json selon le standard suivant\footnote{Comme c'est un 
 \end{lstlisting}
 \end{minipage}
 \end{center}
-Ensuite, le serveur regarde de tempe en temps si l'utilisateur à toujours le droit d'utiliser le canal. Si ce n'est pas le cas il le retire.
+Ensuite, le serveur regarde de temps en temps si l'utilisateur a toujours le droit d'utiliser le canal. Si ce n'est pas le cas, il le retire.
 
 \subsection{Signal}
-Dans l'idée de se débarasser définitivement de RSA\footnote{On est capable de rendre RSA robuste à toute sorte d'attaque mais cette robustesse à un prix énorme. Comme remarqué ici \ref{keygenRSA}. En effet la taille des clefs ne cessant d'augmenter, son utilisation est de plus en plus contraignante.}, mon tuteur m'a chargé d'étudier et de recréer le protocole d'échange des clés de l'application signal. Ce protocole à pour énorme avantage de permettre d'échanger les clefs sans avoir besoins au même moment des 2 parties. On le qualifie de protocole d'échange asynchrone\footnote{En plus d'être asynchrone, ce protocole n'utilise pas RSA qui était à peut près la seul solution pour faire de l'asynchrone avant}.
+Dans l'idée de se débarrasser définitivement de RSA\footnote{On est capable de rendre RSA robuste à toute sorte d'attaque, mais cette robustesse à un prix énorme. Comme remarqué ici \ref{keygenRSA}. En effet, la taille des clefs ne cessant d'augmenter, son utilisation est de plus en plus contraignante.}, mon tuteur m'a chargé d'étudier et de recréer le protocole d'échange des clés de l'application Signal. Ce protocole a pour énorme avantage de permettre d'échanger les clefs sans avoir besoin au même moment des deux parties. On le qualifie de protocole d'échange asynchrone\footnote{En plus d'être asynchrone, ce protocole n'utilise pas RSA qui était à peu près la seule solution pour faire de l'asynchrone avant}.
 
 \subsubsection{Extended Triple Diffie-Hellman (X3DH)}
-\noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous sous section sont directement tirées de \cite{xtroisdh}.}\\
+\noindent\emph{Toutes les informations qui m'ont permis d'écrire cette sous-sous-section sont directement tirées de \cite{xtroisdh}.}\\
 
-X3DH est un protocole d'échange de clef asynchrone qui met en jeux 3 parties : Alice, Bob et un serveur. \\
-Dans notre exemple, Alice (A) veut discuter avec Bob (B). Pour faire ça ils doivent avoir un secret commun. Notre problème est que Bob n'est pas forcément là quand Alice veut générer ce secret. Pour tenter de résoudre ce problème, le serveur servira à Alice et Bob d'intermédiaire.
+X3DH est un protocole d'échange de clef asynchrone qui met en jeu trois parties : Alice, Bob et un serveur. \\
+Dans notre exemple, Alice (A) veut discuter avec Bob (B). Pour faire ça, ils doivent avoir un secret commun. Notre problème est que Bob n'est pas forcément là quand Alice veut générer ce secret. Pour tenter de résoudre ce problème, le serveur servira à Alice et à Bob d'intermédiaire.
 
 \paragraph{Clefs}
-Pour permettre cet échange, le serveur gardera pour chaque utilisateur un lot de clefs publiques\footnote{Des clefs pour courbes elliptiques comme ed25519 \ref{courbeEd25519}}\footnote{les clefs secrète correspondant sont gardé sur la machine de l'utilisateur}. 
+Pour permettre cet échange, le serveur gardera pour chaque utilisateur un lot de clefs publiques\footnote{Des clefs pour courbes elliptiques comme Ed25519 \ref{courbeEd25519}}\footnote{les clefs secrètes correspondantes sont gardées sur la machine de l'utilisateur}. 
 Pour l'utilisateur X (dans notre cas X = A (resp B) pour Alice (resp Bob))
 \begin{itemize}
-	\item $\text{IK}_{\text{X, pub}}$ la clef d'identité de X. cette clef à un longue durée de vie (n'a pas besoin d'être changé souvent)
-	\item $\text{EK}_{\text{X, pub}}$ une clef éphémère que X regénère à chaque fois qu'il utilise X3DH.
-	\item $\text{SPK}_{\text{X, pub}}$ une clef signé (avec $\text{IK}_{\text{X, priv}}$) qui peut changer de temps en temps. La signature est aussi sur le serveur. Cette clef est surtout importante dans \ref{doubleratchet}. 
-	\item $\text{OPK}_{\text{X, pub}}$ une clef à utilisation unique. Dans la pratique X3DH n'a pas réellement besoin d'OPK mais cela rajoute une couche de sécurité. Chaque utilisateur envoie au serveur une grande liste d'OPK la renouvelle assez souvent.
+	\item $\text{IK}_{\text{X, pub}}$ la clef d'identité de X. Cette clef a une longue durée de vie (n'a pas besoin d'être changée souvent)
+	\item $\text{EK}_{\text{X, pub}}$ une clef éphémère que X régénérée à chaque fois qu'il utilise X3DH.
+	\item $\text{SPK}_{\text{X, pub}}$ une clef signée (avec $\text{IK}_{\text{X, priv}}$) qui peut changer de temps en temps. La signature est aussi sur le serveur. Cette clef est surtout importante dans \ref{doubleratchet}. 
+	\item $\text{OPK}_{\text{X, pub}}$ une clef à utilisation unique. Dans la pratique, X3DH n'a pas réellement besoin d'OPK mais cela rajoute une couche de sécurité. Chaque utilisateur envoie au serveur une grande liste d'OPK la renouvelle assez souvent.
 \end{itemize}
-A tout moment, n'importe qui peut demander au serveur de lui donner ce lot de clefs.\\
+À tout moment, n'importe qui peut demander au serveur de lui donner ce lot de clefs.\\
 
-Pour notre exemple (ou Alice commence l'échange), on utilisera les clefs $\text{IK}_{\text{A}}$, $\text{EK}_{\text{A}}$, $\text{IK}_{\text{B}}$, $\text{SPK}_{\text{B}}$ et $\text{OPK}_{\text{B}}$
+Pour notre exemple (où Alice commence l'échange), on utilisera les clefs $\text{IK}_{\text{A}}$, $\text{EK}_{\text{A}}$, $\text{IK}_{\text{B}}$, $\text{SPK}_{\text{B}}$ et $\text{OPK}_{\text{B}}$
 
 \paragraph{Premier message}
-Pour faire un échange de clefs avec X3DH, Alice demande au serveur les clefs publics de Bob. Ensuite elle vérifie que $\text{SPK}_{\text{B, pub}}$ correspond bien à la signature reçue. Si la vérification réussi elle calcule 
+Pour faire un échange de clefs avec X3DH, Alice demande au serveur les clefs publiques de Bob. Ensuite, elle vérifie que $\text{SPK}_{\text{B, pub}}$ correspond bien à la signature reçue. Si la vérification réussit, elle calcule 
 \begin{align*}
 	\text{DH}_1 &= \hyperref[DH]{\text{DH}}\left(\text{IK}_{\text{A, priv}}, \;\text{SPK}_{\text{B, pub}}\right)\\
 	\text{DH}_2 &= \hyperref[DH]{\text{DH}}\left(\text{EK}_{\text{A, priv}}, \;\text{IK}_{\text{B, pub}}\right)\\
@@ -1673,16 +1664,16 @@ Pour faire un échange de clefs avec X3DH, Alice demande au serveur les clefs pu
 \end{align*}
 et puis elle calcule le secret commun 
 $$\text{SK} = \hyperref[HKDF]{\text{HKDF}}\left(\text{DH}_1\hyperref[concat]{\Vert}\text{DH}_2\hyperref[concat]{\Vert}\text{DH}_3\hyperref[concat]{\Vert}\text{DH}_4\right)$$
-Enfin elle envoie à Bob le premier message qui contient :
+Enfin, elle envoie à Bob le premier message qui contient :
 \begin{itemize}
 	\item $\text{IK}_{\text{A, pub}}$
 	\item $\text{EK}_{\text{A, pub}}$
 	\item l'identifiant de $\text{SPK}_{\text{B, pub}}$ (et de $\text{OPK}_{\text{B, pub}}$ si elle en a utilisé une)
-	\item le message chiffré\footnote{typiquement avec AES GCM} avec SK et avec pour associated data \footnote{la fonction compress est la même que celle utilisé dans \ref{signerEd25519}}
+	\item le message chiffré\footnote{typiquement avec AES GCM} avec SK et avec comme associated data \footnote{la fonction compress est la même que celle utilisée dans \ref{signerEd25519}}
 $$\text{AD} = \text{compress}(\text{IK}_{\text{A, pub}}) \hyperref[concat]{\Vert} \text{compress}(\text{IK}_{\text{B, pub}})$$\end{itemize}
 
 \paragraph{Réception du premier message}
-A l'aide des clefs dans le premier message et de ses propres clefs Bob peut calculer SK. En effet, en calculant 
+À l'aide des clefs dans le premier message et de ses propres clefs, Bob peut calculer SK. En effet, en calculant 
 \begin{align*}
 	\text{DH}_1 &= \hyperref[DH]{\text{DH}}\left(\text{SPK}_{\text{B, priv}}, \;\text{IK}_{\text{A, pub}}\right)\\
 	\text{DH}_2 &= \hyperref[DH]{\text{DH}}\left(\text{IK}_{\text{B, priv}}, \;\text{EK}_{\text{A, pub}}\right)\\
@@ -1694,39 +1685,39 @@ $$\text{SK} = \hyperref[HKDF]{\text{HKDF}}\left(\text{DH}_1\hyperref[concat]{\Ve
 
 
 \subsubsection{Double ratchet}\label{doubleratchet}
-Maintenant que Alice et Bob partagent un secret ils peuvent communiquer de manière sécurisé. Pour garantir cette sécurité l'application Signal utilise l'algorithme du double ratchet.\footnote{Cela permet de ne pas compromettre toute la conversation et la conversation future si une clef a été récupéré par un attaquant malveillant}. J'ai aussi programmé cet algorithme\footnote{pas totalement fini} mais il n'a pas énormément d'intéret dans le cadre du stage. Je me passe donc de l'expliquer mais tout est très bien expliqué ici \cite{doubleratchet}
+Maintenant qu'Alice et Bob partagent un secret, ils peuvent communiquer de manière sécurisée. Pour garantir cette sécurité, l'application Signal utilise l'algorithme du double ratchet.\footnote{Cela permet de ne pas compromettre toute la conversation et la conversation future si une clef a été récupérée par un attaquant malveillant}. J'ai aussi programmé cet algorithme\footnote{pas totalement fini} mais il n'a pas énormément d'intérêt dans le cadre du stage. Je me passe donc de l'expliquer, mais tout est très bien expliqué ici \cite{doubleratchet}
 
-\subsection{Algorithmes post-quantique}
-Pour finir mon stage j'ai pu m'intéresser aux \hyperref[postquant]{algorithmes post quantique}. Ces nouveaux algorithmes sont vitaux car nos algorithmes asymétrique, tels que RSA et ceux s'appuyant sur les courbes elliptiques, sont basés sur des problèmes mathématiques difficiles à résoudre pour les ordinateurs classiques, mais facile pour un ordinateur quantique\footnote{l'algorithme de Shor, découvert en 1994, permet à un ordinateur quantique de factoriser des nombres très grands en temps polynomial}. Par contre on sait aussi que ces ordinateurs quantiques ne peuvent pas casser les algorithmes cryptographique symétriques tels qu'\hyperref[AESsec]{AES} car ils sont basés sur des opérations de blocs de bits, et que les ordinateurs quantiques ne peuvent pas effectuer ces opérations de manière significativement plus efficace que les ordinateurs classiques\footnote{On sait même que ces ordinateur ne peuvent pas aller plus de 2 fois plus vite que nos ordinateurs classiques sur ce type de problèmes}. \\
+\subsection{Algorithmes post-quantiques}
+Pour finir mon stage, j'ai pu m'intéresser aux \hyperref[postquant]{algorithmes post-quantiques}. Ces nouveaux algorithmes sont vitaux, car nos algorithmes asymétrique, tels que RSA et ceux s'appuyant sur les courbes elliptiques, sont basés sur des problèmes mathématiques difficiles à résoudre pour les ordinateurs classiques, mais facile pour un ordinateur quantique\footnote{l'algorithme de Shor, découvert en 1994, permet à un ordinateur quantique de factoriser des nombres très grands en temps polynomial}. Par contre, on sait aussi que ces ordinateurs quantiques ne peuvent pas casser les algorithmes cryptographique symétriques tels qu'\hyperref[AESsec]{AES} car ils sont basés sur des opérations de blocs de bits, et que les ordinateurs quantiques ne peuvent pas effectuer ces opérations de manière significativement plus efficace que les ordinateurs classiques\footnote{On sait même que ces ordinateurs ne peuvent pas aller plus de deux fois plus vite que nos ordinateurs classiques sur ce type de problèmes}. \\
 
-En ce moment, le \hyperref[NIST]{NIST} est en train de choisir le standard de la cryptographie post quantique. Le troisième round à déjà permis de fournir 4 algorithmes qui seront standardisé 
+En ce moment, le \hyperref[NIST]{NIST} est en train de choisir le standard de la cryptographie post quantique. Le troisième round a déjà permis de fournir 4 algorithmes qui seront standardisés 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.7\textwidth]{img/NISTround3.png}
-	\caption{Algorithmes finaliste du round 3 à standardiser (voir \cite{NISTroundtrois})}
+	\caption{Algorithmes finalistes du round 3 à standardiser (voir \cite{NISTroundtrois})}
 	\label{NISTround3}
 \end{figure}
 
-Bien qu'il reste des quandidats à la standardisation dans le round 4, il semblerait que la cryptographie reposant sur les \hyperref[treillis]{treillis} soit le future. En effet, Kyber et Dilithium, les deux algorithmes de la sociéré CRYSTALS qui seront standardisé reposent sur la difficulté à résoudre un problème dans les treillis algébriques.\\
+Bien qu'il reste des candidats à la standardisation dans le round 4, il semblerait que la cryptographie reposant sur les \hyperref[treillis]{treillis} soit le futur. En effet, Kyber et Dilithium, les deux algorithmes de la société CRYSTALS qui seront standardisés reposent sur la difficulté à résoudre un problème dans les treillis algébriques.\\
 
-Dans le papier que CRYSTALS à envoyé au NIST (voir \cite{cristalslattice}) on nous présente vaguement le problème qui viendra remplacer le problème du logarithme discret (obsolète avec l'algorthme de Shor) dans les algorithmes post-quantique. \\
+Dans le papier que CRYSTALS a envoyé au NIST (voir \cite{cristalslattice}) on nous présente vaguement le problème qui viendra remplacer le problème du logarithme discret (obsolète avec l'algorithme de Shor) dans les algorithmes post-quantiques. \\
 
 En partant de ce problème simple où il suffit d'inverser $A$ et de multiplier par $z$ pour trouver le résultat (voir \ref{quantsimple})
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{img/quantique_simple.png}
-	\caption{Problème simple: Connaissant $(A, z)$, trouver $y$}
+	\caption{Problème simple : connaissant $(A, z)$, trouver $y$}
 	\label{quantsimple}
 \end{figure}
 
-Ils ont trouver un problème bien plus dur à résoudre qui s'il était facile aurait plein d'application non cryptographique majeurs (voir \ref{quantdur}).
+Ils ont trouvé un problème bien plus dur à résoudre qui, s'il était facile, aurait plein d'applications non cryptographiques majeures (voir \ref{quantdur}).
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{img/quantique_dur.png}
-	\caption{Problème dur: Connaissant $(A, z)$, trouver $(y, e)$}
+	\caption{Problème dur : connaissant $(A, z)$, trouver $(y, e)$}
 	\label{quantdur}
 \end{figure}
-Ce problème est en effet un problème sur les treillis car pour chaque paire $(y,e)$ on créer un nouveau treillis. Le problème illustré figure \ref{quantdur} en terme de treillis reviens à trouver le point le plus proche de l'origine\footnote{Ce problème est aussi appelé problème BDD (Bilinear Diffie-Hellman)}.
+Ce problème est en effet un problème sur les treillis, car pour chaque paire $(y,e)$ on crée un nouveau treillis. Le problème illustré figure \ref{quantdur} en termes de treillis revient à trouver le point le plus proche de l'origine\footnote{Ce problème est aussi appelé problème BDD (Bilinear Diffie-Hellman)}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{img/treilliIlu.png}
@@ -1734,14 +1725,24 @@ Ce problème est en effet un problème sur les treillis car pour chaque paire $(
 	\label{treilliIlu}
 \end{figure}
 
-L'intéret de ce problème est que l'on ne connait pas encore d'algorithme (comme celui de Shor pour le problème du logarithme discret) qui permettrait de résoudre ce problème avec un ordinateur quantique. Par contre on n'a pas non plus de preuve que ce genre de problème est réellement dur pour un ordinateur quantique (contrairement aux algorithmes symétriques). 
+L'intérêt de ce problème est que l'on ne connait pas encore d'algorithme (comme celui de Shor pour le problème du logarithme discret) qui permettrait de résoudre ce problème avec un ordinateur quantique. Par contre, on n'a pas non plus de preuve que ce genre de problème est réellement dur pour un ordinateur quantique (contrairement aux algorithmes symétriques). 
 
+%\section{Le stage d'application dans la construction de mon projet professionel}
 
-\section{\textcolor{red}{Le stage d'application dans la construction de mon projet professionel}}
+%Mon stage d'application au sein du groupe Thales a été une expérience cruciale qui a non seulement éclairé mes perceptions sur le fonctionnement d'un grand groupe, mais a également joué un rôle déterminant dans la définition de mon projet personnel. Au-delà de l'acquisition de compétences techniques, cette expérience m'a offert une compréhension approfondie de mes aspirations professionnelles et a orienté mes choix de carrière vers de nouveaux horizons. \\
+
+%Chez Thales, j'ai pu apprécier la stabilité et le cadre structuré que propose un grand groupe. Cependant, j'ai également constaté que ces avantages sont souvent contrebalancés par une dynamique interne qui peut être relativement lente. Cette prise de conscience m'a amené à réfléchir sur la compatibilité de mon profil avec ce type d'environnement de travail.\\
+
+%Mon expérience à Thales m'a conduit à une révélation importante : bien que je sois compétent en informatique, ma véritable passion ne réside pas dans la création d'applications ou la réécriture de solutions existantes. En revanche, j'ai découvert que c'est l'utilisation de l'informatique comme outil pour résoudre des problèmes complexes, similairement à ce que j'appréciais à l'école et en prépa, qui me motive vraiment. Cette distinction a été un tournant dans ma réflexion sur mon avenir professionnel.\\
+
+%Mon stage m'a fait réaliser que mon intérêt pour les problèmes nouveaux et importants, ainsi que ma soif de théorie et de mathématiques, ne sont pas entièrement satisfaits dans le domaine de l'informatique appliquée. La cryptographie, bien qu'intéressante, m'a déçu par la relative rareté de l'application des mathématiques avancées dans la pratique. Cela m'a poussé à considérer des domaines plus théoriques comme la physique quantique.\\
+
+%Bien que mon stage ait orienté mes aspirations loin de l'informatique d'application dans un grand groupe, il m'a également donné l'opportunité de rencontrer des professionnels influents. Ce réseau, bien qu'il ne corresponde peut-être pas directement à ma trajectoire actuelle, demeure une ressource précieuse pour l'avenir, offrant un appui potentiel si je devais un jour envisager une carrière dans un grand groupe français. 
 \section{Conclusion}
-En conclusion, ce stage d'application au sein de Thales a été une expérience extrêmement enrichissante pour moi. J'ai pu approfondir mes connaissances en cryptographie, découvrir de nouveaux algorithmes et mettre en pratique mes compétences en programmation en Rust.\\
+En conclusion, ce stage d'application au sein de Thalès a été une expérience extrêmement enrichissante pour moi. J'ai pu approfondir mes connaissances en cryptographie, découvrir de nouveaux algorithmes et mettre en pratique mes compétences en programmation en Rust.\\
 
-Ce stage m'a également permis de mieux définir mon projet professionnel. J'ai pu prendre conscience de la manière dont fonctionne un grand groupe et, plus particulièrement, de ce à quoi ressemble le métier d'ingénieur informatique dans ce contexte. \\J'ai également pu me rendre compte que mon penchant pour la recherche me fait préférer d'autres domaines que la cryptographie, et où les mathématiques sont plus présentes\footnote{comme la physique quantique par exemple}\footnote{Les mathématiques y sont la base de tout en cryptogaphie, mais en pratique et d'après l'expérience que j'ai eue, il n'y a qu'un petit nombre de chercheurs qui vont à la base des modèles et utilisent réellement les outils qui m'intéressent}. \\
+Ce stage m'a également permis de mieux définir mon projet professionnel. J'ai pu prendre conscience de la manière dont fonctionne un grand groupe et, plus particulièrement, de ce à quoi ressemble le métier d'ingénieur informatique dans ce contexte. \\J'ai aussi pu me rendre compte que mon penchant pour la recherche me fait préférer d'autres domaines que la cryptographie, et où les mathématiques sont plus présentes\footnote{comme la physique quantique par exemple}\footnote{Les mathématiques y sont la base de tout en cryptographie, mais en pratique et d'après l'expérience que j'ai eue, il n'y a qu'un petit nombre de chercheurs qui vont à la base des modèles et utilisent réellement les outils qui m'intéressent}. \\
 
-Enfin, je tiens à remercier M. Mahmoud Chilali, mon tuteur, pour son accompagnement et ses conseils tout au long de ce stage. Je remercie également l'ensemble des employés de Thales que j'ai pu rencontrer pour leur accueil chaleureux et leur disponibilité.\printbibliography
+Enfin, je tiens à remercier M. Mahmoud Chilali, mon tuteur, pour son accompagnement et ses conseils tout au long de ce stage. Je remercie également l'ensemble des employés de Thalès que j'ai pu rencontrer pour leur accueil chaleureux et leur disponibilité.
+\printbibliography
 \end{document}

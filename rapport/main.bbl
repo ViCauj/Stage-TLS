@@ -19,6 +19,19 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{aesnist}{article}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{title}{Advanced Encryption Standard (AES)}
+      \field{year}{2001}
+      \verb{urlraw}
+      \verb https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf
+      \endverb
+      \verb{url}
+      \verb https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf
+      \endverb
+    \endentry
     \entry{courslong}{book}{}
       \name{author}{2}{}{%
         {{hash=9ef331cc9e5b527723547dfa1becd8cf}{%
